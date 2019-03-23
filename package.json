@@ -1,0 +1,32 @@
+{
+  "name": "@testingrequired/tf",
+  "version": "0.0.0",
+  "description": "Middlewear based test framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "prestart": "npm run build:js",
+    "start": "node lib/cli.js"
+  },
+  "author": "Kylee Tilley <kylee@testingrequired.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/node": "^11.11.5",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.2"
+  }
+}

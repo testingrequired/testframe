@@ -13,7 +13,8 @@ const tf = (...middlewears: Middlewear[]) => () => {
     beforeAlls: [],
     afterAlls: [],
     beforeEachs: [],
-    afterEachs: []
+    afterEachs: [],
+    skips: []
   };
   const results: Results = {};
 

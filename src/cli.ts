@@ -8,7 +8,8 @@ const {
   runTests,
   printResultsToConsole,
   writeResultsToFile,
-  setupFile
+  setupFile,
+  writeResultsToJunitFile
 } = middlewear;
 
 const run = tf(
@@ -17,6 +18,7 @@ const run = tf(
   loadTests,
   runTests,
   printResultsToConsole,
+  writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")
 );
 

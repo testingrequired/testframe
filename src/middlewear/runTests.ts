@@ -3,7 +3,7 @@ import Setup from "../Setup";
 import Results from "../Results";
 
 export default function runTests(setup: Setup, results: Results) {
-  const { testFilePaths } = setup;
+  const { testFilePaths, components } = setup;
 
   testFilePaths.forEach(testFilePath => {
     results[testFilePath] = {};
@@ -22,7 +22,7 @@ export default function runTests(setup: Setup, results: Results) {
 
       try {
         beforeEachs.forEach(beforeEach => beforeEach());
-        test(assert);
+        test(assert, components);
         result = true;
       } catch (e) {
         result = e;

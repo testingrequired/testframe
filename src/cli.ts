@@ -2,6 +2,7 @@ import tf from "./index";
 
 const {
   findTestFiles,
+  component,
   runTests,
   printResultsToConsole,
   writeResultsToFile
@@ -9,6 +10,7 @@ const {
 
 const run = tf(
   findTestFiles("./tests/*.test.js", "./tests/*.spec.js"),
+  component("testValue", 100),
   runTests,
   printResultsToConsole,
   writeResultsToFile("results.json")

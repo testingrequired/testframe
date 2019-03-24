@@ -6,7 +6,15 @@ import Results from "./Results";
 import callWith from "./utils/callWith";
 
 const tf = (...middlewears: Middlewear[]) => () => {
-  const setup: Setup = { testFilePaths: [], components: {} };
+  const setup: Setup = {
+    testFilePaths: [],
+    components: {},
+    tests: [],
+    beforeAlls: [],
+    afterAlls: [],
+    beforeEachs: [],
+    afterEachs: []
+  };
   const results: Results = {};
 
   middlewears.forEach(callWith(setup, results));

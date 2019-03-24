@@ -1,28 +1,21 @@
 import tf from "./index";
 
-const { middlewear, compose } = tf;
+const { middlewear } = tf;
 
 const {
   findTestFiles,
   component,
+  loadTests,
   runTests,
   printResultsToConsole,
   writeResultsToFile
 } = middlewear;
 
-const run = compose(
-  [
-    tf(
-      findTestFiles("./tests/*.test.js"),
-      component("testValue", 100),
-      runTests
-    ),
-    tf(
-      findTestFiles("./tests/*.spec.js"),
-      runTests,
-      writeResultsToFile("results2.json")
-    )
-  ],
+const run = tf(
+  findTestFiles("./tests/*.test.js"),
+  component("testValue", 100),
+  loadTests,
+  runTests,
   printResultsToConsole,
   writeResultsToFile("results.json")
 );

@@ -1,3 +1,4 @@
+import assert from "assert";
 import Setup from "../Setup";
 import Results from "../Results";
 
@@ -21,7 +22,7 @@ export default function runTests(setup: Setup, results: Results) {
 
       try {
         beforeEachs.forEach(beforeEach => beforeEach());
-        test();
+        test(assert);
         result = true;
       } catch (e) {
         result = e;

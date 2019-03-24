@@ -9,7 +9,7 @@
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "prestart": "npm run build:js",
+    "prestart": "npm run build",
     "start": "node lib/cli.js"
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",

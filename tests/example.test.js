@@ -1,5 +1,9 @@
 const assert = require("assert");
 
-module.exports.test1 = () => assert(false, "The error message");
+let value;
 
-module.exports[`test 2`] = () => assert(true);
+beforeEach(() => {
+  value = 10;
+});
+
+test(`test1`, () => assert(10 === value, "The error message"));

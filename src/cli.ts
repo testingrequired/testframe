@@ -1,14 +1,16 @@
 import tf from "./index";
 
+const { middlewear, compose } = tf;
+
 const {
   findTestFiles,
   component,
   runTests,
   printResultsToConsole,
   writeResultsToFile
-} = tf.middlewear;
+} = middlewear;
 
-const run = tf.compose(
+const run = compose(
   [
     tf(
       findTestFiles("./tests/*.test.js"),

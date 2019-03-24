@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import Middlewear from "./Middlewear";
 
-export default (...middlewears: Middlewear[]) => {
+export default (...middlewears: Middlewear[]) => () => {
   const setup = { testFiles: new Map() };
   const results = {};
 

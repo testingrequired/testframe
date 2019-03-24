@@ -1,4 +1,6 @@
 import tf from "./index";
+import Setup from "./Setup";
+import Results from "./Results";
 
 const { middlewear } = tf;
 
@@ -9,7 +11,8 @@ const {
   printResultsToConsole,
   writeResultsToFile,
   setupFile,
-  writeResultsToJunitFile
+  writeResultsToJunitFile,
+  callback
 } = middlewear;
 
 const run = tf(
@@ -17,6 +20,7 @@ const run = tf(
   findTestFiles("./tests/*.test.js"),
   loadTests,
   runTests,
+  callback((setup: Setup, results: Results) => {}),
   printResultsToConsole,
   writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")

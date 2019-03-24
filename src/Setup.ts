@@ -1,3 +1,5 @@
+import Results from "./Results";
+
 export default interface Setup {
   testFilePaths: Array<string>;
   components: { [key: string]: any };

@@ -4,16 +4,16 @@ const { middlewear } = tf;
 
 const {
   findTestFiles,
-  component,
   loadTests,
   runTests,
   printResultsToConsole,
-  writeResultsToFile
+  writeResultsToFile,
+  setupFile
 } = middlewear;
 
 const run = tf(
+  setupFile("./setupTests.js"),
   findTestFiles("./tests/*.test.js"),
-  component("testValue", 100),
   loadTests,
   runTests,
   printResultsToConsole,

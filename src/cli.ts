@@ -12,7 +12,8 @@ const {
   writeResultsToFile,
   setupFile,
   writeResultsToJunitFile,
-  callback
+  callback,
+  failureExitCode
 } = middlewear;
 
 const run = tf(
@@ -22,6 +23,7 @@ const run = tf(
   runTests,
   callback((setup: Setup, results: Results) => {}),
   printResultsToConsole,
+  failureExitCode(),
   writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")
 );

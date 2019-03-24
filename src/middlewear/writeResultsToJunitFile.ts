@@ -12,6 +12,8 @@ export default filePath => (setup: Setup, results: Results) => {
 
       const result: Result = results[testFilePath][testDescription];
 
+      testCase.time(result.start.getTime() - result.end.getTime());
+
       if (result.state !== "passed") {
         testCase.failure(result.error.message);
         testCase.stacktrace(result.error.stack);

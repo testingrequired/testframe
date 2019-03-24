@@ -18,16 +18,21 @@ export default function runTests(setup: Setup, results: Results) {
 
   tests.forEach(([testFilePath, description, test]) => {
     let result: Result = {};
+    let start;
 
     try {
       beforeEachs.forEach(beforeEach => beforeEach());
+      start = new Date();
       test(assert, components);
+
       afterEachs.forEach(afterEach => afterEach());
       result.state = "passed";
     } catch (e) {
       result.state = "failed";
       result.error = e;
     } finally {
+      result.start = start;
+      result.end = new Date();
       results[testFilePath][description] = result;
     }
   });

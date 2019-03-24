@@ -1,7 +1,8 @@
 import "@babel/polyfill";
 import Middlewear from "./Middlewear";
+import * as middlewear from "./middlewear/index";
 
-export default (...middlewears: Middlewear[]) => () => {
+const tf = (...middlewears: Middlewear[]) => () => {
   const setup = { testFiles: new Map() };
   const results = {};
 
@@ -9,5 +10,9 @@ export default (...middlewears: Middlewear[]) => () => {
 
   return results;
 };
+
+export default tf;
+
+tf.middlewear = middlewear;
 
 const callWith = (...args) => fn => fn(...args);

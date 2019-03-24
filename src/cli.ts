@@ -8,7 +8,7 @@ const {
 } = tf.middlewear;
 
 const run = tf(
-  findTestFiles("./tests/*.test.js"),
+  findTestFiles("./tests/*.test.js", "./tests/*.spec.js"),
   runTests,
   printResultsToConsole,
   writeResultsToFile("results.json")

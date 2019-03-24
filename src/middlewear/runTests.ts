@@ -2,6 +2,7 @@ import assert from "assert";
 
 import Setup from "../Setup";
 import Results from "../Results";
+import Result from "../Result";
 
 export default function runTests(setup: Setup, results: Results) {
   const {
@@ -16,15 +17,16 @@ export default function runTests(setup: Setup, results: Results) {
   beforeAlls.forEach(beforeAll => beforeAll());
 
   tests.forEach(([testFilePath, description, test]) => {
-    let result;
+    let result: Result = {};
 
     try {
       beforeEachs.forEach(beforeEach => beforeEach());
       test(assert, components);
       afterEachs.forEach(afterEach => afterEach());
-      result = true;
+      result.state = "passed";
     } catch (e) {
-      result = e;
+      result.state = "failed";
+      result.error = e;
     } finally {
       results[testFilePath][description] = result;
     }

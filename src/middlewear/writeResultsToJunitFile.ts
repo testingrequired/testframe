@@ -1,6 +1,7 @@
 import junit from "junit-report-builder";
 import Setup from "../Setup";
 import Results from "../Results";
+import Result from "../Result";
 
 export default filePath => (setup: Setup, results: Results) => {
   Object.keys(results).forEach(testFilePath => {
@@ -9,11 +10,11 @@ export default filePath => (setup: Setup, results: Results) => {
     Object.keys(results[testFilePath]).forEach(testDescription => {
       const testCase = suite.testCase().name(testDescription);
 
-      const result = results[testFilePath][testDescription];
+      const result: Result = results[testFilePath][testDescription];
 
-      if (result !== true) {
-        testCase.failure(result.message);
-        testCase.stacktrace(result.stack);
+      if (result.state !== "passed") {
+        testCase.failure(result.error.message);
+        testCase.stacktrace(result.error.stack);
       }
     });
 

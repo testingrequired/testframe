@@ -1,5 +1,5 @@
-module.exports.test1 = () => true;
-module.exports.test2 = () => true;
-module.exports.test3 = () => false;
-module.exports.test4 = () => true;
-module.exports.test5 = () => false;
+const assert = require("assert");
+
+module.exports.test1 = () => assert(false, "The error message");
+
+module.exports[`test 2`] = () => assert(true);

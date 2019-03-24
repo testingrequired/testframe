@@ -10,7 +10,8 @@ export default filePath => (setup: Setup, results: Results) => {
       const testCase = suite.testCase().name(key2);
 
       if (results[key][key2] !== true) {
-        testCase.failure(results[key][key2]);
+        testCase.failure(results[key][key2].message);
+        testCase.stacktrace(results[key][key2].stack);
       }
     });
   });

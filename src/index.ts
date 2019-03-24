@@ -16,4 +16,12 @@ const tf = (...middlewears: Middlewear[]) => () => {
 
 tf.middlewear = middlewear;
 
+tf.compose = (runs: any[], ...middlewears: Middlewear[]) => () => {
+  const results = runs.reduce((results, run) => ({ ...results, ...run() }), {});
+
+  middlewears.forEach(callWith(null, results));
+
+  return results;
+};
+
 export default tf;

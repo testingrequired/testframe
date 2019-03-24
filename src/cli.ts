@@ -8,10 +8,19 @@ const {
   writeResultsToFile
 } = tf.middlewear;
 
-const run = tf(
-  findTestFiles("./tests/*.test.js", "./tests/*.spec.js"),
-  component("testValue", 100),
-  runTests,
+const run = tf.compose(
+  [
+    tf(
+      findTestFiles("./tests/*.test.js"),
+      component("testValue", 100),
+      runTests
+    ),
+    tf(
+      findTestFiles("./tests/*.spec.js"),
+      runTests,
+      writeResultsToFile("results2.json")
+    )
+  ],
   printResultsToConsole,
   writeResultsToFile("results.json")
 );

@@ -3,6 +3,7 @@ import Middlewear from "./Middlewear";
 import * as middlewear from "./middlewear/index";
 import Setup from "./Setup";
 import Results from "./Results";
+import callWith from "./utils/callWith";
 
 const tf = (...middlewears: Middlewear[]) => () => {
   const setup: Setup = { testFilePaths: [] };
@@ -16,5 +17,3 @@ const tf = (...middlewears: Middlewear[]) => () => {
 export default tf;
 
 tf.middlewear = middlewear;
-
-const callWith = (...args) => fn => fn(...args);

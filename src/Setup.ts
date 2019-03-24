@@ -8,4 +8,5 @@ export default interface Setup {
   beforeEachs: Array<() => void>;
   afterEachs: Array<() => void>;
   afterAlls: Array<() => void>;
+  skips: Array<[string, string, (assert: any, components: any) => void]>;
 }

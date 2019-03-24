@@ -8,7 +8,8 @@ export default function loadTests(setup: Setup, results: Results) {
     beforeEachs,
     afterEachs,
     afterAlls,
-    tests
+    tests,
+    skips
   } = setup;
 
   testFilePaths.forEach(testFilePath => {
@@ -22,8 +23,15 @@ export default function loadTests(setup: Setup, results: Results) {
 
     (global as any).afterAll = fn => afterAlls.push(fn);
 
-    (global as any).test = (description: string, fn: () => void) =>
+    function test(description: string, fn: () => void) {
       tests.push([testFilePath, description, fn]);
+    }
+
+    (global as any).test = test;
+
+    test.skip = (description: string, fn: () => void) => {
+      skips.push([testFilePath, description, fn]);
+    };
 
     require(testFilePath);
   });

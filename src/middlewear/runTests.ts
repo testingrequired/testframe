@@ -4,7 +4,6 @@ import Setup from "../Setup";
 import Results from "../Results";
 
 export default function runTests(setup: Setup, results: Results) {
-  debugger;
   const {
     tests,
     components,

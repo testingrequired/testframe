@@ -3,7 +3,6 @@
 ## Usage
 
 ```javascript
-import path from "path";
 import tf from "@testingrequired/tf";
 
 const {
@@ -17,7 +16,7 @@ const run = tf(
   findTestFiles("./tests/*.test.js"),
   runTests,
   printResultsToConsole,
-  writeResultsToFile(path.join(process.cwd(), "results.json"))
+  writeResultsToFile("results.json")
 );
 
 run();

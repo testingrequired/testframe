@@ -1,3 +1,4 @@
+import path from "path";
 import Setup from "../Setup";
 
 export default function loadTests(setup: Setup) {
@@ -26,6 +27,6 @@ export default function loadTests(setup: Setup) {
       });
     };
 
-    require(testFilePath);
+    require(path.join(process.cwd(), testFilePath));
   });
 }

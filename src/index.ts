@@ -10,10 +10,6 @@ const tf = (...middlewears: Middlewear[]) => () => {
     testFilePaths: [],
     components: {},
     tests: [],
-    beforeAlls: [],
-    afterAlls: [],
-    beforeEachs: [],
-    afterEachs: [],
     skips: []
   };
   const results: Results = {};

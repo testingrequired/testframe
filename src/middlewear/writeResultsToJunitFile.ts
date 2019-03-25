@@ -21,8 +21,11 @@ export default filePath => (setup: Setup, results: Results) => {
     });
 
     setup.skips
-      .filter(([skippedTestFilePath]) => skippedTestFilePath === testFilePath)
-      .forEach(([_, description, __]) =>
+      .filter(
+        ({ testFilePath: skippedTestFilePath }) =>
+          skippedTestFilePath === testFilePath
+      )
+      .forEach(({ description }) =>
         suite
           .testCase()
           .name(description)

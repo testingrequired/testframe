@@ -1,5 +1,3 @@
-import assert from "assert";
-
 import Setup from "../Setup";
 import Results from "../Results";
 import Result from "../Result";
@@ -19,7 +17,7 @@ export default function runTests(setup: Setup, results: Results) {
       try {
         beforeEachs.forEach(beforeEach => beforeEach());
         start = new Date();
-        test(assert, components);
+        test(components);
 
         afterEachs.forEach(afterEach => afterEach());
         result.state = "passed";

@@ -3,19 +3,26 @@
 ## Usage
 
 ```javascript
-import tf from "@testingrequired/tf";
-
-const {
+import assert from "assert";
+import tf, {
   findTestFiles,
+  component,
+  loadTests,
   runTests,
   printResultsToConsole,
-  writeResultsToFile
-} = tf.middlewear;
+  writeResultsToFile,
+  writeResultsToJunitFile,
+  failureExitCode
+} from "@testingrequired/tf";
 
 const run = tf(
-  findTestFiles("./tests/*.test.js", "./tests/*.spec.js"),
+  component("assert", assert),
+  findTestFiles("./tests/*.test.js"),
+  loadTests,
   runTests,
   printResultsToConsole,
+  failureExitCode(),
+  writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")
 );
 

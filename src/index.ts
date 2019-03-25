@@ -30,3 +30,5 @@ tf.compose = (runs: any[], ...middlewears: Middlewear[]) => () => {
 };
 
 export default tf;
+
+export * from "./middlewear/index";

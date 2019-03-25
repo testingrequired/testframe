@@ -1,9 +1,5 @@
 import assert from "assert";
-import tf from "./index";
-
-const { middlewear } = tf;
-
-const {
+import tf, {
   findTestFiles,
   component,
   loadTests,
@@ -12,7 +8,7 @@ const {
   writeResultsToFile,
   writeResultsToJunitFile,
   failureExitCode
-} = middlewear;
+} from "./index";
 
 const run = tf(
   component("assert", assert),

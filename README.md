@@ -14,7 +14,7 @@ $ npm install --only=dev @testingrequired/tf
 /**
  * ./my-tf-cli.js
  */
-const assert = require("assert");
+import assert from "assert";
 
 import tf, {
   findTestFiles,
@@ -24,9 +24,9 @@ import tf, {
   printResultsToConsole,
   writeResultsToFile,
   writeResultsToJunitFile
-} from "@testingrequired/tf";
+} from "@testingrequired.com";
 
-export const run = tf(
+export default tf(
   component("assert", assert),
   findTestFiles("./tests/*.test.js"),
   loadTests,

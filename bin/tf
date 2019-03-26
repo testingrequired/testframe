@@ -2,5 +2,4 @@
 
 // run the CLI with the current process arguments
 
-debugger;
-require("../lib/cli").run(process.argv.slice(2));
+require("../lib/cli").run();

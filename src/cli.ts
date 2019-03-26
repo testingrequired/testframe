@@ -1,9 +1,15 @@
-const path = require("path");
+import path from "path";
 
-export const run = (args: Array<string>) => {
-  const cliFile = args[0];
+export const run = () => {
+  const cliFile = process.argv.slice(2)[0];
 
-  const run = require(path.join(process.cwd(), cliFile));
+  if (!cliFile) {
+    throw new Error("Must define cli file to use");
+  }
+
+  const { default: run } = require("esm")(module)(
+    path.join(process.cwd(), cliFile)
+  );
 
   run();
 };

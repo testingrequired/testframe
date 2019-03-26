@@ -2,6 +2,10 @@
 
 ## Getting Started
 
+### Example Project
+
+See: https://github.com/testingrequired/tf-example
+
 ### Install
 
 This can either be installed as a project dev dependency (recommended):

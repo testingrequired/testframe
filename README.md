@@ -4,11 +4,21 @@
 
 ### Install
 
+This can either be installed as a project dev dependency (recommended):
+
 ```bash
 $ npm install --only=dev @testingrequired/tf
 ```
 
+Or globally:
+
+```bash
+$ npm install -g @testingrequired/tf
+```
+
 ### Customize
+
+Use middlewear to customize a tf instance to your needs:
 
 ```javascript
 /**
@@ -24,7 +34,7 @@ import tf, {
   printResultsToConsole,
   writeResultsToFile,
   writeResultsToJunitFile
-} from "@testingrequired.com";
+} from "@testingrequired/tf";
 
 export default tf(
   component("assert", assert),
@@ -39,6 +49,8 @@ export default tf(
 
 ### Script
 
+Wire them together using an npm script
+
 ```json
 {
   "scripts": {
@@ -47,7 +59,7 @@ export default tf(
 }
 ```
 
-### Write Tests
+### Write A Test
 
 ```javascript
 /**
@@ -67,3 +79,33 @@ test(`example test`, ({ assert }) => assert.equal(value, 10));
 ```bash
 $ npm test
 ```
+
+## Middlewear
+
+### findTestFiles(...patterns)
+
+Use glob patterns to find test files to run.
+
+### loadTests
+
+Read and load tests.
+
+### runTests
+
+Run tests.
+
+### printResultsToConsole
+
+Print result object to console.
+
+### writeResultsToFile(filePath)
+
+Write result object as json to file.
+
+### writeResultsToJunitFile(filePath)
+
+Write results to junit xml file.
+
+### component(key, value)
+
+Register component to be passed to test functions.

@@ -4,7 +4,7 @@ import callWith from "../utils/callWith";
 import TestFunction from "../types/TestFunction";
 
 export default function loadTests(setup: Setup) {
-  const { testFilePaths, tests, skips } = setup;
+  const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {
     const beforeEachs = [];

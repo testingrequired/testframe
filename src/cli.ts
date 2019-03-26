@@ -6,8 +6,7 @@ import tf, {
   runTests,
   printResultsToConsole,
   writeResultsToFile,
-  writeResultsToJunitFile,
-  failureExitCode
+  writeResultsToJunitFile
 } from "./index";
 
 const run = tf(

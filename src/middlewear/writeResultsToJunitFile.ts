@@ -3,7 +3,7 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import Result from "../types/Result";
 
-export default filePath => (setup: Setup, results: Results) => {
+export default (filePath: string) => (setup: Setup, results: Results) => {
   Object.keys(results).forEach(testFilePath => {
     const suite = junit.testSuite().name(testFilePath);
 

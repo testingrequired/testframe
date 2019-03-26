@@ -9,8 +9,7 @@ const tf = (...middlewears: Middlewear[]) => () => {
   const setup: Setup = {
     testFilePaths: [],
     components: {},
-    tests: [],
-    skips: []
+    tests: []
   };
   const results: Results = {};
 

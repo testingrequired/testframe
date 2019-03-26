@@ -1,6 +1,6 @@
-import Setup from "../Setup";
-import Results from "../Results";
-import Result from "../Result";
+import Setup from "../types/Setup";
+import Results from "../types/Results";
+import Result from "../types/Result";
 
 export default (exitCode: number = 1) => (setup: Setup, results: Results) => {
   Object.keys(results).forEach(testFilePath => {

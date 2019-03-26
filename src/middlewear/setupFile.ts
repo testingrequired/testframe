@@ -1,6 +1,6 @@
 import path from "path";
 
-import Setup from "../Setup";
+import Setup from "../types/Setup";
 
 export default (filePath: string) => (setup: Setup) => {
   const requirePath = path.join(process.cwd(), filePath);

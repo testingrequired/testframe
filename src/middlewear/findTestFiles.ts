@@ -1,7 +1,7 @@
 import glob from "glob";
 import path from "path";
 
-import Setup from "../Setup";
+import Setup from "../types/Setup";
 
 export default (...patterns: Array<string>) => (setup: Setup) => {
   setup.testFilePaths = patterns

@@ -1,8 +1,8 @@
 import "@babel/polyfill";
 import * as middlewear from "./middlewear/index";
-import Middlewear from "./Middlewear";
-import Setup from "./Setup";
-import Results from "./Results";
+import Middlewear from "./types/Middlewear";
+import Setup from "./types/Setup";
+import Results from "./types/Results";
 import callWith from "./utils/callWith";
 
 const tf = (...middlewears: Middlewear[]) => () => {

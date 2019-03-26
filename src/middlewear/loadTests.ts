@@ -1,5 +1,7 @@
 import path from "path";
-import Setup from "../Setup";
+import Setup from "../types/Setup";
+import callWith from "../utils/callWith";
+import TestFunction from "../types/TestFunction";
 
 export default function loadTests(setup: Setup) {
   const { testFilePaths, tests, skips } = setup;
@@ -11,8 +13,14 @@ export default function loadTests(setup: Setup) {
     const afterEachs = [];
     (global as any).afterEach = fn => afterEachs.push(fn);
 
-    function test(description: string, fn: () => void) {
-      tests.push({ testFilePath, description, fn, beforeEachs, afterEachs });
+    function test(description: string, fn: TestFunction) {
+      const wrapped: TestFunction = (components: any) => {
+        beforeEachs.map(callWith());
+        fn(components);
+        afterEachs.map(callWith());
+      };
+
+      tests.push({ testFilePath, description, fn: wrapped });
     }
 
     (global as any).test = test;
@@ -21,9 +29,7 @@ export default function loadTests(setup: Setup) {
       skips.push({
         testFilePath,
         description,
-        fn,
-        beforeEachs: [],
-        afterEachs: []
+        fn
       });
     };
 

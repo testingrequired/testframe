@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Middlewear based test framework",
   "main": "dist/index.js",
+  "bin": {
+    "tf": "bin/tf"
+  },
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",

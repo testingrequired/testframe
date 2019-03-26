@@ -9,7 +9,7 @@ import tf, {
   writeResultsToJunitFile
 } from "./index";
 
-const run = tf(
+export const run = tf(
   component("assert", assert),
   findTestFiles("./tests/*.test.js"),
   loadTests,
@@ -18,5 +18,3 @@ const run = tf(
   writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")
 );
-
-run();

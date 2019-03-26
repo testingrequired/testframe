@@ -21,7 +21,8 @@
     "prestart": "npm run build",
     "start": "node ./bin/tf ./my-cli.js",
     "prepublishOnly": "npm run test && npm run build",
-    "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
+    "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
+    "test": "jest"
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",
   "license": "MIT",
@@ -33,7 +34,10 @@
     "@babel/plugin-transform-runtime": "^7.4.0",
     "@babel/preset-env": "^7.4.1",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.11",
     "@types/node": "^11.11.5",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
     "typescript": "^3.3.3"
   },
   "dependencies": {

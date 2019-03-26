@@ -1,9 +1,21 @@
 # @testingrequired/tf
 
-## Usage
+## Getting Started
+
+### Install
+
+```bash
+$ npm install --only=dev @testingrequired/tf
+```
+
+### Create CLI
 
 ```javascript
-import assert from "assert";
+/**
+ * ./my-tf-cli.js
+ */
+const assert = require("assert");
+
 import tf, {
   findTestFiles,
   component,
@@ -11,20 +23,44 @@ import tf, {
   runTests,
   printResultsToConsole,
   writeResultsToFile,
-  writeResultsToJunitFile,
-  failureExitCode
+  writeResultsToJunitFile
 } from "@testingrequired/tf";
 
-const run = tf(
+export const run = tf(
   component("assert", assert),
   findTestFiles("./tests/*.test.js"),
   loadTests,
   runTests,
   printResultsToConsole,
-  failureExitCode(),
   writeResultsToJunitFile("results.xml"),
   writeResultsToFile("results.json")
 );
+```
 
-run();
+### Script
+
+```json
+{
+  "scripts": {
+    "test": "tf ./my-tf-cli.js"
+  }
+}
+```
+
+### Write Tests
+
+```javascript
+let value;
+
+beforeEach(() => {
+  value = 10;
+});
+
+test(`example test`, ({ assert }) => assert.equal(value, 10));
+```
+
+### Run
+
+```bash
+$ npm test
 ```

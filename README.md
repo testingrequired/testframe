@@ -50,6 +50,9 @@ export default tf(
 ### Write Tests
 
 ```javascript
+/**
+ * ./tests/example.test.js
+ */
 let value;
 
 beforeEach(() => {

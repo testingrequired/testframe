@@ -1,4 +1,6 @@
 #!/usr/bin/env node
 
 // run the CLI with the current process arguments
-require("../lib/cli").run(process.argv);
+
+debugger;
+require("../lib/cli").run(process.argv.slice(2));

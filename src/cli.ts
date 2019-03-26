@@ -1,20 +1,9 @@
-import assert from "assert";
-import tf, {
-  findTestFiles,
-  component,
-  loadTests,
-  runTests,
-  printResultsToConsole,
-  writeResultsToFile,
-  writeResultsToJunitFile
-} from "./index";
+const path = require("path");
 
-export const run = tf(
-  component("assert", assert),
-  findTestFiles("./tests/*.test.js"),
-  loadTests,
-  runTests,
-  printResultsToConsole,
-  writeResultsToJunitFile("results.xml"),
-  writeResultsToFile("results.json")
-);
+export const run = (args: Array<string>) => {
+  const cliFile = args[0];
+
+  const run = require(path.join(process.cwd(), cliFile));
+
+  run();
+};

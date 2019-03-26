@@ -8,7 +8,7 @@
 $ npm install --only=dev @testingrequired/tf
 ```
 
-### Create CLI
+### Customize
 
 ```javascript
 /**

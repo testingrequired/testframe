@@ -20,7 +20,7 @@
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "prestart": "npm run build",
     "start": "node ./bin/tf ./my-cli.js",
-    "prepublish": "npm run test && npm run build",
+    "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",

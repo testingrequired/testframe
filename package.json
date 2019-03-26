@@ -6,6 +6,12 @@
   "bin": {
     "tf": "bin/tf"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
@@ -13,7 +19,8 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "prestart": "npm run build",
-    "start": "node ./bin/tf ./my-cli.js"
+    "start": "node ./bin/tf ./my-cli.js",
+    "prepublish": "npm run test && npm run build"
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
 import junit from "junit-report-builder";
-import Setup from "../Setup";
-import Results from "../Results";
-import Result from "../Result";
+import Setup from "../types/Setup";
+import Results from "../types/Results";
+import Result from "../types/Result";
 
 export default filePath => (setup: Setup, results: Results) => {
   Object.keys(results).forEach(testFilePath => {

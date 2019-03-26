@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import Setup from "../Setup";
-import Results from "../Results";
+import Setup from "../types/Setup";
+import Results from "../types/Results";
 
 export default filePath => (setup: Setup, results: Results) => {
   const writePath = path.join(process.cwd(), filePath);

@@ -1,6 +1,6 @@
-const assert = require("assert");
-const {
-  default: tf,
+import assert from "assert";
+
+import tf, {
   findTestFiles,
   component,
   loadTests,
@@ -8,9 +8,9 @@ const {
   printResultsToConsole,
   writeResultsToFile,
   writeResultsToJunitFile
-} = require("./lib/index");
+} from "./lib/index";
 
-module.exports = tf(
+export default tf(
   component("assert", assert),
   findTestFiles("./tests/*.test.js"),
   loadTests,

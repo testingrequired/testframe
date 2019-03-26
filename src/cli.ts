@@ -17,8 +17,7 @@ const run = tf(
   runTests,
   printResultsToConsole,
   writeResultsToJunitFile("results.xml"),
-  writeResultsToFile("results.json"),
-  failureExitCode()
+  writeResultsToFile("results.json")
 );
 
 run();

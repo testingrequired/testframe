@@ -12,25 +12,19 @@ export default filePath => (setup: Setup, results: Results) => {
 
       const result: Result = results[testFilePath][testDescription];
 
-      testCase.time(result.start.getTime() - result.end.getTime());
+      testCase.time(result.end.getTime() - result.start.getTime());
 
-      if (result.state !== "passed") {
-        testCase.failure(result.error.message);
-        testCase.stacktrace(result.error.stack);
+      switch (result.state) {
+        case "failed":
+          testCase.failure(result.error.message);
+          testCase.stacktrace(result.error.stack);
+          break;
+
+        case "skipped":
+          testCase.skipped();
+          break;
       }
     });
-
-    setup.skips
-      .filter(
-        ({ testFilePath: skippedTestFilePath }) =>
-          skippedTestFilePath === testFilePath
-      )
-      .forEach(({ description }) =>
-        suite
-          .testCase()
-          .name(description)
-          .skipped()
-      );
   });
 
   junit.writeTo(filePath);

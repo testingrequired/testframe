@@ -1,5 +1,5 @@
 export default interface Result {
-  state?: "passed" | "failed" | "errored";
+  state?: "passed" | "failed" | "errored" | "skipped";
   error?: Error;
   start?: Date;
   end?: Date;

@@ -20,7 +20,7 @@
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "precli": "npm run build",
     "cli": "node ./bin/tf",
-    "start": "npm run cli -- ./my-cli.js",
+    "cli:custom": "npm run cli -- ./my-cli.js",
     "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest"

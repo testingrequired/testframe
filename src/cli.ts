@@ -1,15 +1,16 @@
 import path from "path";
+import tf, { defaults } from "./index";
 
 export const run = () => {
-  const cliFile = process.argv.slice(2)[0];
+  const cliFilePath = process.argv.slice(2)[0];
 
-  if (!cliFile) {
-    throw new Error("Must define cli file to use");
+  let run: any;
+
+  if (cliFilePath) {
+    run = require("esm")(module)(path.join(process.cwd(), cliFilePath)).default;
+  } else {
+    run = tf(defaults());
   }
-
-  const { default: run } = require("esm")(module)(
-    path.join(process.cwd(), cliFile)
-  );
 
   run();
 };

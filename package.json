@@ -18,8 +18,9 @@
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "prestart": "npm run build",
-    "start": "node ./bin/tf ./my-cli.js",
+    "precli": "npm run build",
+    "cli": "node ./bin/tf",
+    "start": "npm run cli -- ./my-cli.js",
     "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest"

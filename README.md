@@ -20,55 +20,25 @@ Or globally:
 $ npm install -g @testingrequired/tf
 ```
 
-### Customize
+### Use As Is
 
-Use middlewear to customize a tf instance to your needs:
-
-```javascript
-/**
- * ./my-tf-cli.js
- */
-import assert from "assert";
-
-import tf, {
-  findTestFiles,
-  component,
-  loadTests,
-  runTests,
-  printResultsToConsole,
-  writeResultsToFile,
-  writeResultsToJunitFile
-} from "@testingrequired/tf";
-
-export default tf(
-  component("assert", assert),
-  findTestFiles("./tests/*.test.js"),
-  loadTests,
-  runTests,
-  printResultsToConsole,
-  writeResultsToJunitFile("results.xml"),
-  writeResultsToFile("results.json")
-);
-```
-
-### Script
-
-Wire them together using an npm script
+#### Script
 
 ```json
 {
   "scripts": {
-    "test": "tf ./my-tf-cli.js"
+    "test": "tf"
   }
 }
 ```
 
-### Write A Test
+#### Write A Test
 
 ```javascript
 /**
  * ./tests/example.test.js
  */
+
 let value;
 
 beforeEach(() => {
@@ -82,6 +52,52 @@ test(`example test`, ({ assert }) => assert.equal(value, 10));
 
 ```bash
 $ npm test
+```
+
+### Customize Framework
+
+Use middlewear to customize the framework to your needs:
+
+```javascript
+/**
+ * ./my-tf-cli.js
+ */
+import assert from "assert";
+
+import tf, {
+  component,
+  findTestFiles,
+  loadTests,
+  runTests,
+  writeResultsToJunitFile
+} from "@testingrequired/tf";
+
+import customSetupMiddlewear from "@example/custom-setup-middlewear";
+import customResultsMiddlewear from "@example/custom-results-middlewear";
+
+export default tf(
+  customMiddlewear,
+  component("assert", assert),
+  findTestFiles("./tests/*.spec.js"),
+  loadTests,
+  runTests,
+  writeResultsToJunitFile("./custom/path/to/junit.xml"),
+  customResultsMiddlewear({
+    option: "value"
+  })
+);
+```
+
+#### Script
+
+Wire them together using an npm script
+
+```json
+{
+  "scripts": {
+    "test": "tf ./my-tf-cli.js"
+  }
+}
 ```
 
 ## Middlewear

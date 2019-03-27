@@ -11,7 +11,7 @@ const tf = (...middlewears: Middlewear[]) => () => {
     components: {},
     tests: []
   };
-  const results: Results = {};
+  const results: Results = [];
 
   middlewears.forEach(callWith(setup, results));
 

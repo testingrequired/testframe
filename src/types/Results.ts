@@ -1,5 +1,5 @@
 import Result from "./Result";
 
-export default interface Results {
-  [key: string]: Result;
-}
+type Results = Array<Result>;
+
+export default Results;

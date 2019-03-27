@@ -9,7 +9,7 @@ describe("compose", () => {
     tests: []
   };
 
-  const results: Results = {};
+  const results: Results = [];
 
   let middlewearA;
   let middlewearB;

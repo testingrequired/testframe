@@ -1,31 +1,35 @@
 import junit from "junit-report-builder";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
-import Result from "../types/Result";
-
 export default (filePath: string) => (setup: Setup, results: Results) => {
-  Object.keys(results).forEach(testFilePath => {
-    const suite = junit.testSuite().name(testFilePath);
+  const suites = {};
 
-    Object.keys(results[testFilePath]).forEach(testDescription => {
-      const testCase = suite.testCase().name(testDescription);
+  results.forEach(result => {
+    const [testFilePath, testDescription] = result.description;
 
-      const result: Result = results[testFilePath][testDescription];
+    let suite;
 
-      testCase.time(result.end.getTime() - result.start.getTime());
+    if (suites[testFilePath]) {
+      suite = suites[testFilePath];
+    } else {
+      suite = junit.testSuite().name(testFilePath);
+      suites[testFilePath] = suite;
+    }
 
-      switch (result.state) {
-        case "failed":
-          testCase.failure(result.error.message);
-          testCase.stacktrace(result.error.stack);
-          break;
+    const testCase = suite.testCase().name(testDescription);
+    testCase.time(result.end.getTime() - result.start.getTime());
 
-        case "skipped":
-          testCase.skipped();
-          break;
-      }
-    });
+    switch (result.state) {
+      case "failed":
+        testCase.failure(result.error.message);
+        testCase.stacktrace(result.error.stack);
+        break;
+
+      case "skipped":
+        testCase.skipped();
+        break;
+    }
+
+    junit.writeTo(filePath);
   });
-
-  junit.writeTo(filePath);
 };

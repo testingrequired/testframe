@@ -11,7 +11,7 @@ describe("callback", () => {
     tests: []
   };
 
-  const results: Results = {};
+  const results: Results = [];
 
   beforeEach(() => {
     fn = jest.fn();

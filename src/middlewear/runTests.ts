@@ -6,12 +6,10 @@ export default function runTests(setup: Setup, results: Results) {
   const { tests, components } = setup;
 
   tests.forEach(({ testFilePath, description, fn, runState }) => {
-    if (!results[testFilePath]) {
-      results[testFilePath] = {};
-    }
-
     let result: Result = {};
     let start = new Date();
+
+    result.description = [testFilePath, description];
 
     switch (runState) {
       case "run":
@@ -34,6 +32,7 @@ export default function runTests(setup: Setup, results: Results) {
 
     result.start = start;
     result.end = new Date();
-    results[testFilePath][description] = result;
+
+    results.push(result);
   });
 }

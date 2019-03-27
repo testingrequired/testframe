@@ -3,4 +3,4 @@ dist
 node_modules
 results.json
 results2.json
-results.xml
+junit.xml

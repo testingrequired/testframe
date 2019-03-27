@@ -8,3 +8,5 @@ export { default as writeResultsToJunitFile } from "./writeResultsToJunitFile";
 export { default as setupFile } from "./setupFile";
 export { default as callback } from "./callback";
 export { default as failureExitCode } from "./failureExitCode";
+export { default as compose } from "./compose";
+export { default as defaults } from "./defaults";

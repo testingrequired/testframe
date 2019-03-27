@@ -113,3 +113,11 @@ Write results to junit xml file.
 ### component(key, value)
 
 Register component to be passed to test functions.
+
+### compose(...middlewears)
+
+Compose multiple middlewear together as a new middlewear.
+
+### defaults
+
+Returns a default set of middlewear.

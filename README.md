@@ -134,6 +134,10 @@ Register component to be passed to test functions.
 
 Compose multiple middlewear together as a new middlewear.
 
+### randomizeTestOrder
+
+Randomized the order tests are run.
+
 ### defaults
 
 Returns a default set of middlewear.

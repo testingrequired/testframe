@@ -6,6 +6,7 @@ import loadTests from "./loadTests";
 import runTests from "./runTests";
 import printResultsToConsole from "./printResultsToConsole";
 import writeResultsToJunitFile from "./writeResultsToJunitFile";
+import randomizeTestOrder from "./randomizeTestOrder";
 
 interface Options {
   testFilePatterns?: string[];
@@ -20,6 +21,7 @@ export default (options: Options = {}) => {
     component("assert", assert),
     findTestFiles(...patterns),
     loadTests,
+    randomizeTestOrder,
     runTests,
     printResultsToConsole,
     writeResultsToJunitFile(junitFilePath)

@@ -36,5 +36,9 @@ export default function loadTests(setup: Setup) {
     };
 
     require(path.join(process.cwd(), testFilePath));
+
+    delete (global as any).beforeEach;
+    delete (global as any).afterEach;
+    delete (global as any).test;
   });
 }

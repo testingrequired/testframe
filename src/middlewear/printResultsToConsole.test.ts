@@ -11,7 +11,7 @@ describe("printResultsToConsole", () => {
 
   const results: Results = [
     {
-      description: ["foo", "bar"],
+      description: "foo",
       state: "passed",
       start: new Date(),
       end: new Date()

@@ -15,7 +15,8 @@ describe("printResultsToConsole", () => {
 
   const results: Results = [
     {
-      description: ["foo", "bar"],
+      testFilePath: "expected test file path",
+      description: "foo",
       state: "passed",
       start: new Date(),
       end: new Date()

@@ -20,7 +20,12 @@ export default function loadTests(setup: Setup) {
         afterEachs.map(callWith());
       };
 
-      tests.push({ testFilePath, description, fn: wrapped, runState: "run" });
+      tests.push({
+        testFilePath,
+        description,
+        fn: wrapped,
+        runState: "run"
+      });
     }
 
     (global as any).test = test;
@@ -32,7 +37,12 @@ export default function loadTests(setup: Setup) {
         afterEachs.map(callWith());
       };
 
-      tests.push({ testFilePath, description, fn: wrapped, runState: "skip" });
+      tests.push({
+        testFilePath,
+        description,
+        fn: wrapped,
+        runState: "skip"
+      });
     };
 
     require(path.join(process.cwd(), testFilePath));

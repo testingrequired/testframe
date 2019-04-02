@@ -30,6 +30,16 @@ describe("runTests", () => {
     expect(expectedTest.fn).toBeCalledWith(setup.components);
   });
 
+  it("should set test file path from", () => {
+    runTests(setup, results);
+    expect(results[0].testFilePath).toEqual(expectedTest.testFilePath);
+  });
+
+  it("should set description from test", () => {
+    runTests(setup, results);
+    expect(results[0].description).toEqual(expectedTest.description);
+  });
+
   it("should set state to passed", () => {
     runTests(setup, results);
     expect(results[0].state).toEqual("passed");

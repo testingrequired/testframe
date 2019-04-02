@@ -9,7 +9,8 @@ export default function runTests(setup: Setup, results: Results) {
     let result: Result = {};
     let start = new Date();
 
-    result.description = [testFilePath, description];
+    result.testFilePath = testFilePath;
+    result.description = description;
 
     switch (runState) {
       case "run":

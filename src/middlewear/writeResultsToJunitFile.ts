@@ -5,7 +5,7 @@ export default (filePath: string) => (setup: Setup, results: Results) => {
   const suites = {};
 
   results.forEach(result => {
-    const [testFilePath, testDescription] = result.description;
+    const { testFilePath, description } = result;
 
     let suite;
 
@@ -16,7 +16,7 @@ export default (filePath: string) => (setup: Setup, results: Results) => {
       suites[testFilePath] = suite;
     }
 
-    const testCase = suite.testCase().name(testDescription);
+    const testCase = suite.testCase().name(description);
     testCase.time(result.end.getTime() - result.start.getTime());
 
     switch (result.state) {

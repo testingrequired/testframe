@@ -1,5 +1,6 @@
 export default interface Result {
-  description?: Array<string>;
+  testFilePath?: string;
+  description?: string;
   state?: "passed" | "failed" | "errored" | "skipped";
   error?: Error;
   start?: Date;

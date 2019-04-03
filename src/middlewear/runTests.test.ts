@@ -52,8 +52,10 @@ describe("runTests", () => {
     });
 
     it("should emit on test result for each test", () => {
+      expectedTests.push(createTest("2"));
       runTests(setup, results, events);
       expect(events.emit).toBeCalledWith("test:result", results[0]);
+      expect(events.emit).toBeCalledWith("test:result", results[1]);
     });
 
     describe("when test failure", () => {

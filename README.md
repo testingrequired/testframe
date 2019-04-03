@@ -1,43 +1,32 @@
 # @testingrequired/tf
 
+Build your own test framework.
+
 ## Getting Started
 
-### Example Project
-
-See: https://github.com/testingrequired/tf-example
-
 ### Install
-
-This can either be installed as a project dev dependency (recommended):
 
 ```bash
 $ npm install --only=dev @testingrequired/tf
 ```
 
-Or globally:
+### Script
 
-```bash
-$ npm install -g @testingrequired/tf
-```
+```javascript
+// package.json
 
-### Use As Is
-
-#### Script
-
-```json
 {
+  ...package,
   "scripts": {
     "test": "tf"
   }
 }
 ```
 
-#### Write A Test
+### Write Tests
 
 ```javascript
-/**
- * ./tests/example.test.js
- */
+// tests/example.test.js
 
 let value;
 
@@ -48,7 +37,7 @@ beforeEach(() => {
 test(`example test`, ({ assert }) => assert.equal(value, 10));
 ```
 
-### Run
+### Run Tests
 
 ```bash
 $ npm test
@@ -56,35 +45,19 @@ $ npm test
 
 ### Customize Framework
 
-Use middlewear to customize the framework to your needs:
+Use [middlewear](#middlewear) to customize the framework to your needs:
 
 ```javascript
-/**
- * ./my-tf-cli.js
- */
-import assert from "assert";
-
-import tf, {
-  component,
-  findTestFiles,
-  loadTests,
-  runTests,
-  writeResultsToJunitFile
-} from "@testingrequired/tf";
-
-import customSetupMiddlewear from "@example/custom-setup-middlewear";
-import customResultsMiddlewear from "@example/custom-results-middlewear";
+// custom-tf.js
+import tf, { defaults, compose, event } from "@testingrequired/tf";
 
 export default tf(
-  customMiddlewear,
-  component("assert", assert),
-  findTestFiles("./tests/*.spec.js"),
-  loadTests,
-  runTests,
-  writeResultsToJunitFile("./custom/path/to/junit.xml"),
-  customResultsMiddlewear({
-    option: "value"
-  })
+  compose(
+    event("test:failure", result => {
+      console.log(`${result.description} failed`);
+    }),
+    defaults()
+  )
 );
 ```
 
@@ -102,29 +75,37 @@ Wire them together using an npm script
 
 ## Middlewear
 
-### findTestFiles(...patterns)
+### defaults
+
+Returns a default set of middlewear.
+
+#### findTestFiles(...patterns)
 
 Use glob patterns to find test files to run.
 
-### loadTests
+#### loadTests
 
 Read and load tests.
 
-### runTests
+#### runTests
 
 Run tests.
 
-### printResultsToConsole
+#### printResultsToConsole
 
 Print result object to console.
+
+#### randomizeTestOrder
+
+Randomized the order tests are run.
+
+#### writeResultsToJunitFile(filePath)
+
+Write results to junit xml file.
 
 ### writeResultsToFile(filePath)
 
 Write result object as json to file.
-
-### writeResultsToJunitFile(filePath)
-
-Write results to junit xml file.
 
 ### component(key, value)
 
@@ -133,14 +114,6 @@ Register component to be passed to test functions.
 ### compose(...middlewears)
 
 Compose multiple middlewear together as a new middlewear.
-
-### randomizeTestOrder
-
-Randomized the order tests are run.
-
-### defaults
-
-Returns a default set of middlewear.
 
 ### event(type, callback)
 

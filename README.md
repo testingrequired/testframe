@@ -141,3 +141,13 @@ Randomized the order tests are run.
 ### defaults
 
 Returns a default set of middlewear.
+
+### event(type, callback)
+
+Callback on event type
+
+#### Event Types
+
+- test:start
+- test:result
+- test:failure

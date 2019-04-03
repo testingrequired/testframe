@@ -4,13 +4,13 @@ Build your own test framework.
 
 ## Getting Started
 
-### Install
+### 💾 Install
 
 ```bash
 $ npm install --only=dev @testingrequired/tf
 ```
 
-### Script
+### 📄 Script
 
 ```javascript
 // package.json
@@ -23,7 +23,7 @@ $ npm install --only=dev @testingrequired/tf
 }
 ```
 
-### Write Tests
+### 🛠 Write Tests
 
 ```javascript
 // tests/example.test.js
@@ -37,13 +37,13 @@ beforeEach(() => {
 test(`example test`, ({ assert }) => assert.equal(value, 10));
 ```
 
-### Run Tests
+### 📊 Run Tests
 
 ```bash
 $ npm test
 ```
 
-### Customize Framework
+### ⚙ Customize Framework
 
 Use [middlewear](#middlewear) to customize the framework to your needs:
 
@@ -61,7 +61,7 @@ export default tf(
 );
 ```
 
-#### Script
+#### 📄 Script
 
 Wire them together using an npm script
 
@@ -73,7 +73,7 @@ Wire them together using an npm script
 }
 ```
 
-## Middlewear
+## ✨ Middlewear
 
 ### defaults
 

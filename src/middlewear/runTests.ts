@@ -1,11 +1,20 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import Result from "../types/Result";
+import { EventEmitter } from "events";
 
-export default function runTests(setup: Setup, results: Results) {
+export default function runTests(
+  setup: Setup,
+  results: Results,
+  events: EventEmitter
+) {
   const { tests, components } = setup;
 
-  tests.forEach(({ testFilePath, description, fn, runState }) => {
+  tests.forEach(test => {
+    const { testFilePath, description, fn, runState } = test;
+
+    events.emit("test:start", test);
+
     let result: Result = {};
     let start = new Date();
 
@@ -20,6 +29,7 @@ export default function runTests(setup: Setup, results: Results) {
         } catch (e) {
           result.state = "failed";
           result.error = e;
+          events.emit("test:failure", result);
         }
         break;
 
@@ -33,6 +43,8 @@ export default function runTests(setup: Setup, results: Results) {
 
     result.start = start;
     result.end = new Date();
+
+    events.emit("test:result", result);
 
     results.push(result);
   });

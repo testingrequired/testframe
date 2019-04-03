@@ -2,6 +2,9 @@ import runTests from "./runTests";
 import Setup from "../types/Setup";
 import Test from "../types/Test";
 import Results from "../types/Results";
+import { EventEmitter } from "events";
+
+jest.mock("events");
 
 describe("runTests", () => {
   const expectedTest: Test = {
@@ -21,33 +24,65 @@ describe("runTests", () => {
 
   let results: Results;
 
+  let events: EventEmitter;
+
   beforeEach(() => {
     results = [];
+
+    events = new EventEmitter();
   });
 
   it("should run test", () => {
-    runTests(setup, results);
+    runTests(setup, results, events);
     expect(expectedTest.fn).toBeCalledWith(setup.components);
   });
 
   it("should set test file path from", () => {
-    runTests(setup, results);
+    runTests(setup, results, events);
     expect(results[0].testFilePath).toEqual(expectedTest.testFilePath);
   });
 
   it("should set description from test", () => {
-    runTests(setup, results);
+    runTests(setup, results, events);
     expect(results[0].description).toEqual(expectedTest.description);
   });
 
   it("should set state to passed", () => {
-    runTests(setup, results);
+    runTests(setup, results, events);
     expect(results[0].state).toEqual("passed");
   });
 
   it.todo("should set start date");
 
   it.todo("should set end date");
+
+  describe("events", () => {
+    it("should emit on test start for each test", () => {
+      runTests(setup, results, events);
+      expect(events.emit).toBeCalledWith("test:start", expectedTest);
+    });
+
+    it("should emit on test result for each test", () => {
+      runTests(setup, results, events);
+      expect(events.emit).toBeCalledWith("test:result", results[0]);
+    });
+
+    describe("when test failure", () => {
+      let error;
+      beforeEach(() => {
+        error = new Error();
+
+        (expectedTest.fn as any).mockImplementation(() => {
+          throw error;
+        });
+      });
+
+      it("should emit test:failure", () => {
+        runTests(setup, results, events);
+        expect(events.emit).toBeCalledWith("test:failure", results[0]);
+      });
+    });
+  });
 
   describe("when test throws error", () => {
     let error;
@@ -60,12 +95,12 @@ describe("runTests", () => {
     });
 
     it("should set state to failed", () => {
-      runTests(setup, results);
+      runTests(setup, results, events);
       expect(results[0].state).toEqual("failed");
     });
 
     it("should set error to error thrown", () => {
-      runTests(setup, results);
+      runTests(setup, results, events);
       expect(results[0].error).toEqual(error);
     });
   });
@@ -76,7 +111,7 @@ describe("runTests", () => {
     });
 
     it("should set state to skipped", () => {
-      runTests(setup, results);
+      runTests(setup, results, events);
       expect(results[0].state).toEqual("skipped");
     });
   });
@@ -101,7 +136,7 @@ describe("runTests", () => {
     });
 
     it("should run all tests", () => {
-      runTests(setup, results);
+      runTests(setup, results, events);
       expect(expectedTest.fn).toBeCalledWith(setup.components);
       expect(expectedTest2.fn).toBeCalledWith(setup.components);
       expect(expectedTest3.fn).toBeCalledWith(setup.components);

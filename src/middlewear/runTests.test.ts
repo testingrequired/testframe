@@ -3,32 +3,21 @@ import Setup from "../types/Setup";
 import Test from "../types/Test";
 import Results from "../types/Results";
 import { EventEmitter } from "events";
+import createTest from "./testUtils/createTest";
+import createSetup from "./testUtils/createSetup";
 
 jest.mock("events");
 
 describe("runTests", () => {
-  const expectedTest: Test = {
-    testFilePath: "test file path 1",
-    description: "description 1",
-    runState: "run",
-    fn: jest.fn()
-  };
-
+  const expectedTest: Test = createTest("1");
   const expectedTests = [expectedTest];
-
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: expectedTests
-  };
+  const setup: Setup = createSetup(expectedTests);
 
   let results: Results;
-
   let events: EventEmitter;
 
   beforeEach(() => {
     results = [];
-
     events = new EventEmitter();
   });
 

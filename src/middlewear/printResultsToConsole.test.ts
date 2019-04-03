@@ -1,13 +1,10 @@
 import printResultsToConsole from "./printResultsToConsole";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
+import createSetup from "./testUtils/createSetup";
 
 describe("printResultsToConsole", () => {
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: []
-  };
+  const setup: Setup = createSetup();
 
   const results: Results = [
     {

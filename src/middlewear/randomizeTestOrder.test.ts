@@ -1,38 +1,21 @@
 import randomizeTestOrder from "./randomizeTestOrder";
 import Setup from "../types/Setup";
 import Test from "../types/Test";
+import createTest from "./testUtils/createTest";
+import createSetup from "./testUtils/createSetup";
 
 describe("randomTestOrder", () => {
-  const expectedTest: Test = {
-    testFilePath: "test file path 1",
-    description: "description 1",
-    runState: "run",
-    fn: jest.fn()
-  };
+  const expectedTest: Test = createTest("1");
 
-  const expectedTest2: Test = {
-    testFilePath: "test file path 2",
-    description: "description 2",
-    runState: "run",
-    fn: jest.fn()
-  };
+  const expectedTest2: Test = createTest("2");
 
-  const expectedTest3: Test = {
-    testFilePath: "test file path 3",
-    description: "description 3",
-    runState: "run",
-    fn: jest.fn()
-  };
+  const expectedTest3: Test = createTest("3");
 
   const expectedTests = [expectedTest, expectedTest2, expectedTest3];
 
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: expectedTests
-  };
+  const setup: Setup = createSetup(expectedTests);
 
-  it("should random test order", () => {
+  it.skip("should random test order", () => {
     randomizeTestOrder(setup);
     expect(setup.tests).not.toEqual(expectedTests);
   });

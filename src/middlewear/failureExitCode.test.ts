@@ -1,13 +1,10 @@
 import failureExitCode from "./failureExitCode";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
+import createSetup from "./testUtils/createSetup";
 
 describe("failureExitCode", () => {
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: []
-  };
+  const setup: Setup = createSetup();
 
   const expectedExitCode = 1;
 

@@ -3,15 +3,12 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import path from "path";
 import fs from "fs";
+import createSetup from "./testUtils/createSetup";
 
 jest.mock("fs");
 
 describe("printResultsToConsole", () => {
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: []
-  };
+  const setup: Setup = createSetup();
 
   const results: Results = [
     {

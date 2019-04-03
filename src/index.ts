@@ -4,6 +4,7 @@ import Middlewear from "./types/Middlewear";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
 import callWith from "./utils/callWith";
+import { EventEmitter } from "events";
 
 const tf = (...middlewears: Middlewear[]) => () => {
   const setup: Setup = {
@@ -13,7 +14,9 @@ const tf = (...middlewears: Middlewear[]) => () => {
   };
   const results: Results = [];
 
-  middlewears.forEach(callWith(setup, results));
+  const events = new EventEmitter();
+
+  middlewears.forEach(callWith(setup, results, events));
 
   return results;
 };

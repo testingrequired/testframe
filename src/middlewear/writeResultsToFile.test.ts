@@ -3,26 +3,14 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import path from "path";
 import fs from "fs";
+import createSetup from "./testUtils/createSetup";
+import createResult from "./testUtils/createResult";
 
 jest.mock("fs");
 
 describe("printResultsToConsole", () => {
-  const setup: Setup = {
-    testFilePaths: [],
-    components: {},
-    tests: []
-  };
-
-  const results: Results = [
-    {
-      testFilePath: "expected test file path",
-      description: "foo",
-      state: "passed",
-      start: new Date(),
-      end: new Date()
-    }
-  ];
-
+  const setup: Setup = createSetup();
+  const results: Results = [createResult("1")];
   const expectedCwd = "expected cwd";
   const expectedFileName = "file.ext";
 

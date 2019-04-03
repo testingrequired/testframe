@@ -22,8 +22,8 @@ export default (options: Options = {}) => {
     findTestFiles(...patterns),
     loadTests,
     randomizeTestOrder,
-    runTests,
     printResultsToConsole,
+    runTests,
     writeResultsToJunitFile(junitFilePath)
   );
 };

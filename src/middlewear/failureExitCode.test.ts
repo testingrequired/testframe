@@ -2,6 +2,7 @@ import failureExitCode from "./failureExitCode";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
+import createResult from "./testUtils/createResult";
 
 describe("failureExitCode", () => {
   const setup: Setup = createSetup();
@@ -24,7 +25,7 @@ describe("failureExitCode", () => {
 
   describe("when test failure", () => {
     beforeEach(() => {
-      results.push({ state: "failed" });
+      results.push(createResult("1", "failed"));
     });
 
     it("should exit with code", () => {
@@ -35,7 +36,7 @@ describe("failureExitCode", () => {
 
   describe("when no test failures", () => {
     beforeEach(() => {
-      results.push({ state: "passed" });
+      results.push(createResult("1", "passed"));
     });
 
     it("should exit with code", () => {

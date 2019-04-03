@@ -2,18 +2,12 @@ import printResultsToConsole from "./printResultsToConsole";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
+import createResult from "./testUtils/createResult";
 
 describe("printResultsToConsole", () => {
   const setup: Setup = createSetup();
 
-  const results: Results = [
-    {
-      description: "foo",
-      state: "passed",
-      start: new Date(),
-      end: new Date()
-    }
-  ];
+  const results: Results = [createResult("1")];
 
   let logSpy;
 

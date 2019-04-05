@@ -13,7 +13,7 @@ describe("printResultsToConsole", () => {
   let events: EventEmitter;
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, "log");
+    logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
     events = new EventEmitter();
   });
 

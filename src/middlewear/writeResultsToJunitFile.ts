@@ -1,7 +1,8 @@
 import junit from "junit-report-builder";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
-export default (filePath: string) => (setup: Setup, results: Results) => {
+
+export default (filePath: string) => (setup: Setup) => (results: Results) => {
   const suites = {};
 
   results.forEach(result => {

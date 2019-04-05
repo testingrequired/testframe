@@ -16,7 +16,7 @@ const tf = (...middlewears: Middlewear[]) => () => {
 
   const events = new EventEmitter();
 
-  callMiddlewearExecutors(setup, results, events, ...middlewears);
+  callMiddlewearExecutors(setup, events, results, ...middlewears);
 };
 
 tf.middlewear = middlewear;

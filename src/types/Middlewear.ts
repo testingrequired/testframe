@@ -2,12 +2,13 @@ import Setup from "./Setup";
 import Results from "./Results";
 import { EventEmitter } from "events";
 
-export type MiddlewearExecutor = () => void;
-
-type Middlewear = (
+export type SetupExecutor = (
   setup: Setup,
-  results: Results,
   events?: EventEmitter
-) => void | MiddlewearExecutor;
+) => void | ResultsExecutor;
+
+export type ResultsExecutor = (results: Results) => void;
+
+type Middlewear = SetupExecutor;
 
 export default Middlewear;

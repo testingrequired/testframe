@@ -23,7 +23,7 @@ describe("printResultsToConsole", () => {
   });
 
   it("should call console.log with json stringified results", () => {
-    writeResultsToFile(expectedFileName)(setup, results);
+    writeResultsToFile(expectedFileName)(setup)(results);
 
     expect(fs.writeFileSync).toBeCalledWith(
       `${expectedCwd}${path.sep}${expectedFileName}`,

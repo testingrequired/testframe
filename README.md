@@ -214,3 +214,20 @@ tf(event("test:result", result => {}));
 - test:start
 - test:result
 - test:failure
+
+## Writing Middlewear
+
+Middlewear is written as a curried function:
+
+```typescript
+type SetupExecutor = (
+  setup: Setup,
+  events?: EventEmitter
+) => void | ResultsExecutor;
+
+type ResultsExecutor = (results: Results) => void;
+
+type Middlewear = SetupExecutor;
+```
+
+The first function `SetupExecutor` configures `setup` and `events` while the second function `ResultsExecutor` modifies `results`.

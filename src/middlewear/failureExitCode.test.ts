@@ -29,7 +29,7 @@ describe("failureExitCode", () => {
     });
 
     it("should exit with code", () => {
-      failureExitCode(expectedExitCode)(setup, results);
+      failureExitCode(expectedExitCode)(setup, results)();
       expect(process.exit).toBeCalledWith(expectedExitCode);
     });
   });
@@ -40,7 +40,7 @@ describe("failureExitCode", () => {
     });
 
     it("should exit with code", () => {
-      failureExitCode(expectedExitCode)(setup, results);
+      failureExitCode(expectedExitCode)(setup, results)();
       expect(process.exit).not.toHaveBeenCalled();
     });
   });

@@ -7,6 +7,7 @@ import runTests from "./runTests";
 import printResultsToConsole from "./printResultsToConsole";
 import writeResultsToJunitFile from "./writeResultsToJunitFile";
 import randomizeTestOrder from "./randomizeTestOrder";
+import failureExitCode from "./failureExitCode";
 
 interface Options {
   testFilePatterns?: string[];
@@ -24,6 +25,7 @@ export default (options: Options = {}) => {
     randomizeTestOrder,
     printResultsToConsole,
     runTests,
+    failureExitCode(),
     writeResultsToJunitFile(junitFilePath)
   );
 };

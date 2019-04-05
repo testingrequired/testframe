@@ -3,7 +3,6 @@ import * as middlewear from "./middlewear/index";
 import Middlewear from "./types/Middlewear";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
-import callWith from "./utils/callWith";
 import { EventEmitter } from "events";
 import callMiddlewearExecutors from "./utils/callMiddlewearExecutors";
 

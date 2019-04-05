@@ -6,6 +6,6 @@ import callMiddlewearExecutors from "../utils/callMiddlewearExecutors";
 
 export default (...middlewears: Array<Middlewear>) => (
   setup: Setup,
-  results: Results,
   events: EventEmitter
-) => () => callMiddlewearExecutors(setup, results, events, ...middlewears);
+) => (results: Results) =>
+  callMiddlewearExecutors(setup, events, results, ...middlewears);

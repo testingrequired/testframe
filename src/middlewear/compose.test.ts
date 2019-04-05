@@ -12,22 +12,28 @@ describe("compose", () => {
   const results: Results = [];
 
   let middlewearA;
+  let middlewearAResultsExecutor;
   let middlewearB;
+  let middlewearBResultsExecutor;
   let middlewears;
   let events: EventEmitter;
 
   beforeEach(() => {
-    middlewearA = jest.fn();
-    middlewearB = jest.fn();
+    middlewearAResultsExecutor = jest.fn();
+    middlewearA = jest.fn(() => middlewearAResultsExecutor);
+    middlewearBResultsExecutor = jest.fn();
+    middlewearB = jest.fn(() => middlewearBResultsExecutor);
     middlewears = [middlewearA, middlewearB];
 
     events = new EventEmitter();
   });
 
-  it("should call each middlewear", () => {
-    compose(...middlewears)(setup, results, events)();
+  it("should call each middlewear and results executor", () => {
+    compose(...middlewears)(setup, events)(results);
 
-    expect(middlewearA).toBeCalledWith(setup, results, events);
-    expect(middlewearB).toBeCalledWith(setup, results, events);
+    expect(middlewearA).toBeCalledWith(setup, events);
+    expect(middlewearAResultsExecutor).toBeCalledWith(results);
+    expect(middlewearB).toBeCalledWith(setup, events);
+    expect(middlewearBResultsExecutor).toBeCalledWith(results);
   });
 });

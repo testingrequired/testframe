@@ -3,12 +3,8 @@ import Results from "../types/Results";
 import Result from "../types/Result";
 import { EventEmitter } from "events";
 
-export default function runTests(
-  setup: Setup,
-  results: Results,
-  events: EventEmitter
-) {
-  return () => {
+export default function runTests(setup: Setup, events: EventEmitter) {
+  return (results: Results) => {
     const { tests, components } = setup;
 
     tests.forEach(test => {

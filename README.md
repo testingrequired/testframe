@@ -106,6 +106,7 @@ tf(defaults());
 - randomizeTestOrder
 - printResultsToConsole
 - runTests
+- failureExitCode()
 - writeResultsToJunitFile(`junitFilePath`)
 
 ### findTestFiles(...patterns)
@@ -130,6 +131,14 @@ Run tests.
 
 ```javascript
 tf(runTests);
+```
+
+### failureExitCode(exitCode = 1)
+
+Exit with code on failure
+
+```javascript
+tf(failureExitCode());
 ```
 
 ### printResultsToConsole

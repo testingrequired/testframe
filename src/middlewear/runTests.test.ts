@@ -22,22 +22,22 @@ describe("runTests", () => {
   });
 
   it("should run test", () => {
-    runTests(setup, results, events);
+    runTests(setup, results, events)();
     expect(expectedTest.fn).toBeCalledWith(setup.components);
   });
 
   it("should set test file path from", () => {
-    runTests(setup, results, events);
+    runTests(setup, results, events)();
     expect(results[0].testFilePath).toEqual(expectedTest.testFilePath);
   });
 
   it("should set description from test", () => {
-    runTests(setup, results, events);
+    runTests(setup, results, events)();
     expect(results[0].description).toEqual(expectedTest.description);
   });
 
   it("should set state to passed", () => {
-    runTests(setup, results, events);
+    runTests(setup, results, events)();
     expect(results[0].state).toEqual("passed");
   });
 
@@ -47,13 +47,13 @@ describe("runTests", () => {
 
   describe("events", () => {
     it("should emit on test start for each test", () => {
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(events.emit).toBeCalledWith("test:start", expectedTest);
     });
 
     it("should emit on test result for each test", () => {
       expectedTests.push(createTest("2"));
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(events.emit).toBeCalledWith("test:result", results[0]);
       expect(events.emit).toBeCalledWith("test:result", results[1]);
     });
@@ -69,7 +69,7 @@ describe("runTests", () => {
       });
 
       it("should emit test:failure", () => {
-        runTests(setup, results, events);
+        runTests(setup, results, events)();
         expect(events.emit).toBeCalledWith("test:failure", results[0]);
       });
     });
@@ -86,12 +86,12 @@ describe("runTests", () => {
     });
 
     it("should set state to failed", () => {
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(results[0].state).toEqual("failed");
     });
 
     it("should set error to error thrown", () => {
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(results[0].error).toEqual(error);
     });
   });
@@ -102,7 +102,7 @@ describe("runTests", () => {
     });
 
     it("should set state to skipped", () => {
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(results[0].state).toEqual("skipped");
     });
   });
@@ -127,7 +127,7 @@ describe("runTests", () => {
     });
 
     it("should run all tests", () => {
-      runTests(setup, results, events);
+      runTests(setup, results, events)();
       expect(expectedTest.fn).toBeCalledWith(setup.components);
       expect(expectedTest2.fn).toBeCalledWith(setup.components);
       expect(expectedTest3.fn).toBeCalledWith(setup.components);

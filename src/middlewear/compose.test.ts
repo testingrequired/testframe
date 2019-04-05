@@ -25,7 +25,7 @@ describe("compose", () => {
   });
 
   it("should call each middlewear", () => {
-    compose(...middlewears)(setup, results, events);
+    compose(...middlewears)(setup, results, events)();
 
     expect(middlewearA).toBeCalledWith(setup, results, events);
     expect(middlewearB).toBeCalledWith(setup, results, events);

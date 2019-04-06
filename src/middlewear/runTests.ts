@@ -32,6 +32,7 @@ export default function runTests(setup: Setup, events: EventEmitter) {
 
         case "skip":
           result.state = "skipped";
+          events.emit("test:skip", result);
           break;
 
         default:

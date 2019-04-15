@@ -8,6 +8,7 @@ import printResultsToConsole from "./printResultsToConsole";
 import writeResultsToJunitFile from "./writeResultsToJunitFile";
 import randomizeTestOrder from "./randomizeTestOrder";
 import failureExitCode from "./failureExitCode";
+import args from "./args";
 
 interface Options {
   testFilePatterns?: string[];
@@ -19,6 +20,7 @@ export default (options: Options = {}) => {
   const junitFilePath = options.junitFilePath || "junit.xml";
 
   return compose(
+    args(),
     component("assert", assert),
     findTestFiles(...patterns),
     loadTests,

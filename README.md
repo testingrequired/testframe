@@ -100,6 +100,7 @@ tf(defaults());
 
 #### Included Middlewear
 
+- args()
 - component("assert", assert)
 - findTestFiles(`...testFilePatterns`)
 - loadTests
@@ -108,6 +109,14 @@ tf(defaults());
 - runTests
 - failureExitCode()
 - writeResultsToJunitFile(`junitFilePath`)
+
+### args(options)
+
+Uses `yargs` to parse `process.argv` accessible on `setup.args`
+
+### Options
+
+The `options` argument is passed to `yargs.config`
 
 ### findTestFiles(...patterns)
 

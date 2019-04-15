@@ -10,7 +10,8 @@ const tf = (...middlewears: Middlewear[]) => () => {
   const setup: Setup = {
     testFilePaths: [],
     components: {},
-    tests: []
+    tests: [],
+    args: {}
   };
   const results: Results = [];
 

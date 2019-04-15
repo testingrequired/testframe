@@ -7,6 +7,15 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch CLI /w arguments",
+      "program": "${workspaceFolder}/bin/tf",
+      "args": ["./my-cli.js", "--foo=bar"],
+      "preLaunchTask": "npm: build",
+      "outFiles": ["${workspaceFolder}/lib/**/*.js"]
+    }
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch CLI",
       "program": "${workspaceFolder}/bin/tf",
       "args": ["./my-cli.js"],

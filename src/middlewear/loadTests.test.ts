@@ -53,4 +53,14 @@ describe("loadTests", () => {
     expect(testMockFn).not.toBeCalled();
     expect(afterEachMockFn).not.toBeCalled();
   });
+
+  it("should run hooks for each test", () => {
+    loadTests(setup);
+
+    setup.tests[0].fn(setup.components);
+    setup.tests[1].fn(setup.components);
+
+    expect(beforeEachMockFn).not.toBeCalledTimes(2);
+    expect(afterEachMockFn).not.toBeCalledTimes(2);
+  });
 });

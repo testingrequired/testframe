@@ -5,11 +5,15 @@ import createSetup from "./testUtils/createSetup";
 describe("loadTests", () => {
   let setup: Setup;
   let beforeEachMockFn;
+  let afterEachMockFn;
   let testMockFn;
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();
     (global as any).beforeEachMock = beforeEachMockFn;
+
+    afterEachMockFn = jest.fn();
+    (global as any).afterEachMock = afterEachMockFn;
 
     testMockFn = jest.fn();
     (global as any).testMock = testMockFn;
@@ -36,6 +40,7 @@ describe("loadTests", () => {
     setup.tests[0].fn(setup.components);
     expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
     expect(testMockFn).toHaveBeenNthCalledWith(1, setup.components);
+    expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
   });
 
   it("should load skipped test", () => {
@@ -46,5 +51,6 @@ describe("loadTests", () => {
     setup.tests[1].fn(setup.components);
     expect(beforeEachMockFn).not.toBeCalled();
     expect(testMockFn).not.toBeCalled();
+    expect(afterEachMockFn).not.toBeCalled();
   });
 });

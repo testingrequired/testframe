@@ -44,5 +44,7 @@ describe("loadTests", () => {
     expect(setup.tests[1].description).toBe("test2");
     expect(setup.tests[1].runState).toBe("skip");
     setup.tests[1].fn(setup.components);
+    expect(beforeEachMockFn).not.toBeCalled();
+    expect(testMockFn).not.toBeCalled();
   });
 });

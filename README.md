@@ -4,8 +4,8 @@ Build your own test framework.
 
 ## Features
 
-- 🗂 Built on middlewear & composition
-- 🔋 Most batteries included
+- Built on middlewear & composition
+- Most batteries included
 
 ## Design Goals
 

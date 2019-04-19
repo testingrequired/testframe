@@ -2,6 +2,17 @@
 
 Build your own test framework.
 
+## Features
+
+- 🗂 Built on middlewear & composition
+- 🔋 Most batteries included
+
+## Design Goals
+
+- Easy to understand
+- Testing style agnostic
+- Extendable
+
 ## Getting Started
 
 ### Install
@@ -40,7 +51,7 @@ beforeEach(() => {
   value = 10;
 });
 
-test(`example test`, ({ assert }) => assert.equal(value, 10));
+test(`example test`, () => assert.equal(value, 10));
 ```
 
 ### Run Those Tests
@@ -55,15 +66,13 @@ Use [middlewear](#middlewear) to customize the framework to your needs:
 
 ```javascript
 // custom-tf.js
-import tf, { compose, defaults, event } from "@testingrequired/tf";
+import tf, { defaults, event } from "@testingrequired/tf";
 
 export default tf(
-  compose(
-    defaults(),
-    event("test:failure", result => {
-      console.log(`${result.description} failed`);
-    })
-  )
+  defaults(),
+  event("test:failure", result => {
+    console.log(`${result.description} failed`);
+  })
 );
 ```
 

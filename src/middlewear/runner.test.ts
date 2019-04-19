@@ -23,7 +23,7 @@ describe("runTests", () => {
 
   it("should run test", () => {
     runTests(setup, events)(results);
-    expect(expectedTest.fn).toBeCalledWith(setup.components);
+    expect(expectedTest.fn).toBeCalledWith();
   });
 
   it("should set test file path from", () => {
@@ -128,9 +128,9 @@ describe("runTests", () => {
 
     it("should run all tests", () => {
       runTests(setup, events)(results);
-      expect(expectedTest.fn).toBeCalledWith(setup.components);
-      expect(expectedTest2.fn).toBeCalledWith(setup.components);
-      expect(expectedTest3.fn).toBeCalledWith(setup.components);
+      expect(expectedTest.fn).toBeCalledWith();
+      expect(expectedTest2.fn).toBeCalledWith();
+      expect(expectedTest3.fn).toBeCalledWith();
     });
   });
 });

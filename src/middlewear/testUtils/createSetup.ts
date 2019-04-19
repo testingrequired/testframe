@@ -3,7 +3,7 @@ import Test from "../../types/Test";
 
 export default (tests: Array<Test> = []): Setup => ({
   testFilePaths: [],
-  components: {},
+  globals: {},
   tests,
   args: {}
 });

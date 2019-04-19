@@ -1,5 +1,5 @@
 export { default as matchTestFiles } from "./matchTestFiles";
-export { default as component } from "./component";
+export { default as globals } from "./globals";
 export { default as specSyntax } from "./specSyntax";
 export { default as runner } from "./runner";
 export { default as reporter } from "./reporter";
@@ -10,3 +10,4 @@ export { default as compose } from "./compose";
 export { default as defaults } from "./defaults";
 export { default as event } from "./event";
 export { default as args } from "./args";
+export { default as assert } from "./assert";

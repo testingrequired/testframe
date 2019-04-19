@@ -101,7 +101,7 @@ tf(defaults());
 #### Included Middlewear
 
 - args
-- component("assert", assert)
+- assert,
 - matchTestFiles(`...testFilePatterns`)
 - specSyntax
 - randomize
@@ -127,6 +127,10 @@ Use glob patterns to find test files to run.
 ```javascript
 tf(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
+
+### assert
+
+Loads node's assert as a global variable inside of tests.
 
 ### specSyntax
 

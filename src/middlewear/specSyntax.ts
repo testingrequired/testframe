@@ -14,9 +14,9 @@ export default function loadTests(setup: Setup) {
     (global as any).afterEach = fn => afterEachs.push(fn);
 
     function test(description: string, fn: TestFunction) {
-      const wrapped: TestFunction = (components: any) => {
+      const wrapped: TestFunction = () => {
         beforeEachs.map(callWith());
-        fn(components);
+        fn();
         afterEachs.map(callWith());
       };
 
@@ -31,12 +31,10 @@ export default function loadTests(setup: Setup) {
     (global as any).test = test;
 
     test.skip = (description: string, fn: TestFunction) => {
-      const wrapped: TestFunction = (components: any) => {};
-
       tests.push({
         testFilePath,
         description,
-        fn: wrapped,
+        fn: () => {},
         runState: "skip"
       });
     };

@@ -5,7 +5,7 @@ import { EventEmitter } from "events";
 
 export default function runTests(setup: Setup, events: EventEmitter) {
   return (results: Results) => {
-    const { tests, components } = setup;
+    const { tests, globals } = setup;
 
     tests.forEach(test => {
       const { testFilePath, description, fn, runState } = test;
@@ -21,12 +21,15 @@ export default function runTests(setup: Setup, events: EventEmitter) {
       switch (runState) {
         case "run":
           try {
-            fn(components);
+            createGlobals(globals);
+            fn();
             result.state = "passed";
           } catch (e) {
             result.state = "failed";
             result.error = e;
             events.emit("test:failure", result);
+          } finally {
+            removeGlobals(globals);
           }
           break;
 
@@ -47,4 +50,20 @@ export default function runTests(setup: Setup, events: EventEmitter) {
       results.push(result);
     });
   };
+}
+
+function createGlobals(globals) {
+  Object.entries(globals).forEach(i => {
+    const [key, value] = i;
+
+    (global as any)[key] = value;
+  });
+}
+
+function removeGlobals(globals) {
+  Object.entries(globals).forEach(i => {
+    const [key, value] = i;
+
+    (global as any)[key] = value;
+  });
 }

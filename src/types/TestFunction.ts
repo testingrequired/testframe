@@ -1,2 +1,2 @@
-type TestFunction = (components: any) => void;
+type TestFunction = () => void;
 export default TestFunction;

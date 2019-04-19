@@ -9,7 +9,7 @@ import callMiddlewearExecutors from "./utils/callMiddlewearExecutors";
 const tf = (...middlewears: Middlewear[]) => () => {
   const setup: Setup = {
     testFilePaths: [],
-    components: {},
+    globals: {},
     tests: [],
     args: {}
   };

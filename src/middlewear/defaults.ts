@@ -1,6 +1,6 @@
 import assert from "assert";
 import compose from "./compose";
-import component from "./component";
+import component from "./globals";
 import matchTestFiles from "./matchTestFiles";
 import specSyntax from "./specSyntax";
 import runner from "./runner";

@@ -37,9 +37,9 @@ describe.skip("loadTests", () => {
 
     expect(setup.tests[0].description).toBe("test1");
     expect(setup.tests[0].runState).toBe("run");
-    setup.tests[0].fn(setup.components);
+    setup.tests[0].fn();
     expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
-    expect(testMockFn).toHaveBeenNthCalledWith(1, setup.components);
+    expect(testMockFn).toHaveBeenNthCalledWith(1, setup.globals);
     expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
   });
 
@@ -48,7 +48,7 @@ describe.skip("loadTests", () => {
 
     expect(setup.tests[1].description).toBe("test2");
     expect(setup.tests[1].runState).toBe("skip");
-    setup.tests[1].fn(setup.components);
+    setup.tests[1].fn();
     expect(beforeEachMockFn).not.toBeCalled();
     expect(testMockFn).not.toBeCalled();
     expect(afterEachMockFn).not.toBeCalled();
@@ -57,8 +57,8 @@ describe.skip("loadTests", () => {
   it("should run hooks for each test", () => {
     specSyntax(setup);
 
-    setup.tests[0].fn(setup.components);
-    setup.tests[1].fn(setup.components);
+    setup.tests[0].fn();
+    setup.tests[1].fn();
 
     expect(beforeEachMockFn).not.toBeCalledTimes(2);
     expect(afterEachMockFn).not.toBeCalledTimes(2);

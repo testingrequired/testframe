@@ -31,11 +31,7 @@ export default function loadTests(setup: Setup) {
     (global as any).test = test;
 
     test.skip = (description: string, fn: TestFunction) => {
-      const wrapped: TestFunction = (components: any) => {
-        beforeEachs.map(callWith());
-        fn(components);
-        afterEachs.map(callWith());
-      };
+      const wrapped: TestFunction = (components: any) => {};
 
       tests.push({
         testFilePath,

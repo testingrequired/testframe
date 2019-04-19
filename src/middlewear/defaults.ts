@@ -1,12 +1,12 @@
 import assert from "assert";
 import compose from "./compose";
 import component from "./component";
-import findTestFiles from "./findTestFiles";
-import loadTests from "./loadTests";
-import runTests from "./runTests";
-import printResultsToConsole from "./printResultsToConsole";
-import writeResultsToJunitFile from "./writeResultsToJunitFile";
-import randomizeTestOrder from "./randomizeTestOrder";
+import matchTestFiles from "./matchTestFiles";
+import specSyntax from "./specSyntax";
+import runner from "./runner";
+import reporter from "./reporter";
+import junit from "./junit";
+import randomize from "./randomize";
 import failureExitCode from "./failureExitCode";
 import args from "./args";
 
@@ -20,14 +20,14 @@ export default (options: Options = {}) => {
   const junitFilePath = options.junitFilePath || "junit.xml";
 
   return compose(
-    args(),
+    args,
     component("assert", assert),
-    findTestFiles(...patterns),
-    loadTests,
-    randomizeTestOrder,
-    printResultsToConsole,
-    runTests,
+    matchTestFiles(...patterns),
+    specSyntax,
+    randomize,
+    reporter,
+    runner,
     failureExitCode(),
-    writeResultsToJunitFile(junitFilePath)
+    junit(junitFilePath)
   );
 };

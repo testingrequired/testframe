@@ -1,11 +1,11 @@
-import printResultsToConsole from "./printResultsToConsole";
+import reporter from "./reporter";
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
 import { EventEmitter } from "events";
 import Result from "../types/Result";
 
-describe("printResultsToConsole", () => {
+describe("reporter", () => {
   const setup: Setup = createSetup();
   const result: Result = createResult("1");
 
@@ -18,7 +18,7 @@ describe("printResultsToConsole", () => {
   });
 
   it("should call console.log with json stringified results", () => {
-    printResultsToConsole(setup, events);
+    reporter(setup, events);
 
     events.emit("test:result", result);
 

@@ -1,4 +1,4 @@
-import runTests from "./runTests";
+import runTests from "./runner";
 import Setup from "../types/Setup";
 import Test from "../types/Test";
 import Results from "../types/Results";

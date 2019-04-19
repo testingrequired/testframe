@@ -19,7 +19,7 @@ describe("args", () => {
   });
 
   it("should return positional and named arguments", () => {
-    args({})(setup);
+    args(setup);
     expect(setup.args).toEqual({ _: [], foo: "bar" });
   });
 });

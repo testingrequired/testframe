@@ -100,46 +100,48 @@ tf(defaults());
 
 #### Included Middlewear
 
-- args()
+- args
 - component("assert", assert)
-- findTestFiles(`...testFilePatterns`)
-- loadTests
-- randomizeTestOrder
-- printResultsToConsole
-- runTests
+- matchTestFiles(`...testFilePatterns`)
+- specSyntax
+- randomize
+- reporter
+- runner
 - failureExitCode()
-- writeResultsToJunitFile(`junitFilePath`)
+- junit(`junitFilePath`)
 
-### args(options)
+### args
 
 Uses `yargs` to parse `process.argv` accessible on `setup.args`
 
-### Options
+### args.withConfig(options)
+
+#### Options
 
 The `options` argument is passed to `yargs.config`
 
-### findTestFiles(...patterns)
+### matchTestFiles(...patterns)
 
 Use glob patterns to find test files to run.
 
 ```javascript
-tf(findTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
+tf(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
-### loadTests
+### specSyntax
 
-Read and load tests.
+Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
 ```javascript
-tf(loadTests);
+tf(specSyntax);
 ```
 
-### runTests
+### runner
 
 Run tests.
 
 ```javascript
-tf(runTests);
+tf(runner);
 ```
 
 ### failureExitCode(exitCode = 1)
@@ -150,36 +152,28 @@ Exit with code on failure
 tf(failureExitCode());
 ```
 
-### printResultsToConsole
+### reporter
 
 Print result object to console.
 
 ```javascript
-tf(printResultsToConsole);
+tf(reporter);
 ```
 
-### randomizeTestOrder
+### randomize
 
 Randomized the order tests are run.
 
 ```javascript
-tf(randomizeTestOrder);
+tf(randomize);
 ```
 
-### writeResultsToJunitFile(filePath)
+### junit(filePath)
 
-Write results to junit xml file.
-
-```javascript
-tf(writeResultsToJunitFile("junit.xml"));
-```
-
-### writeResultsToFile(filePath)
-
-Write result object as json to file.
+Write results to junit file.
 
 ```javascript
-tf(writeResultsToFile("results.json"));
+tf(junit("junit.xml"));
 ```
 
 ### component(key, value)

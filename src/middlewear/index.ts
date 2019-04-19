@@ -1,10 +1,9 @@
-export { default as findTestFiles } from "./findTestFiles";
+export { default as matchTestFiles } from "./matchTestFiles";
 export { default as component } from "./component";
-export { default as loadTests } from "./loadTests";
-export { default as runTests } from "./runTests";
-export { default as printResultsToConsole } from "./printResultsToConsole";
-export { default as writeResultsToFile } from "./writeResultsToFile";
-export { default as writeResultsToJunitFile } from "./writeResultsToJunitFile";
+export { default as specSyntax } from "./specSyntax";
+export { default as runner } from "./runner";
+export { default as reporter } from "./reporter";
+export { default as junit } from "./junit";
 export { default as setupFile } from "./setupFile";
 export { default as failureExitCode } from "./failureExitCode";
 export { default as compose } from "./compose";

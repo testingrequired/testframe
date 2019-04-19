@@ -1,10 +1,10 @@
-import randomizeTestOrder from "./randomizeTestOrder";
+import randomize from "./randomize";
 import Setup from "../types/Setup";
 import Test from "../types/Test";
 import createTest from "./testUtils/createTest";
 import createSetup from "./testUtils/createSetup";
 
-describe("randomTestOrder", () => {
+describe("randomize", () => {
   const expectedTest: Test = createTest("1");
 
   const expectedTest2: Test = createTest("2");
@@ -15,18 +15,18 @@ describe("randomTestOrder", () => {
 
   const setup: Setup = createSetup(expectedTests);
 
-  it.skip("should random test order", () => {
-    randomizeTestOrder(setup);
+  it.skip("should randomize test order", () => {
+    randomize(setup);
     expect(setup.tests).not.toEqual(expectedTests);
   });
 
   it("should be same length", () => {
-    randomizeTestOrder(setup);
+    randomize(setup);
     expect(setup.tests.length).toBe(expectedTests.length);
   });
 
   it("should contain the same items", () => {
-    randomizeTestOrder(setup);
+    randomize(setup);
 
     const sortedSetupTests = setup.tests.map(a => a.description).sort();
     const sortedExpectedTests = expectedTests.map(a => a.description).sort();

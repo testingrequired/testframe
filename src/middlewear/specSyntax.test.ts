@@ -2,7 +2,7 @@ import specSyntax from "./specSyntax";
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
 
-describe.skip("loadTests", () => {
+describe("loadTests", () => {
   let setup: Setup;
   let beforeEachMockFn;
   let afterEachMockFn;
@@ -39,7 +39,7 @@ describe.skip("loadTests", () => {
     expect(setup.tests[0].runState).toBe("run");
     setup.tests[0].fn();
     expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
-    expect(testMockFn).toHaveBeenNthCalledWith(1, setup.globals);
+    expect(testMockFn).toHaveBeenNthCalledWith(1);
     expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
   });
 

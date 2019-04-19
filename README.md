@@ -180,13 +180,16 @@ Write results to junit file.
 tf(junit("junit.xml"));
 ```
 
-### component(key, value)
+### globals(key, value)
 
-Register component to be passed to test functions.
+Register global variable available inside tests.
 
 ```javascript
 import assert from "assert";
-tf(component("assert", assert));
+
+const assertGlobal = globals("assert", assert);
+
+tf(assertGlobal);
 ```
 
 ### compose(...middlewears)

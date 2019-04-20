@@ -10,9 +10,4 @@ export default (
   events: EventEmitter,
   results: Results,
   ...middlewears: Array<Middlewear>
-) => {
-  middlewears
-    .map(callWith(setup, events))
-    .filter(x => x)
-    .forEach(callWith(results));
-};
+) => middlewears.map(callWith(setup, events)).forEach(fn => fn && fn(results));

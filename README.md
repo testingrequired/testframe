@@ -4,14 +4,9 @@ Build your own test framework.
 
 ## Features
 
-- Built on middlewear & composition
-- Most batteries included
-
-## Design Goals
-
-- Easy to understand
 - Testing style agnostic
-- Extendable
+- Extendability through composition
+- Most batteries included
 
 ## Getting Started
 
@@ -27,7 +22,7 @@ or
 $ yarn add -D @testingrequired/tf@latest
 ```
 
-### Add Test Script
+### Wire Test Command
 
 ```javascript
 // package.json
@@ -45,13 +40,13 @@ $ yarn add -D @testingrequired/tf@latest
 ```javascript
 // tests/example.test.js
 
-let value;
+let value = 0;
 
 beforeEach(() => {
-  value = 10;
+  value++;
 });
 
-test(`example test`, () => assert.equal(value, 10));
+test(`should have incremented`, () => assert(value == 1));
 ```
 
 ### Run Those Tests
@@ -60,9 +55,9 @@ test(`example test`, () => assert.equal(value, 10));
 $ npm test
 ```
 
-## Customize Framework
+## Customization
 
-Use [middlewear](#middlewear) to customize the framework to your needs:
+While `tf` offers reasonable [defaults](#defaults) you can use/write [middlewear](#middlewear) to tailor to any testing style.
 
 ```javascript
 // custom-tf.js
@@ -76,7 +71,9 @@ export default tf(
 );
 ```
 
-### Test Script
+### Wire Test Command
+
+The custom cli file is passed as the first argument.
 
 ```json
 {
@@ -86,13 +83,20 @@ export default tf(
 }
 ```
 
-### Run Tests
-
-```bash
-$ npm test
-```
-
 ## Middlewear
+
+Nearly all functionality is provided through middlewear. Middlewear is n curried function defining `setup` and `results` stages respectively.
+
+```typescript
+type SetupExecutor = (
+  setup: Setup,
+  events?: EventEmitter
+) => void | ResultsExecutor;
+
+type ResultsExecutor = (results: Results) => void;
+
+type Middlewear = SetupExecutor;
+```
 
 ### defaults(options)
 

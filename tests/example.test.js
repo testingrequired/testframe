@@ -1,13 +1,7 @@
-let value;
+let value = 0;
 
 beforeEach(() => {
-  value = 10;
+  value++;
 });
 
-describe("testing", () => {
-  beforeEach(() => {
-    value++;
-  });
-
-  test(`test1`, () => assert.equal(value, 11));
-});
+test(`should have incremented`, () => assert(value == 1));

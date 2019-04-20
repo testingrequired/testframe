@@ -84,24 +84,29 @@ describe("loadTests", () => {
       setup.tests[0].fn();
       expect(beforeEachMockFn).toHaveBeenCalledTimes(2);
       expect(testMockFn).toHaveBeenNthCalledWith(1);
+      expect(afterEachMockFn).toHaveBeenCalledTimes(2);
 
       beforeEachMockFn.mockReset();
       testMockFn.mockReset();
+      afterEachMockFn.mockReset();
 
       expect(setup.tests[1].description).toBe("nested deeper test");
       expect(setup.tests[1].runState).toBe("run");
       setup.tests[1].fn();
       expect(beforeEachMockFn).toHaveBeenCalledTimes(3);
       expect(testMockFn).toHaveBeenNthCalledWith(1);
+      expect(afterEachMockFn).toHaveBeenCalledTimes(3);
 
       beforeEachMockFn.mockReset();
       testMockFn.mockReset();
+      afterEachMockFn.mockReset();
 
       expect(setup.tests[2].description).toBe("test");
       expect(setup.tests[2].runState).toBe("run");
       setup.tests[2].fn();
       expect(beforeEachMockFn).toHaveBeenCalledTimes(1);
       expect(testMockFn).toHaveBeenNthCalledWith(1);
+      expect(afterEachMockFn).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -21,18 +21,22 @@ export default function loadTests(setup: Setup) {
     };
 
     const afterEachs = [];
-    (global as any).afterEach = fn => afterEachs.push(fn);
+    (global as any).afterEach = fn => {
+      if (afterEachs.length <= describes.length) afterEachs.push([]);
+      afterEachs[describes.length].push(fn);
+    };
 
     function test(description: string, fn: TestFunction) {
       const depth = describes.length;
 
       const wrapped: () => TestFunction = () => {
-        const sliced = beforeEachs.slice(0, depth + 1);
+        const scopedBeforeEachs = beforeEachs.slice(0, depth + 1);
+        const scopedAfterEachs = afterEachs.slice(0, depth + 1);
 
         return () => {
-          sliced.forEach(group => group.forEach(callWith()));
+          scopedBeforeEachs.forEach(group => group.forEach(callWith()));
           fn();
-          afterEachs.map(callWith());
+          scopedAfterEachs.forEach(group => group.forEach(callWith()));
         };
       };
 

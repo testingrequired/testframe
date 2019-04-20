@@ -64,7 +64,7 @@ While `tf` offers reasonable [defaults](#defaults) you can use/write [middlewear
 import tf, { defaults, event } from "@testingrequired/tf";
 
 export default tf(
-  defaults(),
+  defaults,
   event("test:failure", result => {
     console.log(`${result.description} failed`);
   })

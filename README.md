@@ -202,7 +202,7 @@ tf(runner);
 Exit with code of 1 on any failed result.
 
 ```javascript
-tf(failureExitCode());
+tf(exitOnFailedTests);
 ```
 
 ### reporter

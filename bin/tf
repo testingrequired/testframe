@@ -2,4 +2,4 @@
 
 // run the CLI with the current process arguments
 
-require("../lib/cli").run();
+require("../lib/bin/cli").run();

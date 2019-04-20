@@ -1,8 +1,8 @@
 import path from "path";
-import tf, { defaults } from "./index";
+import tf, { defaults } from "../index";
 
 export const run = () => {
-  const cliFilePath = process.argv.slice(2)[0];
+  const [cliFilePath] = process.argv.slice(2);
 
   let run: any;
 

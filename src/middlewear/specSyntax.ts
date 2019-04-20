@@ -2,6 +2,7 @@ import path from "path";
 import Setup from "../types/Setup";
 import callWith from "../utils/callWith";
 import TestFunction from "../types/TestFunction";
+import flat from "../utils/flat";
 
 export default function loadTests(setup: Setup) {
   const { testFilePaths, tests } = setup;
@@ -30,13 +31,14 @@ export default function loadTests(setup: Setup) {
       const depth = describes.length;
 
       const wrapped: () => TestFunction = () => {
-        const scopedBeforeEachs = beforeEachs.slice(0, depth + 1);
-        const scopedAfterEachs = afterEachs.slice(0, depth + 1);
+        const sliceEnd = depth + 1;
+        const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
+        const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
 
         return () => {
-          scopedBeforeEachs.forEach(group => group.forEach(callWith()));
+          testsBeforeEachs.forEach(callWith());
           fn();
-          scopedAfterEachs.forEach(group => group.forEach(callWith()));
+          testsAfterEachs.forEach(callWith());
         };
       };
 

@@ -15,13 +15,13 @@ export default function loadTests(setup: Setup) {
       describes.pop();
     };
 
-    const beforeEachs = [];
+    const beforeEachs = [[]];
     (global as any).beforeEach = fn => {
       if (beforeEachs.length <= describes.length) beforeEachs.push([]);
       beforeEachs[describes.length].push(fn);
     };
 
-    const afterEachs = [];
+    const afterEachs = [[]];
     (global as any).afterEach = fn => {
       if (afterEachs.length <= describes.length) afterEachs.push([]);
       afterEachs[describes.length].push(fn);

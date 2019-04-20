@@ -1,6 +1,3 @@
-beforeEach(global.beforeEachMock);
-afterEach(global.afterEachMock);
-
 describe("nested", () => {
   beforeEach(global.beforeEachMock);
   afterEach(global.afterEachMock);

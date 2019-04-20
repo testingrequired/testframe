@@ -27,7 +27,9 @@ describe("loadTests", () => {
 
   describe("basic", () => {
     beforeEach(() => {
-      setup.testFilePaths = ["./src/middlewear/testUtils/exampleTest.js"];
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/exampleTest.js"
+      ];
     });
 
     it("should load correct number of tests", () => {
@@ -50,7 +52,9 @@ describe("loadTests", () => {
 
   describe("skip", () => {
     beforeEach(() => {
-      setup.testFilePaths = ["./src/middlewear/testUtils/skipTest.js"];
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/skipTest.js"
+      ];
     });
 
     it("should load skipped test", () => {
@@ -67,7 +71,9 @@ describe("loadTests", () => {
 
   describe("describe", () => {
     beforeEach(() => {
-      setup.testFilePaths = ["./src/middlewear/testUtils/describeTest.js"];
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/describeTest.js"
+      ];
     });
 
     it("should load correct number of tests", () => {

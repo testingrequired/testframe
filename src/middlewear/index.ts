@@ -1,6 +1,7 @@
 export { default as matchTestFiles } from "./matchTestFiles";
 export { default as globals } from "./globals";
 export { default as specSyntax } from "./specSyntax";
+export { default as suiteSyntax } from "./suiteSyntax";
 export { default as runner } from "./runner";
 export { default as reporter } from "./reporter";
 export { default as junit } from "./junit";

@@ -28,7 +28,7 @@ describe("loadTests", () => {
   describe("basic", () => {
     beforeEach(() => {
       setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/exampleTest.js"
+        "./src/middlewear/testUtils/exampleTests/spec/exampleTest.js"
       ];
     });
 
@@ -53,7 +53,7 @@ describe("loadTests", () => {
   describe("skip", () => {
     beforeEach(() => {
       setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/skipTest.js"
+        "./src/middlewear/testUtils/exampleTests/spec/skipTest.js"
       ];
     });
 
@@ -72,7 +72,7 @@ describe("loadTests", () => {
   describe("describe", () => {
     beforeEach(() => {
       setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/describeTest.js"
+        "./src/middlewear/testUtils/exampleTests/spec/describeTest.js"
       ];
     });
 

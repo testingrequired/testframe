@@ -189,6 +189,24 @@ describe("counting", () => {
 });
 ```
 
+### suiteSyntax
+
+Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
+
+```javascript
+tf(suiteSyntax);
+```
+
+```javascript
+let value = 0;
+
+beforeEach(() => {
+  value++;
+});
+
+test(`should have incremented`, () => assert(value == 1));
+```
+
 ### runner
 
 Run tests.

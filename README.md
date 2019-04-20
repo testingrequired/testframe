@@ -116,7 +116,7 @@ tf(defaults());
 - randomize
 - reporter
 - runner
-- failureExitCode()
+- exitOnFailedTests
 - junit(`junitFilePath`)
 
 ### args
@@ -157,9 +157,9 @@ Run tests.
 tf(runner);
 ```
 
-### failureExitCode(exitCode = 1)
+### exitOnFailedTests
 
-Exit with code on failure
+Exit with code of 1 on any failed result.
 
 ```javascript
 tf(failureExitCode());

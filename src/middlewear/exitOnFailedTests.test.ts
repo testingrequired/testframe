@@ -1,10 +1,10 @@
-import failureExitCode from "./failureExitCode";
+import exitOnFailedTests from "./exitOnFailedTests";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
 
-describe("failureExitCode", () => {
+describe("exitOnFailedTests", () => {
   const setup: Setup = createSetup();
 
   const expectedExitCode = 1;
@@ -29,7 +29,7 @@ describe("failureExitCode", () => {
     });
 
     it("should exit with code", () => {
-      failureExitCode(expectedExitCode)(setup)(results);
+      exitOnFailedTests(setup)(results);
       expect(process.exit).toBeCalledWith(expectedExitCode);
     });
   });
@@ -40,7 +40,7 @@ describe("failureExitCode", () => {
     });
 
     it("should exit with code", () => {
-      failureExitCode(expectedExitCode)(setup)(results);
+      exitOnFailedTests(setup)(results);
       expect(process.exit).not.toHaveBeenCalled();
     });
   });

@@ -7,7 +7,7 @@ import runner from "./runner";
 import reporter from "./reporter";
 import junit from "./junit";
 import randomize from "./randomize";
-import failureExitCode from "./failureExitCode";
+import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
 
 interface Options {
@@ -27,7 +27,7 @@ export default (options: Options = {}) => {
     randomize,
     reporter,
     runner,
-    failureExitCode(),
+    exitOnFailedTests,
     junit(junitFilePath)
   );
 };

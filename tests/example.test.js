@@ -4,4 +4,10 @@ beforeEach(() => {
   value = 10;
 });
 
-test(`test1`, () => assert.equal(value, 11));
+describe("testing", () => {
+  beforeEach(() => {
+    value++;
+  });
+
+  test(`test1`, () => assert.equal(value, 11));
+});

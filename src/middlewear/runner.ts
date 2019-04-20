@@ -2,6 +2,7 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import Result from "../types/Result";
 import { EventEmitter } from "events";
+import { AssertionError } from "assert";
 
 export default function runTests(setup: Setup, events: EventEmitter) {
   return (results: Results) => {
@@ -22,12 +23,18 @@ export default function runTests(setup: Setup, events: EventEmitter) {
         case "run":
           try {
             createGlobals(globals);
-            fn();
+            fn.call(undefined);
             result.state = "passed";
           } catch (e) {
-            result.state = "failed";
-            result.error = e;
-            events.emit("test:failure", result);
+            if (e instanceof AssertionError) {
+              result.state = "failed";
+              result.error = e;
+              events.emit("test:failure", result);
+            } else {
+              result.state = "errored";
+              result.error = e;
+              events.emit("test:error", result);
+            }
           } finally {
             removeGlobals(globals);
           }

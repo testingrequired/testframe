@@ -7,23 +7,41 @@ export default function loadTests(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {
+    const describes = [];
+    (global as any).describe = (description: string, fn: any) => {
+      describes.push(description);
+      fn();
+      describes.pop();
+    };
+
     const beforeEachs = [];
-    (global as any).beforeEach = fn => beforeEachs.push(fn);
+    (global as any).beforeEach = fn => {
+      if (beforeEachs.length <= describes.length) beforeEachs.push([]);
+      beforeEachs[describes.length].push(fn);
+    };
 
     const afterEachs = [];
     (global as any).afterEach = fn => afterEachs.push(fn);
 
     function test(description: string, fn: TestFunction) {
-      const wrapped: TestFunction = () => {
-        beforeEachs.map(callWith());
-        fn();
-        afterEachs.map(callWith());
+      const depth = describes.length;
+
+      const wrapped: () => TestFunction = () => {
+        const sliced = beforeEachs.slice(0, depth + 1);
+
+        return () => {
+          sliced.forEach(group => group.forEach(callWith()));
+          fn();
+          afterEachs.map(callWith());
+        };
       };
+
+      const testDescription = [...describes, description].join(" ");
 
       tests.push({
         testFilePath,
-        description,
-        fn: wrapped,
+        description: testDescription,
+        fn: wrapped(),
         runState: "run"
       });
     }
@@ -41,6 +59,7 @@ export default function loadTests(setup: Setup) {
 
     require(path.join(process.cwd(), testFilePath));
 
+    delete (global as any).describe;
     delete (global as any).beforeEach;
     delete (global as any).afterEach;
     delete (global as any).test;

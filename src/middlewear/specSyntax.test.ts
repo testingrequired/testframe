@@ -19,48 +19,89 @@ describe("loadTests", () => {
     (global as any).testMock = testMockFn;
 
     setup = createSetup();
-    setup.testFilePaths = ["./src/middlewear/testUtils/exampleTest.js"];
   });
 
   afterEach(() => {
     jest.resetModules();
   });
 
-  it("should load two tests", () => {
-    specSyntax(setup);
+  describe("basic", () => {
+    beforeEach(() => {
+      setup.testFilePaths = ["./src/middlewear/testUtils/exampleTest.js"];
+    });
 
-    expect(setup.tests.length).toBe(2);
+    it("should load correct number of tests", () => {
+      specSyntax(setup);
+
+      expect(setup.tests.length).toBe(1);
+    });
+
+    it("should load run test", () => {
+      specSyntax(setup);
+
+      expect(setup.tests[0].description).toBe("test1");
+      expect(setup.tests[0].runState).toBe("run");
+      setup.tests[0].fn();
+      expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
+      expect(testMockFn).toHaveBeenNthCalledWith(1);
+      expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
+    });
   });
 
-  it("should load run test", () => {
-    specSyntax(setup);
+  describe("skip", () => {
+    beforeEach(() => {
+      setup.testFilePaths = ["./src/middlewear/testUtils/skipTest.js"];
+    });
 
-    expect(setup.tests[0].description).toBe("test1");
-    expect(setup.tests[0].runState).toBe("run");
-    setup.tests[0].fn();
-    expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
-    expect(testMockFn).toHaveBeenNthCalledWith(1);
-    expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
+    it("should load skipped test", () => {
+      specSyntax(setup);
+
+      expect(setup.tests[0].description).toBe("test2");
+      expect(setup.tests[0].runState).toBe("skip");
+      setup.tests[0].fn();
+      expect(beforeEachMockFn).not.toBeCalled();
+      expect(testMockFn).not.toBeCalled();
+      expect(afterEachMockFn).not.toBeCalled();
+    });
   });
 
-  it("should load skipped test", () => {
-    specSyntax(setup);
+  describe("describe", () => {
+    beforeEach(() => {
+      setup.testFilePaths = ["./src/middlewear/testUtils/describeTest.js"];
+    });
 
-    expect(setup.tests[1].description).toBe("test2");
-    expect(setup.tests[1].runState).toBe("skip");
-    setup.tests[1].fn();
-    expect(beforeEachMockFn).not.toBeCalled();
-    expect(testMockFn).not.toBeCalled();
-    expect(afterEachMockFn).not.toBeCalled();
-  });
+    it("should load correct number of tests", () => {
+      specSyntax(setup);
 
-  it("should run hooks for each test", () => {
-    specSyntax(setup);
+      expect(setup.tests.length).toBe(3);
+    });
 
-    setup.tests[0].fn();
-    setup.tests[1].fn();
+    it("should load run test", () => {
+      specSyntax(setup);
 
-    expect(beforeEachMockFn).not.toBeCalledTimes(2);
-    expect(afterEachMockFn).not.toBeCalledTimes(2);
+      expect(setup.tests[0].description).toBe("nested test");
+      expect(setup.tests[0].runState).toBe("run");
+      setup.tests[0].fn();
+      expect(beforeEachMockFn).toHaveBeenCalledTimes(2);
+      expect(testMockFn).toHaveBeenNthCalledWith(1);
+
+      beforeEachMockFn.mockReset();
+      testMockFn.mockReset();
+
+      expect(setup.tests[1].description).toBe("nested deeper test");
+      expect(setup.tests[1].runState).toBe("run");
+      setup.tests[1].fn();
+      expect(beforeEachMockFn).toHaveBeenCalledTimes(3);
+      expect(testMockFn).toHaveBeenNthCalledWith(1);
+
+      beforeEachMockFn.mockReset();
+      testMockFn.mockReset();
+
+      expect(setup.tests[2].description).toBe("test");
+      expect(setup.tests[2].runState).toBe("run");
+      setup.tests[2].fn();
+      expect(beforeEachMockFn).toHaveBeenCalledTimes(1);
+      expect(testMockFn).toHaveBeenNthCalledWith(1);
+    });
   });
 });

@@ -149,6 +149,32 @@ Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 tf(specSyntax);
 ```
 
+```javascript
+describe("counting", () => {
+  let value = 0;
+
+  describe("increment", () => {
+    beforeEach(() => {
+      value++;
+    });
+
+    it('should increase in value', () => {
+      assert(value === 1);
+    });
+  });
+
+  describe("decrement", () => {
+    beforeEach(() => {
+      value--;
+    });
+
+    it('should increase in value', () => {
+      assert(value === -1);
+    });
+  });
+});
+```
+
 ### runner
 
 Run tests.

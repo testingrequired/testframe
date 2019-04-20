@@ -98,18 +98,13 @@ type ResultsExecutor = (results: Results) => void;
 type Middlewear = SetupExecutor;
 ```
 
-### defaults(options)
+### defaults
 
 Returns a default set of middlewear.
 
 ```javascript
-tf(defaults());
+tf(defaults);
 ```
-
-#### Options
-
-- testFilePatterns: `Array<string>`
-- junitFilePath: `string`
 
 #### Included Middlewear
 
@@ -122,6 +117,21 @@ tf(defaults());
 - runner
 - exitOnFailedTests
 - junit(`junitFilePath`)
+
+### defaults.withOptions(options)
+
+Pass options to defaults.
+
+```javascript
+tf(defaults.withOptions({
+  junitFilePath: "customJUnit.xml"
+}));
+```
+
+#### Options
+
+- testFilePatterns: `Array<string>`
+- junitFilePath: `string`
 
 ### args
 

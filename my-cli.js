@@ -1,7 +1,7 @@
 import tf, { defaults, compose, event } from "./lib/index";
 
 export default tf(
-  defaults(),
+  defaults,
   compose(
     setup => {
       console.log(JSON.stringify(setup.args));

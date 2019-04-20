@@ -15,7 +15,7 @@ interface Options {
   junitFilePath?: string;
 }
 
-export default (options: Options = {}) => {
+const defaultsWithOptions = (options: Options = {}) => {
   const patterns = options.testFilePatterns || ["./tests/*.test.js"];
   const junitFilePath = options.junitFilePath || "junit.xml";
 
@@ -31,3 +31,9 @@ export default (options: Options = {}) => {
     junit(junitFilePath)
   );
 };
+
+const defaults = defaultsWithOptions();
+
+(defaults as any).withOptions = defaultsWithOptions;
+
+export default defaults;

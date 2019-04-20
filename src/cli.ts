@@ -9,7 +9,7 @@ export const run = () => {
   if (cliFilePath) {
     run = require("esm")(module)(path.join(process.cwd(), cliFilePath)).default;
   } else {
-    run = tf(defaults());
+    run = tf(defaults);
   }
 
   run();

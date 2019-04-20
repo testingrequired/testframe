@@ -5,6 +5,7 @@ import Results from "../types/Results";
 import { EventEmitter } from "events";
 import createTest from "./testUtils/createTest";
 import createSetup from "./testUtils/createSetup";
+import { AssertionError } from "assert";
 
 jest.mock("events");
 
@@ -61,11 +62,16 @@ describe("runTests", () => {
     describe("when test failure", () => {
       let error;
       beforeEach(() => {
-        error = new Error();
+        error = new AssertionError({});
 
         (expectedTest.fn as any).mockImplementation(() => {
           throw error;
         });
+      });
+
+      it("should set state to failed", () => {
+        runTests(setup, events)(results);
+        expect(results[0].state).toEqual("failed");
       });
 
       it("should emit test:failure", () => {
@@ -87,7 +93,12 @@ describe("runTests", () => {
 
     it("should set state to failed", () => {
       runTests(setup, events)(results);
-      expect(results[0].state).toEqual("failed");
+      expect(results[0].state).toEqual("errored");
+    });
+
+    it("should emit test:error", () => {
+      runTests(setup, events)(results);
+      expect(events.emit).toBeCalledWith("test:error", results[0]);
     });
 
     it("should set error to error thrown", () => {

@@ -48,6 +48,8 @@ export default function loadTests(setup: Setup) {
 
     (global as any).test = test;
 
+    (global as any).it = test;
+
     test.skip = (description: string, fn: TestFunction) => {
       tests.push({
         testFilePath,

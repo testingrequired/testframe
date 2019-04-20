@@ -1,6 +1,6 @@
 import assert from "assert";
 import compose from "./compose";
-import component from "./globals";
+import globals from "./globals";
 import matchTestFiles from "./matchTestFiles";
 import specSyntax from "./specSyntax";
 import runner from "./runner";
@@ -21,7 +21,7 @@ const defaultsWithOptions = (options: Options = {}) => {
 
   return compose(
     args,
-    component("assert", assert),
+    globals("assert", assert),
     matchTestFiles(...patterns),
     specSyntax,
     randomize,

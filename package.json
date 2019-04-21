@@ -19,8 +19,10 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "precli": "npm run build",
-    "cli:default": "node ./bin/tf",
-    "cli": "npm run cli:default -- ./my-cli.js",
+    "cli": "node ./bin/tf",
+    "cli:spec": "npm run cli -- spec",
+    "cli:suite": "npm run cli -- suite",
+    "cli:custom": "npm run cli -- custom",
     "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest"

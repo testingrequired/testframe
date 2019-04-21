@@ -2,7 +2,6 @@ import assert from "assert";
 import compose from "./compose";
 import globals from "./globals";
 import matchTestFiles from "./matchTestFiles";
-import specSyntax from "./specSyntax";
 import runner from "./runner";
 import reporter from "./reporter";
 import junit from "./junit";
@@ -23,7 +22,6 @@ const defaultsWithOptions = (options: Options = {}) => {
     args,
     globals("assert", assert),
     matchTestFiles(...patterns),
-    specSyntax,
     randomize,
     reporter,
     runner,

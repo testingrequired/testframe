@@ -57,9 +57,11 @@ export default function loadTests(setup: Setup) {
     (global as any).it = test;
 
     test.skip = (description: string, fn: TestFunction) => {
+      const testDescription = [...describes, description].join(" ");
+
       tests.push({
         testFilePath,
-        description,
+        description: testDescription,
         fn: () => {},
         runState: "skip"
       });

@@ -1,16 +1,45 @@
 import path from "path";
 import tf, { defaults } from "../index";
+import { specSyntax, suiteSyntax } from "../middlewear";
 
 export const run = () => {
-  const [cliFilePath] = process.argv.slice(2);
-
-  let run: any;
-
-  if (cliFilePath) {
-    run = require("esm")(module)(path.join(process.cwd(), cliFilePath)).default;
-  } else {
-    run = tf(defaults);
-  }
-
-  run();
+  require("yargs")
+    .command(
+      "spec",
+      "Run spec style tests",
+      () => {},
+      () =>
+        tf(
+          (defaults as any).withOptions({
+            testFilePatterns: ["./tests/**/*.spec.js"]
+          }),
+          specSyntax
+        )()
+    )
+    .command(
+      "suite",
+      "Run suite style tests",
+      () => {},
+      () =>
+        tf(
+          (defaults as any).withOptions({
+            testFilePatterns: ["./tests/**/*.suite.js"]
+          }),
+          suiteSyntax
+        )()
+    )
+    .command(
+      "custom [path]",
+      "Run using custom cli",
+      yargs => {
+        yargs.positional("path", {
+          describe: "Path to customized cli",
+          default: "./bin/tf.js"
+        });
+      },
+      argv => {
+        const customPath = path.join(process.cwd(), argv.path);
+        require("esm")(module)(customPath).default();
+      }
+    ).argv;
 };

@@ -4,9 +4,9 @@ Build your own test framework.
 
 ## Features
 
-- Testing style agnostic
-- Extendability through composition
+- Multiple testing styles supported
 - Most batteries included
+- Extendable
 
 ## Getting Started
 
@@ -22,6 +22,18 @@ or
 $ yarn add -D @testingrequired/tf@latest
 ```
 
+### Choose Testing Style
+
+There is built in support for different testing styles.
+
+#### Test Suite
+
+A flat test structure using `beforeEach`, `afterEach`, `test`. Tests are matched on `./tests/**/*.test.js` by default.
+
+#### Spec
+
+Nested test structure using `describe`, `beforeEach`, `afterEach`, `it`. Tests are matched on `./tests/**/*.spec.js` by default.
+
 ### Wire Test Command
 
 ```javascript
@@ -30,12 +42,14 @@ $ yarn add -D @testingrequired/tf@latest
 {
   ...package,
   "scripts": {
-    "test": "tf"
+    "test": "tf suite"
   }
 }
 ```
 
 ### Write Some Tests
+
+Here is a simple example of a test suite:
 
 ```javascript
 // tests/example.test.js
@@ -49,7 +63,7 @@ beforeEach(() => {
 test(`should have incremented`, () => assert(value == 1));
 ```
 
-### Run Those Tests
+### Run Tests
 
 ```bash
 $ npm test
@@ -60,14 +74,12 @@ $ npm test
 While `tf` offers reasonable [defaults](#defaults) you can use/write [middlewear](#middlewear) to tailor to any testing style.
 
 ```javascript
-// custom-tf.js
-import tf, { defaults, event } from "@testingrequired/tf";
+// ./custom-tf.js
+import tf, { defaults } from "@testingrequired/tf";
 
 export default tf(
-  defaults,
-  event("test:failure", result => {
-    console.log(`${result.description} failed`);
-  })
+  defaults.withOptions({testFilePatterns: ["./custom/path/*.spec.js"]}),
+  specSyntax,
 );
 ```
 
@@ -78,7 +90,7 @@ The custom cli file is passed as the first argument.
 ```json
 {
   "scripts": {
-    "test": "tf ./custom-tf.js"
+    "test": "tf custom ./custom-tf.js"
   }
 }
 ```
@@ -111,7 +123,6 @@ tf(defaults);
 - args
 - assert,
 - matchTestFiles(`...testFilePatterns`)
-- specSyntax
 - randomize
 - reporter
 - runner

@@ -18,12 +18,12 @@ export const run = () => {
     )
     .command(
       "suite",
-      "Run suite style tests",
+      "Run test suite style tests",
       () => {},
       () =>
         tf(
           (defaults as any).withOptions({
-            testFilePatterns: ["./tests/**/*.suite.js"]
+            testFilePatterns: ["./tests/**/*.test.js"]
           }),
           suiteSyntax
         )()

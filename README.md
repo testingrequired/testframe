@@ -12,6 +12,8 @@ Build your own test framework.
 
 ### Install
 
+[![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftf)
+
 ```bash
 $ npm i -D @testingrequired/tf@latest
 ```

@@ -71,4 +71,4 @@ $ npm test
 
 ## Customization
 
-See [customization](CUSTOMIZATON.md) on how to build your own test framework.
+See [customization](CUSTOMIZATION.md) on how to build your own test framework.

@@ -4,7 +4,7 @@ Build your own test framework.
 
 ## Features
 
-- Multiple testing styles supported
+- Testing style agnostic
 - Most batteries included
 - Extendable
 
@@ -24,19 +24,21 @@ or
 $ yarn add -D @testingrequired/tf@latest
 ```
 
-### Choose Testing Style
+### Customize
 
-There is built in support for different testing styles.
+Build and customize the framework using middlewear.
 
-#### Test Suite
+```javascript
+// ./tf.js
 
-A flat test structure using `beforeEach`, `afterEach`, `test`. Tests are matched on `./tests/**/*.test.js` by default.
+import tf, { run, middlewear } from "@testingrequired/tf";
 
-#### Spec
+const { defaults, matchTestFiles, suiteSyntax } = middlewear;
 
-Nested test structure using `describe`, `beforeEach`, `afterEach`, `it`. Tests are matched on `./tests/**/*.spec.js` by default.
+run(tf(defaults, matchTestFiles("./**/*.test.js"), suiteSyntax));
+```
 
-### Wire Test Command
+### Script
 
 ```javascript
 // package.json
@@ -44,14 +46,12 @@ Nested test structure using `describe`, `beforeEach`, `afterEach`, `it`. Tests a
 {
   ...package,
   "scripts": {
-    "test": "tf suite"
+    "test": "node ./tf.js"
   }
 }
 ```
 
-### Write Some Tests
-
-Here is a simple example of a test suite:
+### Write
 
 ```javascript
 // tests/example.test.js
@@ -65,12 +65,12 @@ beforeEach(() => {
 test(`should have incremented`, () => assert(value == 1));
 ```
 
-### Run Tests
+### Run
 
 ```bash
 $ npm test
 ```
 
-## Customization
+## Middlewear
 
-See [customization](CUSTOMIZATION.md) on how to build your own test framework.
+See [middlewear](MIDDLEWEAR.md).

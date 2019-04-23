@@ -1,3 +1,13 @@
-import tf, { defaults, specSyntax, matchTestFiles } from "./lib/index";
+const {
+  default: tf,
+  run,
+  defaults,
+  specSyntax,
+  suiteSyntax,
+  matchTestFiles
+} = require("./lib");
 
-export default tf(defaults, matchTestFiles("./tests/**/*.spec.js"), specSyntax);
+run(
+  tf(defaults, matchTestFiles("./tests/**/*.spec.js"), specSyntax),
+  tf(defaults, matchTestFiles("./tests/**/*.test.js"), suiteSyntax)
+);

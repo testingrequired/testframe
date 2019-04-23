@@ -22,7 +22,8 @@
     "cli": "node ./bin/tf",
     "cli:spec": "npm run cli -- spec",
     "cli:suite": "npm run cli -- suite",
-    "cli:custom": "npm run cli -- custom",
+    "precli:custom": "npm run build",
+    "cli:custom": "node ./custom-tf.js",
     "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest"

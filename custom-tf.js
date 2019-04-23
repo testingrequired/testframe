@@ -1,6 +1,3 @@
-import tf, { defaults, specSyntax } from "./lib/index";
+import tf, { defaults, specSyntax, matchTestFiles } from "./lib/index";
 
-export default tf(
-  defaults.withOptions({ testFilePatterns: ["./tests/**/*.spec.js"] }),
-  specSyntax
-);
+export default tf(defaults, matchTestFiles("./tests/**/*.spec.js"), specSyntax);

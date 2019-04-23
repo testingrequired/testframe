@@ -53,27 +53,11 @@ tf(defaults);
 
 - args
 - assert,
-- matchTestFiles(`...testFilePatterns`)
 - randomize
 - reporter
 - runner
 - exitOnFailedTests
 - junit(`junitFilePath`)
-
-### defaults.withOptions(options)
-
-Pass options to defaults.
-
-```javascript
-tf(defaults.withOptions({
-  junitFilePath: "customJUnit.xml"
-}));
-```
-
-#### Options
-
-- testFilePatterns: `Array<string>`
-- junitFilePath: `string`
 
 ### args
 

@@ -1,33 +1,23 @@
 import path from "path";
 import tf, { defaults } from "../index";
-import { specSyntax, suiteSyntax } from "../middlewear";
+import { specSyntax, suiteSyntax, matchTestFiles } from "../middlewear";
+
+const specCli = tf(
+  defaults,
+  matchTestFiles("./tests/**/*.spec.js"),
+  specSyntax
+);
+
+const suiteCli = tf(
+  defaults,
+  matchTestFiles("./tests/**/*.spec.js"),
+  specSyntax
+);
 
 export const run = () => {
   require("yargs")
-    .command(
-      "spec",
-      "Run spec style tests",
-      () => {},
-      () =>
-        tf(
-          (defaults as any).withOptions({
-            testFilePatterns: ["./tests/**/*.spec.js"]
-          }),
-          specSyntax
-        )()
-    )
-    .command(
-      "suite",
-      "Run test suite style tests",
-      () => {},
-      () =>
-        tf(
-          (defaults as any).withOptions({
-            testFilePatterns: ["./tests/**/*.test.js"]
-          }),
-          suiteSyntax
-        )()
-    )
+    .command("spec", "Run spec style tests", () => {}, specCli)
+    .command("suite", "Run test suite style tests", () => {}, suiteCli)
     .command(
       "custom [path]",
       "Run using custom cli",

@@ -9,7 +9,7 @@ export const run = () => {
       "*",
       "Run tests",
       () => {},
-      tf(defaults, matchTestFiles("./**/*.test.js"), specSyntax)
+      tf(defaults, matchTestFiles("./tests/**/*.test.js"), specSyntax)
     )
     .command(
       "custom [path]",

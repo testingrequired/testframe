@@ -1,23 +1,15 @@
 import path from "path";
 import tf, { defaults } from "../index";
-import { specSyntax, suiteSyntax, matchTestFiles } from "../middlewear";
-
-const specCli = tf(
-  defaults,
-  matchTestFiles("./tests/**/*.spec.js"),
-  specSyntax
-);
-
-const suiteCli = tf(
-  defaults,
-  matchTestFiles("./tests/**/*.spec.js"),
-  specSyntax
-);
+import { specSyntax, matchTestFiles } from "../middlewear";
 
 export const run = () => {
   require("yargs")
-    .command("spec", "Run spec style tests", () => {}, specCli)
-    .command("suite", "Run test suite style tests", () => {}, suiteCli)
+    .command(
+      "*",
+      "Run tests",
+      () => {},
+      tf(defaults, matchTestFiles("./**/*.test.js"), specSyntax)
+    )
     .command(
       "custom [path]",
       "Run using custom cli",
@@ -29,7 +21,7 @@ export const run = () => {
       },
       argv => {
         const customPath = path.join(process.cwd(), argv.path);
-        require("esm")(module)(customPath).default();
+        require("esm")(module)(customPath);
       }
     ).argv;
 };

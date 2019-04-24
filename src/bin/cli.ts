@@ -1,6 +1,7 @@
 import path from "path";
-import tf, { defaults } from "../index";
-import { specSyntax, matchTestFiles } from "../middlewear";
+import tf, { middlewear } from "../index";
+
+const { defaults, specSyntax, matchTestFiles } = middlewear;
 
 export const run = () => {
   require("yargs")

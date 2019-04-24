@@ -24,18 +24,17 @@ or
 $ yarn add -D @testingrequired/tf@latest
 ```
 
-### Customize
-
-Build and customize the framework using middlewear.
+### Create
 
 ```javascript
-// ./tf.js
-
+// ./bin/tf.js
 import tf, { run, middlewear } from "@testingrequired/tf";
 
-const { defaults, matchTestFiles, suiteSyntax } = middlewear;
+const { defaults, matchTestFiles, specSyntax, junit } = middlewear;
 
-run(tf(defaults, matchTestFiles("./**/*.test.js"), suiteSyntax));
+run(
+  tf(defaults, matchTestFiles("./**/*.test.js"), specSyntax, junit("junit.xml"))
+);
 ```
 
 ### Script
@@ -46,7 +45,7 @@ run(tf(defaults, matchTestFiles("./**/*.test.js"), suiteSyntax));
 {
   ...package,
   "scripts": {
-    "test": "node ./tf.js"
+    "test": "node -r esm ./bin/tf.js"
   }
 }
 ```

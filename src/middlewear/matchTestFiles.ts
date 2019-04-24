@@ -8,7 +8,11 @@ export default (...patterns: Array<string>) => (setup: Setup) => {
     .reduce(
       (paths, pattern) => [
         ...paths,
-        ...glob.sync(pattern, { cwd: process.cwd(), absolute: true })
+        ...glob.sync(pattern, {
+          cwd: process.cwd(),
+          absolute: true,
+          ignore: ["./node_modules"]
+        })
       ],
       []
     )

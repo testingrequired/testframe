@@ -4,3 +4,4 @@ node_modules
 results.json
 results2.json
 junit.xml
+*.tgz

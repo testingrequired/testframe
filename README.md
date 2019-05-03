@@ -75,6 +75,10 @@ test(`should have incremented`, () => assert(value == 1));
 $ npm test
 ```
 
+### Example Project
+
+https://github.com/testingrequired/tf-example
+
 ## Middlewear
 
 See [middlewear](MIDDLEWEAR.md).

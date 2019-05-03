@@ -63,6 +63,17 @@ describe("loadTests", () => {
       expect(setup.tests[0].description).toBe("test2");
       expect(setup.tests[0].runState).toBe("skip");
       setup.tests[0].fn();
+
+      expect(setup.tests[1].description).toBe("describe skips test3");
+      expect(setup.tests[1].runState).toBe("skip");
+      setup.tests[1].fn();
+
+      expect(setup.tests[2].description).toBe(
+        "describe skips nested describe skips test4"
+      );
+      expect(setup.tests[2].runState).toBe("skip");
+      setup.tests[2].fn();
+
       expect(beforeEachMockFn).not.toBeCalled();
       expect(testMockFn).not.toBeCalled();
       expect(afterEachMockFn).not.toBeCalled();

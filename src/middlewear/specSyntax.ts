@@ -9,10 +9,20 @@ export default function loadTests(setup: Setup) {
 
   testFilePaths.forEach(testFilePath => {
     const describes = [];
-    (global as any).describe = (description: string, fn: any) => {
+    let describeIsSkipped;
+
+    function describe(description: string, fn: any) {
       describes.push(description);
       fn();
       describes.pop();
+    }
+
+    (global as any).describe = describe;
+
+    describe.skip = (description: string, fn: any) => {
+      describeIsSkipped = true;
+      describe(description, fn);
+      describeIsSkipped = false;
     };
 
     const beforeEachs = [[]];
@@ -35,11 +45,13 @@ export default function loadTests(setup: Setup) {
         const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
         const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
 
-        return () => {
-          testsBeforeEachs.forEach(callWith());
-          fn();
-          testsAfterEachs.forEach(callWith());
-        };
+        return describeIsSkipped
+          ? () => {}
+          : () => {
+              testsBeforeEachs.forEach(callWith());
+              fn();
+              testsAfterEachs.forEach(callWith());
+            };
       };
 
       const testDescription = [...describes, description].join(" ");
@@ -48,7 +60,7 @@ export default function loadTests(setup: Setup) {
         testFilePath,
         description: testDescription,
         fn: wrapped(),
-        runState: "run"
+        runState: describeIsSkipped ? "skip" : "run"
       });
     }
 

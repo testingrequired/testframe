@@ -187,6 +187,18 @@ tf(event("test:result", result => {}));
 
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
+```javascript
+tf(random);
+```
+
+Used in test:
+
+```javascript
+test("should get random value", () => {
+  console.log(random.string());
+});
+```
+
 #### args
 
 The `--seed` arg will be passed to chance.

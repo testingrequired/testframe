@@ -12,3 +12,4 @@ export { default as defaults } from "./defaults";
 export { default as event } from "./event";
 export { default as args } from "./args";
 export { default as assert } from "./assert";
+export { default as random } from "./random";

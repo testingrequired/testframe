@@ -1,9 +1,5 @@
-const {
-  default: tf,
-  run,
-  defaults,
-  specSyntax,
-  matchTestFiles
-} = require("../lib");
+const { default: tf, run, middlewear } = require("../lib");
 
-run(tf(defaults, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
+const { defaults, specSyntax, matchTestFiles, random } = middlewear;
+
+run(tf(defaults, matchTestFiles("./tests/**/*.spec.js"), specSyntax, random));

@@ -8,44 +8,46 @@ export default function loadTests(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {
-    const describes = [];
-    let describeIsSkipped;
+    const descriptions = [];
+    let globalShouldSkipTest;
 
     function describe(description: string, fn: any) {
-      describes.push(description);
+      descriptions.push(description);
       fn();
-      describes.pop();
+      descriptions.pop();
     }
 
     (global as any).describe = describe;
 
     describe.skip = (description: string, fn: any) => {
-      describeIsSkipped = true;
+      globalShouldSkipTest = true;
       describe(description, fn);
-      describeIsSkipped = false;
+      globalShouldSkipTest = false;
     };
 
     const beforeEachs = [[]];
     (global as any).beforeEach = fn => {
-      if (beforeEachs.length <= describes.length) beforeEachs.push([]);
-      beforeEachs[describes.length].push(fn);
+      const describeDepth = descriptions.length;
+      if (beforeEachs.length <= describeDepth) beforeEachs.push([]);
+      beforeEachs[describeDepth].push(fn);
     };
 
     const afterEachs = [[]];
     (global as any).afterEach = fn => {
-      if (afterEachs.length <= describes.length) afterEachs.push([]);
-      afterEachs[describes.length].push(fn);
+      const describeDepth = descriptions.length;
+      if (afterEachs.length <= describeDepth) afterEachs.push([]);
+      afterEachs[describeDepth].push(fn);
     };
 
     function test(description: string, fn: TestFunction) {
-      const depth = describes.length;
+      const describeDepth = descriptions.length;
 
       const wrapped: () => TestFunction = () => {
-        const sliceEnd = depth + 1;
+        const sliceEnd = describeDepth + 1;
         const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
         const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
 
-        return describeIsSkipped
+        return globalShouldSkipTest
           ? () => {}
           : () => {
               testsBeforeEachs.forEach(callWith());
@@ -54,13 +56,13 @@ export default function loadTests(setup: Setup) {
             };
       };
 
-      const testDescription = [...describes, description].join(" ");
+      const testDescription = [...descriptions, description].join(" ");
 
       tests.push({
         testFilePath,
         description: testDescription,
         fn: wrapped(),
-        runState: describeIsSkipped ? "skip" : "run"
+        runState: globalShouldSkipTest ? "skip" : "run"
       });
     }
 
@@ -69,14 +71,9 @@ export default function loadTests(setup: Setup) {
     (global as any).it = test;
 
     test.skip = (description: string, fn: TestFunction) => {
-      const testDescription = [...describes, description].join(" ");
-
-      tests.push({
-        testFilePath,
-        description: testDescription,
-        fn: () => {},
-        runState: "skip"
-      });
+      globalShouldSkipTest = true;
+      test(description, fn);
+      globalShouldSkipTest = false;
     };
 
     require(path.join(process.cwd(), testFilePath));

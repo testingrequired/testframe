@@ -3,13 +3,9 @@
   "version": "0.0.11",
   "description": "Middlewear based test framework",
   "main": "lib/index.js",
-  "bin": {
-    "tf": "bin/tf"
-  },
   "files": [
     "LICENSE",
     "README.md",
-    "bin",
     "lib"
   ],
   "scripts": {
@@ -20,10 +16,6 @@
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "precli": "npm run build",
     "cli": "node ./bin/tf",
-    "cli:spec": "npm run cli -- spec",
-    "cli:suite": "npm run cli -- suite",
-    "precli:custom": "npm run build",
-    "cli:custom": "node ./custom-tf.js",
     "prepublishOnly": "npm run test && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest"

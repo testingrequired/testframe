@@ -24,7 +24,9 @@ or
 $ yarn add -D @testingrequired/tf@latest
 ```
 
-### Create
+### Create Framework File
+
+Compose and configure middlewear in your framework file.
 
 ```javascript
 // ./bin/tf.js
@@ -42,7 +44,9 @@ run(
 );
 ```
 
-### Script
+### Wire Test Script
+
+Framework files are runnable by node. The following example uses `esm` to support es modules inside your framework file.
 
 ```javascript
 // package.json
@@ -55,7 +59,9 @@ run(
 }
 ```
 
-### Write
+### Write Tests
+
+Test syntax will depend on the middlewear used. The following example uses the `specSyntax` middlewear.
 
 ```javascript
 // tests/example.test.js
@@ -69,7 +75,7 @@ beforeEach(() => {
 test(`should have incremented`, () => assert(value == 1));
 ```
 
-### Run
+### Run Tests
 
 ```bash
 $ npm test

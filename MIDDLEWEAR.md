@@ -116,7 +116,7 @@ tf(exitOnFailedTests);
 
 ### reporter
 
-Print result object to console.
+Report progress and results to console.
 
 ```javascript
 tf(reporter);

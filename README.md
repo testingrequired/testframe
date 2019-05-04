@@ -39,7 +39,7 @@ $ yarn add -D @testingrequired/tf@latest
 
 ### Create Framework File
 
-Compose and configure middlewear in your framework file.
+Compose and configure [middlewear](#middlewear) in your framework file.
 
 ```javascript
 // ./bin/tf.js

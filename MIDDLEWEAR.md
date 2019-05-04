@@ -8,7 +8,7 @@ The framework comes with a number of core middlewears
 
 ### defaults
 
-Includes several 
+Includes several
 
 ```javascript
 tf(defaults);
@@ -63,7 +63,7 @@ describe("counting", () => {
       value++;
     });
 
-    it('should increase in value', () => {
+    it("should increase in value", () => {
       assert(value === 1);
     });
   });
@@ -73,7 +73,7 @@ describe("counting", () => {
       value--;
     });
 
-    it('should increase in value', () => {
+    it("should increase in value", () => {
       assert(value === -1);
     });
   });
@@ -182,6 +182,14 @@ tf(event("test:result", result => {}));
 - test:start
 - test:result
 - test:failure
+
+### random
+
+Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
+
+#### args
+
+The `--seed` arg will be passed to chance.
 
 ## Anatomy
 

@@ -1,49 +1,14 @@
-# @testingrequired/tf
+# Middlewear
 
-## Customization
+Middlewear are the building blocks for functionality within the framework.
 
-While `tf` offers reasonable [defaults](#defaults) you can use/write [middlewear](#middlewear) to tailor to any testing style.
+## Core
 
-```javascript
-// ./custom-tf.js
-import tf, { defaults } from "@testingrequired/tf";
-
-export default tf(
-  defaults.withOptions({testFilePatterns: ["./custom/path/*.spec.js"]}),
-  specSyntax,
-);
-```
-
-### Wire Test Command
-
-The custom cli file is passed as the first argument.
-
-```json
-{
-  "scripts": {
-    "test": "tf custom ./custom-tf.js"
-  }
-}
-```
-
-## Middlewear
-
-Nearly all functionality is provided through middlewear. Middlewear is n curried function defining `setup` and `results` stages respectively.
-
-```typescript
-type SetupExecutor = (
-  setup: Setup,
-  events?: EventEmitter
-) => void | ResultsExecutor;
-
-type ResultsExecutor = (results: Results) => void;
-
-type Middlewear = SetupExecutor;
-```
+The framework comes with a number of core middlewears
 
 ### defaults
 
-Returns a default set of middlewear.
+Includes several 
 
 ```javascript
 tf(defaults);
@@ -51,13 +16,13 @@ tf(defaults);
 
 #### Included Middlewear
 
-- args
-- assert,
-- randomize
-- reporter
-- runner
-- exitOnFailedTests
-- junit(`junitFilePath`)
+- [args](#args)
+- [globals](#globalskey-value)(`"assert"`, `assert`)
+- [randomize](#randomize)
+- [reporter](#reporter)
+- [runner](#runner)
+- [exitOnFailedTests](#exitonfailedtests)
+- [junit](#junitfilepath)(`"junit.xml"`)
 
 ### args
 
@@ -218,9 +183,52 @@ tf(event("test:result", result => {}));
 - test:result
 - test:failure
 
-## Writing Middlewear
+## Anatomy
 
-Middlewear is written as a curried function:
+### Test
+
+All tests are loaded in to this common format. The `testFilePath` is the path to the test file relative to `process.cwd`. The `description` is a text representation of the test. The `fn` has the test and all required before/after functions included. The `runState` determines if the test will run.
+
+```typescript
+interface Test {
+  testFilePath: string;
+  description: string;
+  fn: () => void;
+  runState: "run" | "skip";
+}
+```
+
+### Setup
+
+The `Setup` object contains all data needed to get the tests in a runnable state. The `testFilePaths` array are a list of all test files to be processed. The `globals` object are global variables exposed inside of test functions. The `args` object contains parsed CLI variables. The `tests` array contains all loaded tests.
+
+```typescript
+interface Setup {
+  testFilePaths: Array<string>;
+  globals: { [key: string]: any };
+  args: { [key: string]: any };
+  tests: Array<Test>;
+}
+```
+
+### Result
+
+The `Result` object contains the results from a `Test`. There will always be a result for each test.
+
+```typescript
+interface Result {
+  testFilePath?: string;
+  description?: string;
+  state?: ResultStates;
+  error?: Error;
+  start?: Date;
+  end?: Date;
+}
+```
+
+### Middlewear
+
+Middlewear is a curried function where the first function is the setup phase and an optional second function is the results phase.
 
 ```typescript
 type SetupExecutor = (
@@ -232,5 +240,3 @@ type ResultsExecutor = (results: Results) => void;
 
 type Middlewear = SetupExecutor;
 ```
-
-The first function `SetupExecutor` configures `setup` and `events` while the second function `ResultsExecutor` modifies `results`.

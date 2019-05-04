@@ -203,6 +203,24 @@ test("should get random value", () => {
 
 The `--seed` arg will be passed to chance.
 
+### mock
+
+Provides a `mock` global test variables which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
+
+```javascript
+tf(mock);
+```
+
+Used in test:
+
+```javascript
+test("should get mock function", () => {
+  const mockFunction = mock.func();
+
+  mockFunction("foo");
+});
+```
+
 ## Anatomy
 
 ### Test

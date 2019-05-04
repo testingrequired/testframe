@@ -8,6 +8,12 @@ Build your own test framework.
 - Most batteries included
 - Extendable
 
+## Built With
+
+- [yargs](https://github.com/yargs/yargs)
+- [testdouble](https://github.com/testdouble/testdouble.js/)
+- [chancejs](https://chancejs.com/)
+
 ## Getting Started
 
 ### Install

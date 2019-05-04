@@ -2,6 +2,12 @@
 
 Build your own test framework.
 
+## Why?
+
+Test frameworks are inheritly complex but often times their code bases are nearly impossible to parse. A litmus test for this is looking for where test functions are called and where results are collected. This is difficult when looking for functionality not covered in the documentation (e.g. do something on each test failure).
+
+When creating this framework the goals were to make the code base easy to understand, isolate each piece of functionality, and to make the extendability implementation composable. It should be easy to debug your way through the framework's execution.
+
 ## Features
 
 - Testing style agnostic

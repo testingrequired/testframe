@@ -10,6 +10,7 @@ Build your own test framework.
 
 ## Built With
 
+- [typescript](https://www.typescriptlang.org/)
 - [yargs](https://github.com/yargs/yargs)
 - [testdouble](https://github.com/testdouble/testdouble.js/)
 - [chancejs](https://chancejs.com/)

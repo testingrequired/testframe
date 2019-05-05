@@ -80,6 +80,10 @@ describe("counting", () => {
 });
 ```
 
+#### Skipping
+
+The following: `describe.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
+
 ### suiteSyntax
 
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
@@ -97,6 +101,10 @@ beforeEach(() => {
 
 test(`should have incremented`, () => assert(value == 1));
 ```
+
+#### Skipping
+
+`test.skip`/`it.skip` will skip tests.
 
 ### runner
 

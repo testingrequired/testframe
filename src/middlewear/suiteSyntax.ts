@@ -7,6 +7,8 @@ export default function loadTests(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {
+    let globalShouldSkipTest;
+
     const beforeEachs = [];
     (global as any).beforeEach = fn => beforeEachs.push(fn);
 
@@ -14,29 +16,28 @@ export default function loadTests(setup: Setup) {
     (global as any).afterEach = fn => afterEachs.push(fn);
 
     function test(description: string, fn: TestFunction) {
-      const wrapped: TestFunction = () => {
-        beforeEachs.map(callWith());
-        fn();
-        afterEachs.map(callWith());
-      };
+      const wrapped: TestFunction = globalShouldSkipTest
+        ? () => {}
+        : () => {
+            beforeEachs.map(callWith());
+            fn();
+            afterEachs.map(callWith());
+          };
 
       tests.push({
         testFilePath,
         description,
         fn: wrapped,
-        runState: "run"
+        runState: globalShouldSkipTest ? "skip" : "run"
       });
     }
 
     (global as any).test = test;
 
     test.skip = (description: string, fn: TestFunction) => {
-      tests.push({
-        testFilePath,
-        description,
-        fn: () => {},
-        runState: "skip"
-      });
+      globalShouldSkipTest = true;
+      test(description, fn);
+      globalShouldSkipTest = false;
     };
 
     require(path.join(process.cwd(), testFilePath));

@@ -80,9 +80,14 @@ describe("counting", () => {
 });
 ```
 
+#### Aliases
+
+- `with`, `context` alias `describe`
+- `test` aliases `it`
+
 #### Skipping
 
-The following: `describe.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
+The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
 
 ### suiteSyntax
 

@@ -19,6 +19,10 @@ export default function loadTests(setup: Setup) {
 
     (global as any).describe = describe;
 
+    (global as any).with = describe;
+
+    (global as any).context = describe;
+
     describe.skip = (description: string, fn: any) => {
       globalShouldSkipTest = true;
       describe(description, fn);

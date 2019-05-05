@@ -179,9 +179,29 @@ tf(event("test:result", result => {}));
 
 #### Event Types
 
-- test:start
-- test:result
-- test:failure
+##### setup
+
+Emitted when all setup middlewear has completed. Payload is setup object.
+  
+##### result
+
+Emitted when all results middlewear has completed. Payload is results array.
+  
+##### test:start
+
+Emitted when test has started to execute.
+  
+##### test:result
+
+Emitted when test has completed. Payload is result object.
+  
+##### test:failure
+
+Emitted when test has failed. Payload is result object.
+
+##### test:error
+
+Emitted when test has errored. Payload is result object.
 
 ### random
 

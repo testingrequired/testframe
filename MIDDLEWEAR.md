@@ -48,7 +48,7 @@ Loads node's assert as a global variable inside of tests.
 
 ### specSyntax
 
-Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
+Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `aroundEach`, `it`
 
 ```javascript
 tf(specSyntax);
@@ -56,7 +56,11 @@ tf(specSyntax);
 
 ```javascript
 describe("counting", () => {
-  let value = 0;
+  let value;
+
+  beforeEach(() => {
+    value = 0;
+  })
 
   describe("increment", () => {
     beforeEach(() => {
@@ -84,10 +88,33 @@ describe("counting", () => {
 
 - `with`, `context` alias `describe`
 - `test` aliases `it`
+- `setup` aliases `aroundEach`
 
 #### Skipping
 
 The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
+
+#### aroundEach
+
+```javascript
+describe("something", () => {
+  let someMock;
+  let anotherMock;
+
+  aroundEach(function*() {
+    someMock = mock.func();
+    anotherMock = mock.func();
+    yield;
+    mock.reset();
+  });
+
+  it('should work', () => {
+    something(someMock, anotherMock);
+    expect(someMock).to.have.been.called;
+    expect(anotherMock).to.have.been.called;
+  })
+});
+```
 
 ### suiteSyntax
 

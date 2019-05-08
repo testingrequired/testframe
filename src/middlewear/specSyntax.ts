@@ -43,6 +43,15 @@ export default function loadTests(setup: Setup) {
       afterEachs[describeDepth].push(fn);
     };
 
+    const aroundEachs: Array<Array<GeneratorFunction>> = [[]];
+    function aroundEach(gfn: GeneratorFunction) {
+      const describeDepth = descriptions.length;
+      if (aroundEachs.length <= describeDepth) aroundEachs.push([]);
+      aroundEachs[describeDepth].push(gfn);
+    }
+    (global as any).aroundEach = aroundEach;
+    (global as any).setup = aroundEach;
+
     function test(description: string, fn: TestFunction) {
       const describeDepth = descriptions.length;
 
@@ -50,12 +59,22 @@ export default function loadTests(setup: Setup) {
         const sliceEnd = describeDepth + 1;
         const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
         const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
+        const testAroundEachs: Array<GeneratorFunction> = flat(
+          aroundEachs.slice(0, sliceEnd)
+        );
 
         return globalShouldSkipTest
           ? () => {}
           : () => {
+              const testAroundEachIters = testAroundEachs.map(fn => fn());
               testsBeforeEachs.forEach(callWith());
+              testAroundEachIters.forEach(testAroundEach =>
+                testAroundEach.next()
+              );
               fn();
+              testAroundEachIters.forEach(testAroundEach =>
+                testAroundEach.next()
+              );
               testsAfterEachs.forEach(callWith());
             };
       };

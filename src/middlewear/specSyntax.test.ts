@@ -126,4 +126,26 @@ describe("loadTests", () => {
       expect(afterEachMockFn).toHaveBeenCalledTimes(0);
     });
   });
+
+  describe("aroundEach", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/aroundEachTest.js"
+      ];
+
+      specSyntax(setup);
+    });
+
+    it("should load test", () => {
+      expect(setup.tests).toHaveLength(1);
+      expect(setup.tests[0].description).toBe("test1");
+    });
+
+    it("should run all hooks and test", () => {
+      setup.tests[0].fn();
+      expect(beforeEachMockFn).toHaveBeenCalledTimes(1);
+      expect(testMockFn).toHaveBeenNthCalledWith(1);
+      expect(afterEachMockFn).toHaveBeenCalledTimes(1);
+    });
+  });
 });

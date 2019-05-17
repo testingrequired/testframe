@@ -39,16 +39,16 @@ $ yarn add -D @testingrequired/tf@latest
 
 ### Create Framework File
 
-Compose and configure [middlewear](#middlewear) in your framework file.
+A framework file is where you define how your framework should behave
 
 ```javascript
 // ./bin/tf.js
-import tf, { run, middlewear } from "@testingrequired/tf";
+import { run, pipeline, middlewear } from "@testingrequired/tf";
 
 const { defaults, matchTestFiles, specSyntax, junit } = middlewear;
 
 run(
-  tf(
+  pipeline(
     defaults,
     matchTestFiles("./tests/**/*.test.js"),
     specSyntax,

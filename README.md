@@ -1,16 +1,9 @@
 # @testingrequired/tf
 
-Build your own test framework.
-
-## Why?
-
-Test frameworks are inheritly complex but often times their code bases are nearly impossible to parse. A litmus test for this is looking for where test functions are called and where results are collected. This is difficult when looking for functionality not covered in the documentation (e.g. do something on each test failure).
-
-When creating this framework the goals were to make the code base easy to understand, isolate each piece of functionality, and to make the extendability implementation composable. It should be easy to debug your way through the framework's execution.
-
 ## Features
 
 - Testing style agnostic
+- Easy to understand codebase
 - Most batteries included
 - Extendable
 
@@ -39,27 +32,36 @@ $ yarn add -D @testingrequired/tf@latest
 
 ### Create Framework File
 
-A framework file is where you define how your framework should behave
+The framework file is the core of your framework. Behavior is defined using piplines and middlewear.
 
 ```javascript
 // ./bin/tf.js
 import { run, pipeline, middlewear } from "@testingrequired/tf";
 
-const { defaults, matchTestFiles, specSyntax, junit } = middlewear;
+const { defaults, matchTestFiles, specSyntax, junit, mock } = middlewear;
 
 run(
   pipeline(
     defaults,
     matchTestFiles("./tests/**/*.test.js"),
     specSyntax,
-    junit("junit.xml")
+    junit("junit.xml"),
+    mock
   )
 );
 ```
 
+#### Middlewear
+
+Middlewear define isolated pieces of behavior around setup (finding test files, loading tests, reading command line arguments) and results (running test files, generating junit reports, exiting on failure).
+
+#### Pipeline
+
+Pipelines compose middlewear together. Each pipeline's setup and results are independent of other pipelines.
+
 ### Wire Test Script
 
-Framework files are runnable by node. The following example uses `esm` to support es modules inside your framework file.
+Framework files are runnable by node.
 
 ```javascript
 // package.json
@@ -72,6 +74,8 @@ Framework files are runnable by node. The following example uses `esm` to suppor
 }
 ```
 
+This example uses `esm` to support es modules inside your framework file.
+
 ### Write Tests
 
 Test syntax will depend on the middlewear used. The following example uses the `specSyntax` middlewear.
@@ -79,13 +83,21 @@ Test syntax will depend on the middlewear used. The following example uses the `
 ```javascript
 // tests/example.test.js
 
-let value = 0;
+let mockFn;
 
 beforeEach(() => {
-  value++;
+  mockFn = mock.func();
 });
 
-test(`should have incremented`, () => assert(value == 1));
+afterEach(() => {
+  mock.reset();
+});
+
+describe("mock function", () => {
+  beforeEach(() => mockFn());
+
+  it("should be called", () => mock.verify(mockFn()));
+});
 ```
 
 ### Run Tests

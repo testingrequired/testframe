@@ -1,13 +1,15 @@
-const testdouble = require("testdouble");
+let mockFn;
 
-test("should have mock available", () => {
-  assert(mock === testdouble);
+beforeEach(() => {
+  mockFn = mock.func();
 });
 
-test("should verify mock functions", () => {
-  const mockFunction = mock.func();
+afterEach(() => {
+  mock.reset();
+});
 
-  mockFunction("foo");
+describe("mock function", () => {
+  beforeEach(() => mockFn());
 
-  mock.verify(mockFunction("foo"));
+  it("should be called", () => mock.verify(mockFn()));
 });

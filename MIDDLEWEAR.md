@@ -11,7 +11,7 @@ The framework comes with a number of core middlewears
 Includes several
 
 ```javascript
-tf(defaults);
+pipeline(defaults);
 ```
 
 #### Included Middlewear
@@ -39,7 +39,7 @@ The `options` argument is passed to `yargs.config`
 Use glob patterns to find test files to run.
 
 ```javascript
-tf(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
+pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
 ### assert
@@ -51,7 +51,7 @@ Loads node's assert as a global variable inside of tests.
 Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `aroundEach`, `it`
 
 ```javascript
-tf(specSyntax);
+pipeline(specSyntax);
 ```
 
 ```javascript
@@ -121,7 +121,7 @@ describe("something", () => {
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
 ```javascript
-tf(suiteSyntax);
+pipeline(suiteSyntax);
 ```
 
 ```javascript
@@ -143,7 +143,7 @@ test(`should have incremented`, () => assert(value == 1));
 Run tests.
 
 ```javascript
-tf(runner);
+pipeline(runner);
 ```
 
 ### exitOnFailedTests
@@ -151,7 +151,7 @@ tf(runner);
 Exit with code of 1 on any failed result.
 
 ```javascript
-tf(exitOnFailedTests);
+pipeline(exitOnFailedTests);
 ```
 
 ### reporter
@@ -159,7 +159,7 @@ tf(exitOnFailedTests);
 Report progress and results to console.
 
 ```javascript
-tf(reporter);
+pipeline(reporter);
 ```
 
 ### randomize
@@ -167,7 +167,7 @@ tf(reporter);
 Randomized the order tests are run.
 
 ```javascript
-tf(randomize);
+pipeline(randomize);
 ```
 
 ### junit(filePath)
@@ -175,7 +175,7 @@ tf(randomize);
 Write results to junit file.
 
 ```javascript
-tf(junit("junit.xml"));
+pipeline(junit("junit.xml"));
 ```
 
 ### globals(key, value)
@@ -187,7 +187,7 @@ import assert from "assert";
 
 const assertGlobal = globals("assert", assert);
 
-tf(assertGlobal);
+pipeline(assertGlobal);
 ```
 
 ### compose(...middlewears)
@@ -200,7 +200,7 @@ const events = compose(
   event("test:result", result => {})
 );
 
-tf(events);
+pipeline(events);
 ```
 
 ### event(type, callback)
@@ -208,7 +208,7 @@ tf(events);
 Callback on event type
 
 ```javascript
-tf(event("test:result", result => {}));
+pipeline(event("test:result", result => {}));
 ```
 
 #### callback
@@ -248,7 +248,7 @@ Emitted when test has errored. Payload is result object.
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
 ```javascript
-tf(random);
+pipeline(random);
 ```
 
 Used in test:
@@ -268,7 +268,7 @@ The `--seed` arg will be passed to chance.
 Provides a `mock` global test variables which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
 
 ```javascript
-tf(mock);
+pipeline(mock);
 ```
 
 Used in test:

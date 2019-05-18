@@ -7,18 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Spec CLI",
-      "program": "${workspaceFolder}/bin/tf",
-      "args": ["./tf-spec-cli.js"],
-      "preLaunchTask": "npm: build",
-      "outFiles": ["${workspaceFolder}/lib/**/*.js"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Suite CLI",
-      "program": "${workspaceFolder}/bin/tf",
-      "args": ["./tf-spec-cli.js"],
+      "name": "Launch CLI",
+      "program": "${workspaceFolder}/bin/tf.js",
+      "runtimeArgs": ["-r", "esm"],
       "preLaunchTask": "npm: build",
       "outFiles": ["${workspaceFolder}/lib/**/*.js"]
     }

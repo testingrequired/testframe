@@ -10,107 +10,121 @@ declare var global: any;
 export default function specSyntax(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
-  testFilePaths.forEach(testFilePath => {
-    const descriptions = [];
-    const beforeEachs = [[]];
-    const afterEachs = [[]];
-    const aroundEachs: Array<Array<GeneratorFunction>> = [[]];
+  const loadedTests: Array<Test> = flat(testFilePaths.map(loadTest));
 
-    /**
-     * Global state to track which describe/test blocks are being skipped
-     */
-    let globalShouldSkipTest: boolean;
+  tests.push(...loadedTests);
+}
 
-    /**
-     * describe
-     */
-    function describe(description: string, fn: any) {
-      descriptions.push(description);
-      fn();
-      descriptions.pop();
-    }
-    global.describe = global.with = global.context = describe;
-    describe.skip = (description: string, fn: any) => {
-      globalShouldSkipTest = true;
-      describe(description, fn);
-      globalShouldSkipTest = false;
+/**
+ * Load test from path
+ *
+ * @param testFilePath Path to test file
+ */
+function loadTest(testFilePath): Array<Test> {
+  const tests = [];
+  const descriptions = [];
+  const beforeEachs = [[]];
+  const afterEachs = [[]];
+  const aroundEachs: Array<Array<GeneratorFunction>> = [[]];
+
+  /**
+   * Global state to track which describe/test blocks are being skipped
+   */
+  let globalShouldSkipTest: boolean;
+
+  /**
+   * describe
+   */
+  function describe(description: string, fn: any) {
+    descriptions.push(description);
+    fn();
+    descriptions.pop();
+  }
+  global.describe = global.with = global.context = describe;
+  describe.skip = (description: string, fn: any) => {
+    globalShouldSkipTest = true;
+    describe(description, fn);
+    globalShouldSkipTest = false;
+  };
+
+  /**
+   * beforeEach
+   */
+  global.beforeEach = global.setup = describeLevelEachHook(
+    descriptions,
+    beforeEachs
+  );
+
+  /**
+   * afterEach
+   */
+  global.afterEach = global.teardown = describeLevelEachHook(
+    descriptions,
+    afterEachs
+  );
+
+  /**
+   * aroundEach
+   */
+  global.aroundEach = describeLevelEachHook(descriptions, aroundEachs);
+
+  /**
+   * test
+   */
+  function test(testDescription: string, testFn: TestFunction) {
+    const describeDepth = descriptions.length;
+
+    const wrappedTestFn: () => TestFunction = () => {
+      if (globalShouldSkipTest) return () => {};
+
+      const sliceEnd = describeDepth + 1;
+      const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
+      const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
+      const testAroundEachs: Array<GeneratorFunction> = flat(
+        aroundEachs.slice(0, sliceEnd)
+      );
+
+      return () => {
+        const testAroundEachIters = getAroundEachBeforeAfter(testAroundEachs);
+
+        testsBeforeEachs.forEach(callWith());
+        testAroundEachIters.forEach(([before, _]) => before());
+        testFn();
+        testAroundEachIters.forEach(([_, after]) => after());
+        testsAfterEachs.forEach(callWith());
+      };
     };
 
-    /**
-     * beforeEach
-     */
-    global.beforeEach = global.setup = describeLevelEachHook(
-      descriptions,
-      beforeEachs
-    );
+    const description = [...descriptions, testDescription].join(" ");
 
-    /**
-     * afterEach
-     */
-    global.afterEach = global.teardown = describeLevelEachHook(
-      descriptions,
-      afterEachs
-    );
+    const runState = globalShouldSkipTest ? "skip" : "run";
 
-    /**
-     * aroundEach
-     */
-    global.aroundEach = describeLevelEachHook(descriptions, aroundEachs);
-
-    /**
-     * test
-     */
-    function test(testDescription: string, testFn: TestFunction) {
-      const describeDepth = descriptions.length;
-
-      const wrappedTestFn: () => TestFunction = () => {
-        if (globalShouldSkipTest) return () => {};
-
-        const sliceEnd = describeDepth + 1;
-        const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
-        const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
-        const testAroundEachs: Array<GeneratorFunction> = flat(
-          aroundEachs.slice(0, sliceEnd)
-        );
-
-        return () => {
-          const testAroundEachIters = getAroundEachBeforeAfter(testAroundEachs);
-
-          testsBeforeEachs.forEach(callWith());
-          testAroundEachIters.forEach(([before, _]) => before());
-          testFn();
-          testAroundEachIters.forEach(([_, after]) => after());
-          testsAfterEachs.forEach(callWith());
-        };
-      };
-
-      const description = [...descriptions, testDescription].join(" ");
-
-      const runState = globalShouldSkipTest ? "skip" : "run";
-
-      const test: Test = {
-        testFilePath,
-        description,
-        fn: wrappedTestFn(),
-        runState
-      };
-
-      tests.push(test);
-    }
-    global.test = global.it = test;
-    test.skip = (description: string, fn: any) => {
-      globalShouldSkipTest = true;
-      test(description, fn);
-      globalShouldSkipTest = false;
+    const test: Test = {
+      testFilePath,
+      description,
+      fn: wrappedTestFn(),
+      runState
     };
 
-    require(path.join(process.cwd(), testFilePath));
+    tests.push(test);
+  }
 
-    delete global.describe;
-    delete global.beforeEach;
-    delete global.afterEach;
-    delete global.test;
-  });
+  global.test = global.it = test;
+
+  test.skip = (description: string, fn: any) => {
+    globalShouldSkipTest = true;
+    test(description, fn);
+    globalShouldSkipTest = false;
+  };
+
+  require(path.join(process.cwd(), testFilePath));
+
+  delete global.describe;
+  delete global.beforeEach;
+  delete global.afterEach;
+  delete global.test;
+
+  return tests;
 }
 
 function getAroundEachBeforeAfter(testAroundEachs) {

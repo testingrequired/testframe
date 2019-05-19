@@ -329,12 +329,13 @@ interface Result {
 Middlewear is a curried function where the first function is the setup phase and an optional second function is the results phase.
 
 ```typescript
-type SetupExecutor = (
-  setup: Setup,
-  events?: EventEmitter
-) => void | ResultsExecutor;
+interface SetupExecutor {
+  (setup: Setup, events?: EventEmitter): void | ResultsExecutor;
+}
 
-type ResultsExecutor = (results: Results) => void;
+interface ResultsExecutor {
+  (results: Results): void;
+}
 
 type Middlewear = SetupExecutor;
 ```

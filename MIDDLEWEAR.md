@@ -60,7 +60,7 @@ describe("counting", () => {
 
   beforeEach(() => {
     value = 0;
-  })
+  });
 
   describe("increment", () => {
     beforeEach(() => {
@@ -108,11 +108,11 @@ describe("something", () => {
     mock.reset();
   });
 
-  it('should work', () => {
+  it("should work", () => {
     something(someMock, anotherMock);
     expect(someMock).to.have.been.called;
     expect(anotherMock).to.have.been.called;
-  })
+  });
 });
 ```
 
@@ -222,19 +222,19 @@ pipeline(event("test:result", result => {}));
 ##### setup
 
 Emitted when all setup middlewear has completed. Payload is setup object.
-  
+
 ##### result
 
 Emitted when all results middlewear has completed. Payload is results array.
-  
+
 ##### test:start
 
 Emitted when test has started to execute.
-  
+
 ##### test:result
 
 Emitted when test has completed. Payload is result object.
-  
+
 ##### test:failure
 
 Emitted when test has failed. Payload is result object.
@@ -265,7 +265,7 @@ The `--seed` arg will be passed to chance.
 
 ### mock
 
-Provides a `mock` global test variables which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
+Provides a `mock` global test variable which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
 
 ```javascript
 pipeline(mock);
@@ -278,6 +278,36 @@ test("should get mock function", () => {
   const mockFunction = mock.func();
 
   mockFunction("foo");
+});
+```
+
+### multiassert
+
+Provides a `multiassert` global test variable which is an alias to [@testingrequired/multiassert](https://github.com/testingrequired/multiassert).
+
+```javascript
+pipeline(multiassert);
+```
+
+Used in test:
+
+```javascript
+test("should get mock function", () => {
+  const point = {
+    x: 1
+  };
+
+  try {
+    multiassert(
+      multiassert.assert(point.x, "x not defined"),
+      multiassert.assert(point.y, "y not defined"),
+      multiassert.assert(point.z, "z not defined")
+    );
+  } catch (e) {
+    e.message === "AssertionError: y undefined,AssertionError: z undefined";
+    e.errors[0].message === "AssertionError: y undefined";
+    e.errors[1].message === "AssertionError: z undefined";
+  }
 });
 ```
 

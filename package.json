@@ -39,6 +39,7 @@
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "@babel/runtime": "7.4.3",
+    "@testingrequired/multiassert": "^1.0.0",
     "@types/glob": "7.1.1",
     "chance": "^1.0.18",
     "esm": "3.2.22",

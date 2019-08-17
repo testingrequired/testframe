@@ -10,7 +10,7 @@ describe("counter", () => {
       value++;
     });
 
-    it.skip("should have incremented", () => {
+    it("should have incremented", () => {
       assert(value === 2);
     });
   });

@@ -347,7 +347,9 @@ The `--seed` arg will be passed to chance.
 
 ## ✔ mock
 
-Provides a `mock` global test variable which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
+Provides a `mock`, `when` and `verify` global test variables.
+
+This is powered by [testdouble](https://github.com/testdouble/testdouble.js/).
 
 ```javascript
 // Framework
@@ -356,9 +358,18 @@ pipeline(middlewear.mock);
 
 // Test
 test("should get mock function", () => {
-  const mockFunction = mock.func();
+  const mockFn = mock.func();
 
-  mockFunction("foo");
+  when(mockFn(5)).thenReturn(10);
+
+  function testFn() {
+    return mockFn(5);
+  }
+
+  const result = testFn();
+
+  verify(mockFn(5));
+  assert.strictEqual(result, 10);
 });
 ```
 

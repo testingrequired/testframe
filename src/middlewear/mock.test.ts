@@ -15,10 +15,12 @@ describe("mock", () => {
     (globals as any).mockImplementation(() => setupMiddlewear);
   });
 
-  it("should create global", () => {
+  it("should create globals", () => {
     mock(setup);
 
     expect(globals).toBeCalledWith("mock", testdouble);
+    expect(globals).toBeCalledWith("verify", testdouble.verify);
+    expect(globals).toBeCalledWith("when", testdouble.when);
     expect(setupMiddlewear).toBeCalledWith(setup);
   });
 });

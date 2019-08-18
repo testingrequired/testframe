@@ -18,8 +18,9 @@ Includes several recommended middlewear to get you started:
 - [log](#-log)
 
 ```javascript
+// Framework
 import { middlewear } from "@testingrequired/tf";
-pipeline(starter.middlewear);
+pipeline(middlewear.starter);
 ```
 
 ## ✔ args

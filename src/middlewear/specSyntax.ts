@@ -18,7 +18,9 @@ function loadTestFile(testFilePath): Array<Test> {
   const tests = [];
   const descriptions = [];
   const beforeEachs = [];
+  let beforeEachDelta = 0;
   const afterEachs = [];
+  let afterEachDelta = 0;
 
   /**
    * Global state to track which describe/test blocks are being skipped
@@ -27,10 +29,14 @@ function loadTestFile(testFilePath): Array<Test> {
 
   function describe(description: string, fn: any) {
     descriptions.push(description);
+    beforeEachDelta = 0;
+    afterEachDelta = 0;
     fn();
     descriptions.pop();
-    beforeEachs.pop();
-    afterEachs.pop();
+    beforeEachs.splice(beforeEachDelta * -1, beforeEachDelta);
+    beforeEachDelta = 0;
+    afterEachs.splice(afterEachDelta * -1, afterEachDelta);
+    afterEachDelta = 0;
   }
 
   global.describe = global.with = global.context = describe;
@@ -42,10 +48,12 @@ function loadTestFile(testFilePath): Array<Test> {
   };
 
   global.beforeEach = global.setup = fn => {
+    beforeEachDelta++;
     beforeEachs.push(fn);
   };
 
   global.afterEach = global.teardown = fn => {
+    afterEachDelta++;
     afterEachs.push(fn);
   };
 

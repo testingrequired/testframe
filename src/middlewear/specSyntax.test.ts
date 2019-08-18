@@ -61,6 +61,22 @@ describe("loadTests", () => {
     });
   });
 
+  describe("multi beforeEach", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/multiBeforeEachTest.js"
+      ];
+
+      specSyntax(setup);
+      runSetupTests(setup);
+    });
+
+    it("should call beforeEach hooks", () => {
+      expect(testMockFn).toBeCalledTimes(3);
+      expect(beforeEachMockFn).toBeCalledTimes(5);
+    });
+  });
+
   describe("afterEach", () => {
     beforeEach(() => {
       setup.testFilePaths = [
@@ -74,6 +90,22 @@ describe("loadTests", () => {
     it("should call afterEach hooks", () => {
       expect(testMockFn).toBeCalledTimes(4);
       expect(afterEachMockFn).toBeCalledTimes(8);
+    });
+  });
+
+  describe("multi afterEach", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/multiAfterEachTest.js"
+      ];
+
+      specSyntax(setup);
+      runSetupTests(setup);
+    });
+
+    it("should call afterEach hooks", () => {
+      expect(testMockFn).toBeCalledTimes(3);
+      expect(afterEachMockFn).toBeCalledTimes(5);
     });
   });
 

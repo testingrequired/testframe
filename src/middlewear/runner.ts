@@ -59,6 +59,8 @@ export default function runner(setup: Setup, events: EventEmitter) {
 
       results.push(result);
     });
+
+    events.emit("results", results);
   };
 }
 

@@ -305,11 +305,11 @@ pipeline(middlewear.event("test:result", result => {}));
 
 #### setup
 
-Emitted when all setup middlewear has completed. Payload is setup object.
+Emitted when all setup middlewear has completed. Payload is [setup](ANATOMY.md#setup) object.
 
-#### result
+#### results
 
-Emitted when all results middlewear has completed. Payload is results array.
+Emitted when all results middlewear has completed. Payload is [result](ANATOMY.md#result) array.
 
 #### test:start
 
@@ -317,15 +317,15 @@ Emitted when test has started to execute.
 
 #### test:result
 
-Emitted when test has completed. Payload is result object.
+Emitted when test has completed. Payload is [result](ANATOMY.md#result) object.
 
 #### test:failure
 
-Emitted when test has failed. Payload is result object.
+Emitted when test has failed. Payload is [result](ANATOMY.md#result) object.
 
 #### test:error
 
-Emitted when test has errored. Payload is result object.
+Emitted when test has errored. Payload is [result](ANATOMY.md#result) object.
 
 ## ✔ random
 

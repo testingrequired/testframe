@@ -45,14 +45,6 @@ const { defaults, matchTestFiles, specSyntax } = middlewear;
 run(pipeline(defaults, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
 
-#### Middlewear
-
-Middlewear define isolated pieces of behavior around setup (finding test files, loading tests, reading command line arguments) and results (running test files, generating junit reports, exiting on failure).
-
-#### Pipeline
-
-Pipelines compose middlewear together. Each pipeline's setup and results are independent of other pipelines.
-
 #### Test Syntax
 
 Different pipelines can use different test syntax based on the testing needs. The two build in syntax options are [specSyntax](MIDDLEWEAR.md#-specsyntax) and [suiteSyntax](MIDDLEWEAR.md#-suitesyntax).

@@ -23,9 +23,8 @@ export default function specSyntax(setup: Setup) {
 function loadTest(testFilePath): Array<Test> {
   const tests = [];
   const descriptions = [];
-  const beforeEachs = [[]];
-  const afterEachs = [[]];
-  const aroundEachs: Array<Array<GeneratorFunction>> = [[]];
+  const beforeEachs = [];
+  const afterEachs = [];
 
   /**
    * Global state to track which describe/test blocks are being skipped
@@ -39,8 +38,12 @@ function loadTest(testFilePath): Array<Test> {
     descriptions.push(description);
     fn();
     descriptions.pop();
+    beforeEachs.pop();
+    afterEachs.pop();
   }
+
   global.describe = global.with = global.context = describe;
+
   describe.skip = (description: string, fn: any) => {
     globalShouldSkipTest = true;
     describe(description, fn);
@@ -50,23 +53,16 @@ function loadTest(testFilePath): Array<Test> {
   /**
    * beforeEach
    */
-  global.beforeEach = global.setup = registerHookAtDescribeDepth(
-    descriptions,
-    beforeEachs
-  );
+  global.beforeEach = global.setup = fn => {
+    beforeEachs.push(fn);
+  };
 
   /**
    * afterEach
    */
-  global.afterEach = global.teardown = registerHookAtDescribeDepth(
-    descriptions,
-    afterEachs
-  );
-
-  /**
-   * aroundEach
-   */
-  global.aroundEach = registerHookAtDescribeDepth(descriptions, aroundEachs);
+  global.afterEach = global.teardown = fn => {
+    afterEachs.push(fn);
+  };
 
   /**
    * test
@@ -80,17 +76,10 @@ function loadTest(testFilePath): Array<Test> {
       const sliceEnd = describeDepth + 1;
       const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
       const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
-      const testAroundEachs: Array<GeneratorFunction> = flat(
-        aroundEachs.slice(0, sliceEnd)
-      );
 
       return () => {
-        const testAroundEachIters = getAroundEachBeforeAfter(testAroundEachs);
-
         testsBeforeEachs.forEach(callWith());
-        testAroundEachIters.forEach(([before, _]) => before());
         testFn();
-        testAroundEachIters.forEach(([_, after]) => after());
         testsAfterEachs.forEach(callWith());
       };
     };
@@ -125,23 +114,4 @@ function loadTest(testFilePath): Array<Test> {
   delete global.test;
 
   return tests;
-}
-
-function getAroundEachBeforeAfter(testAroundEachs) {
-  return testAroundEachs
-    .map(callWith())
-    .reduce(
-      (acc, item) => [...acc, [() => item.next(), () => item.next()]],
-      []
-    );
-}
-
-function registerHookAtDescribeDepth(descriptions, hooks) {
-  return fn => {
-    const describeDepth = descriptions.length;
-    if (hooks.length <= describeDepth) {
-      hooks.push([]);
-    }
-    hooks[describeDepth].push(fn);
-  };
 }

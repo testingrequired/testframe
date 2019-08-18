@@ -50,7 +50,7 @@ function loadTest(testFilePath): Array<Test> {
   /**
    * beforeEach
    */
-  global.beforeEach = global.setup = describeLevelEachHook(
+  global.beforeEach = global.setup = registerHookAtDescribeDepth(
     descriptions,
     beforeEachs
   );
@@ -58,7 +58,7 @@ function loadTest(testFilePath): Array<Test> {
   /**
    * afterEach
    */
-  global.afterEach = global.teardown = describeLevelEachHook(
+  global.afterEach = global.teardown = registerHookAtDescribeDepth(
     descriptions,
     afterEachs
   );
@@ -66,7 +66,7 @@ function loadTest(testFilePath): Array<Test> {
   /**
    * aroundEach
    */
-  global.aroundEach = describeLevelEachHook(descriptions, aroundEachs);
+  global.aroundEach = registerHookAtDescribeDepth(descriptions, aroundEachs);
 
   /**
    * test
@@ -136,10 +136,12 @@ function getAroundEachBeforeAfter(testAroundEachs) {
     );
 }
 
-function describeLevelEachHook(descriptions, beforeEachs) {
+function registerHookAtDescribeDepth(descriptions, hooks) {
   return fn => {
     const describeDepth = descriptions.length;
-    if (beforeEachs.length <= describeDepth) beforeEachs.push([]);
-    beforeEachs[describeDepth].push(fn);
+    if (hooks.length <= describeDepth) {
+      hooks.push([]);
+    }
+    hooks[describeDepth].push(fn);
   };
 }

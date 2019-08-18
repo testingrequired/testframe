@@ -45,6 +45,29 @@ describe("loadTests", () => {
     });
   });
 
+  describe("test descriptions", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/describeTestDescriptionTest.js"
+      ];
+
+      specSyntax(setup);
+    });
+
+    it("should have correct nesting", () => {
+      expect(setup.tests[0].description).toEqual("describe 1 test 1");
+      expect(setup.tests[1].description).toEqual(
+        "describe 1 describe 2 test 2"
+      );
+      expect(setup.tests[2].description).toEqual(
+        "describe 1 describe 2 describe 3 test 3"
+      );
+      expect(setup.tests[3].description).toEqual(
+        "describe 1 describe 2 test 4"
+      );
+    });
+  });
+
   // describe("basic", () => {
   //   beforeEach(() => {
   //     setup.testFilePaths = [

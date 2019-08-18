@@ -19,7 +19,8 @@ pipeline(defaults);
 - [args](#-args)
 - [globals](#-globalskey-value)(`"assert"`, `assert`)
 - [randomize](#-randomize)
-- [reporter](#-reporter)
+- [setupReporter](#-setupReporter)
+- [resultsReporter](#-resultsReporter)
 - [runner](#-runner)
 - [exitOnFailedTests](#-exitonfailedtests)
 - [junit](#-junitfilepath)(`"junit.xml"`)
@@ -132,12 +133,20 @@ Exit with code of 1 on any failed result.
 pipeline(exitOnFailedTests);
 ```
 
-### ✔ reporter
+### ✔ setupReporter
 
-Report progress and results to console.
+Report setup to console.
 
 ```javascript
-pipeline(reporter);
+pipeline(setupReporter);
+```
+
+### ✔ resultsReporter
+
+Report results to console.
+
+```javascript
+pipeline(resultsReporter);
 ```
 
 ### ✔ randomize

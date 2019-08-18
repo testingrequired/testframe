@@ -2,7 +2,8 @@ import assert from "assert";
 import compose from "./compose";
 import globals from "./globals";
 import runner from "./runner";
-import reporter from "./reporter";
+import setupReporter from "./setupReporter";
+import resultsReporter from "./resultsReporter";
 import junit from "./junit";
 import randomize from "./randomize";
 import exitOnFailedTests from "./exitOnFailedTests";
@@ -13,7 +14,8 @@ export default compose(
   args,
   globals("assert", assert),
   randomize,
-  reporter,
+  setupReporter,
+  resultsReporter,
   runner,
   exitOnFailedTests,
   junit("junit.xml"),

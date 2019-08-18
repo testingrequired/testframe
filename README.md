@@ -40,9 +40,11 @@ The framework file is the core of your framework. Behavior is defined using pipl
 // ./bin/tf.js
 import { run, pipeline, middlewear } from "@testingrequired/tf";
 
-const { starter, matchTestFiles, specSyntax } = middlewear;
+const { starter, matchTestFiles, specSyntax, mock } = middlewear;
 
-run(pipeline(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
+run(
+  pipeline(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax, mock)
+);
 ```
 
 #### Test Syntax

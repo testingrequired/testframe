@@ -2,18 +2,21 @@
 
 This document explains the basic logic and domain language. It uses typescript interfaces to illustrate.
 
-## Test
+## Framework File
 
-All tests are loaded in to this common format. The `testFilePath` is the path to the test file relative to `process.cwd`. The `description` is a text representation of the test. The `fn` has the test and all required before/after functions included. The `runState` determines if the test will run.
+A node executable javascript file where you define how the framework is configured/behaves.
 
-```typescript
-interface Test {
-  testFilePath: string;
-  description: string;
-  fn: () => void;
-  runState: "run" | "skip";
-}
+```javascript
+import { run, pipeline, middlewear } from "@testingrequired/tf";
+
+const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
+
+run(pipeline(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
+
+## Pipeline
+
+Pipelines run middlewear to define test execution environments. This includes configuring `setup` and reporting `results`. Each pipeline has it's own `setup` and `results`.
 
 ## Setup
 
@@ -45,7 +48,7 @@ interface Result {
 
 ## Middlewear
 
-Middlewear is a curried function where the first function is the setup phase and an optional second function is the results phase.
+Middlewear is central to defining framework behavior. It's a curried function that executes in two phases: `setup` & `results`.
 
 ```typescript
 interface SetupExecutor {
@@ -58,3 +61,35 @@ interface ResultsExecutor {
 
 type Middlewear = SetupExecutor;
 ```
+
+### Example
+
+```typescript
+const middlewear = (setup: Setup) => {
+  console.log("Runs during setup");
+  return (results: Results) => {
+    console.log("Runs during results");
+  };
+};
+```
+
+## Test
+
+All tests are loaded in to this common format.
+
+```typescript
+interface Test {
+  testFilePath: string;
+  description: string;
+  fn: () => void;
+  runState: "run" | "skip";
+}
+```
+
+The `testFilePath` is the path to the test file relative to `process.cwd`.
+
+The `description` is a text representation of the test.
+
+The `fn` has the test and all required before/after functions included.
+
+The `runState` determines if the test will run.

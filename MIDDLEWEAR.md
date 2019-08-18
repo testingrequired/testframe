@@ -2,22 +2,12 @@
 
 Middlewear are the building blocks for functionality within the framework.
 
-## Core
+## ✔ defaults
 
-The framework comes with a number of core middlewears
-
-### ✔ defaults
-
-Includes several
-
-```javascript
-pipeline(defaults);
-```
-
-#### Included Middlewear
+Includes several recommended middlewear to get you started:
 
 - [args](#-args)
-- [globals](#-globalskey-value)(`"assert"`, `assert`)
+- [assert](#-assert)
 - [randomize](#-randomize)
 - [setupReporter](#-setupReporter)
 - [resultsReporter](#-resultsReporter)
@@ -26,17 +16,21 @@ pipeline(defaults);
 - [junit](#-junitfilepath)(`"junit.xml"`)
 - [log](#-log)
 
-### ✔ args
+```javascript
+pipeline(defaults);
+```
+
+## ✔ args
 
 Uses `yargs` to parse `process.argv` accessible on `setup.args`
 
-### args.withConfig(options)
+## ✔ args.withConfig(options)
 
-#### Options
+### Options
 
 The `options` argument is passed to `yargs.config`
 
-### ✔ matchTestFiles(...patterns)
+## ✔ matchTestFiles(...patterns)
 
 Use glob patterns to find test files to run.
 
@@ -44,11 +38,11 @@ Use glob patterns to find test files to run.
 pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
-### ✔ assert
+## ✔ assert
 
 Loads node's assert as a global variable inside of tests.
 
-### ✔ specSyntax
+## ✔ specSyntax
 
 Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
@@ -86,16 +80,16 @@ describe("counting", () => {
 });
 ```
 
-#### Aliases
+### Aliases
 
 - `with`, `context` alias `describe`
 - `test` aliases `it`
 
-#### Skipping
+### Skipping
 
 The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
 
-### ✔ suiteSyntax
+## ✔ suiteSyntax
 
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
@@ -113,11 +107,11 @@ beforeEach(() => {
 test(`should have incremented`, () => assert(value == 1));
 ```
 
-#### Skipping
+### Skipping
 
 `test.skip`/`it.skip` will skip tests.
 
-### ✔ runner
+## ✔ runner
 
 Run tests.
 
@@ -125,7 +119,7 @@ Run tests.
 pipeline(runner);
 ```
 
-### ✔ exitOnFailedTests
+## ✔ exitOnFailedTests
 
 Exit with code of 1 on any failed result.
 
@@ -133,7 +127,7 @@ Exit with code of 1 on any failed result.
 pipeline(exitOnFailedTests);
 ```
 
-### ✔ setupReporter
+## ✔ setupReporter
 
 Report setup to console.
 
@@ -141,7 +135,7 @@ Report setup to console.
 pipeline(setupReporter);
 ```
 
-### ✔ resultsReporter
+## ✔ resultsReporter
 
 Report results to console.
 
@@ -149,7 +143,7 @@ Report results to console.
 pipeline(resultsReporter);
 ```
 
-### ✔ randomize
+## ✔ randomize
 
 Randomized the order tests are run.
 
@@ -157,7 +151,7 @@ Randomized the order tests are run.
 pipeline(randomize);
 ```
 
-### ✔ log
+## ✔ log
 
 Add logger that outputs in test results. Useful for debugging.
 
@@ -168,7 +162,7 @@ pipeline(log);
 log("Message", { some: "value" });
 ```
 
-### ✔ junit(filePath)
+## ✔ junit(filePath)
 
 Write results to junit file.
 
@@ -176,7 +170,7 @@ Write results to junit file.
 pipeline(junit("junit.xml"));
 ```
 
-### globals(key, value)
+## ✔ globals(key, value)
 
 Register global variable available inside tests.
 
@@ -188,7 +182,7 @@ const assertGlobal = globals("assert", assert);
 pipeline(assertGlobal);
 ```
 
-### ✔ compose(...middlewears)
+## ✔ compose(...middlewears)
 
 Compose multiple middlewear together as a new middlewear.
 
@@ -201,7 +195,7 @@ const events = compose(
 pipeline(events);
 ```
 
-### ✔ event(type, callback)
+## ✔ event(type, callback)
 
 Callback on event type
 
@@ -209,39 +203,39 @@ Callback on event type
 pipeline(event("test:result", result => {}));
 ```
 
-#### callback
+### callback
 
 ```typescript
 (payload: any) => void
 ```
 
-#### Event Types
+### Event Types
 
-##### setup
+#### setup
 
 Emitted when all setup middlewear has completed. Payload is setup object.
 
-##### result
+#### result
 
 Emitted when all results middlewear has completed. Payload is results array.
 
-##### test:start
+#### test:start
 
 Emitted when test has started to execute.
 
-##### test:result
+#### test:result
 
 Emitted when test has completed. Payload is result object.
 
-##### test:failure
+#### test:failure
 
 Emitted when test has failed. Payload is result object.
 
-##### test:error
+#### test:error
 
 Emitted when test has errored. Payload is result object.
 
-### ✔ random
+## ✔ random
 
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
@@ -257,11 +251,11 @@ test("should get random value", () => {
 });
 ```
 
-#### args
+### args
 
 The `--seed` arg will be passed to chance.
 
-### ✔ mock
+## ✔ mock
 
 Provides a `mock` global test variable which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
 
@@ -279,7 +273,7 @@ test("should get mock function", () => {
 });
 ```
 
-### ✔ multiassert
+## ✔ multiassert
 
 Provides a `multiassert` global test variable which is an alias to [@testingrequired/multiassert](https://github.com/testingrequired/multiassert).
 

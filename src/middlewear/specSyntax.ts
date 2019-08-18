@@ -1,18 +1,12 @@
 import path from "path";
 import Setup from "../types/Setup";
-import callWith from "../utils/callWith";
 import TestFunction from "../types/TestFunction";
-import flat from "../utils/flat";
 import Test from "../types/Test";
 
 declare var global: any;
 
 export default function specSyntax(setup: Setup) {
-  const { testFilePaths, tests } = setup;
-
-  const loadedTests: Array<Test> = flat(testFilePaths.map(loadTest));
-
-  tests.push(...loadedTests);
+  setup.tests.push(...setup.testFilePaths.flatMap(loadTestFile));
 }
 
 /**
@@ -20,7 +14,7 @@ export default function specSyntax(setup: Setup) {
  *
  * @param testFilePath Path to test file
  */
-function loadTest(testFilePath): Array<Test> {
+function loadTestFile(testFilePath): Array<Test> {
   const tests = [];
   const descriptions = [];
   const beforeEachs = [];
@@ -31,9 +25,6 @@ function loadTest(testFilePath): Array<Test> {
    */
   let globalShouldSkipTest: boolean;
 
-  /**
-   * describe
-   */
   function describe(description: string, fn: any) {
     descriptions.push(description);
     fn();
@@ -50,23 +41,14 @@ function loadTest(testFilePath): Array<Test> {
     globalShouldSkipTest = false;
   };
 
-  /**
-   * beforeEach
-   */
   global.beforeEach = global.setup = fn => {
     beforeEachs.push(fn);
   };
 
-  /**
-   * afterEach
-   */
   global.afterEach = global.teardown = fn => {
     afterEachs.push(fn);
   };
 
-  /**
-   * test
-   */
   function test(testDescription: string, testFn: TestFunction) {
     const describeDepth = descriptions.length;
 
@@ -74,28 +56,22 @@ function loadTest(testFilePath): Array<Test> {
       if (globalShouldSkipTest) return () => {};
 
       const sliceEnd = describeDepth + 1;
-      const testsBeforeEachs = flat(beforeEachs.slice(0, sliceEnd));
-      const testsAfterEachs = flat(afterEachs.slice(0, sliceEnd));
+      const testsBeforeEachs = beforeEachs.slice(0, sliceEnd);
+      const testsAfterEachs = afterEachs.slice(0, sliceEnd);
 
       return () => {
-        testsBeforeEachs.forEach(callWith());
+        testsBeforeEachs.forEach(fn => fn.call(null));
         testFn();
-        testsAfterEachs.forEach(callWith());
+        testsAfterEachs.forEach(fn => fn.call(null));
       };
     };
 
-    const description = [...descriptions, testDescription].join(" ");
-
-    const runState = globalShouldSkipTest ? "skip" : "run";
-
-    const test: Test = {
+    tests.push({
       testFilePath,
-      description,
+      description: [...descriptions, testDescription].join(" "),
       fn: wrappedTestFn(),
-      runState
-    };
-
-    tests.push(test);
+      runState: globalShouldSkipTest ? "skip" : "run"
+    });
   }
 
   global.test = global.it = test;

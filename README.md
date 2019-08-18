@@ -113,3 +113,7 @@ https://github.com/testingrequired/tf-example
 ## Middlewear
 
 See [middlewear](MIDDLEWEAR.md).
+
+## Core Concepts
+
+See [anatomy](ANATOMY.md).

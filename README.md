@@ -38,17 +38,9 @@ The framework file is the core of your framework. Behavior is defined using pipl
 // ./bin/tf.js
 import { run, pipeline, middlewear } from "@testingrequired/tf";
 
-const { defaults, matchTestFiles, specSyntax, junit, mock } = middlewear;
+const { defaults, matchTestFiles, specSyntax } = middlewear;
 
-run(
-  pipeline(
-    defaults,
-    matchTestFiles("./tests/**/*.test.js"),
-    specSyntax,
-    junit("junit.xml"),
-    mock
-  )
-);
+run(pipeline(defaults, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
 
 #### Middlewear
@@ -58,6 +50,10 @@ Middlewear define isolated pieces of behavior around setup (finding test files, 
 #### Pipeline
 
 Pipelines compose middlewear together. Each pipeline's setup and results are independent of other pipelines.
+
+#### Test Syntax
+
+Different pipelines can use different test syntax based on the testing needs. The two build in syntax options are [specSyntax](MIDDLEWEAR.md#-specsyntax) and [suiteSyntax](MIDDLEWEAR.md#-suitesyntax).
 
 ### Wire Test Script
 

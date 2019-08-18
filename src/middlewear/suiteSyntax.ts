@@ -3,7 +3,7 @@ import Setup from "../types/Setup";
 import callWith from "../utils/callWith";
 import TestFunction from "../types/TestFunction";
 
-export default function loadTests(setup: Setup) {
+export default function suiteSyntax(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {

@@ -1,17 +1,10 @@
 import randomize from "./randomize";
 import Setup from "../types/Setup";
-import Test from "../types/Test";
 import createTest from "./testUtils/createTest";
 import createSetup from "./testUtils/createSetup";
 
 describe("randomize", () => {
-  const expectedTest: Test = createTest("1");
-
-  const expectedTest2: Test = createTest("2");
-
-  const expectedTest3: Test = createTest("3");
-
-  const expectedTests = [expectedTest, expectedTest2, expectedTest3];
+  const expectedTests = [createTest("1"), createTest("2"), createTest("3")];
 
   const setup: Setup = createSetup(expectedTests);
 

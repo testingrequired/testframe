@@ -4,7 +4,7 @@ import Result from "../types/Result";
 import { EventEmitter } from "events";
 import { AssertionError } from "assert";
 
-export default function runTests(setup: Setup, events: EventEmitter) {
+export default function runner(setup: Setup, events: EventEmitter) {
   return (results: Results) => {
     const { tests, globals } = setup;
 

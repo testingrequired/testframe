@@ -59,12 +59,6 @@ describe("runTests", () => {
       expect(events.emit).toBeCalledWith("test:result", results[1]);
     });
 
-    it("should emit results after tests are run", () => {
-      expectedTests.push(createTest("2"));
-      runner(setup, events)(results);
-      expect(events.emit).toBeCalledWith("results", results);
-    });
-
     describe("when test failure", () => {
       let error;
       beforeEach(() => {

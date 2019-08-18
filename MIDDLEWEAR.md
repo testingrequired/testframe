@@ -6,7 +6,7 @@ Middlewear are the building blocks for functionality within the framework.
 
 The framework comes with a number of core middlewears
 
-### defaults
+### ✔ defaults
 
 Includes several
 
@@ -25,7 +25,7 @@ pipeline(defaults);
 - [junit](#junitfilepath)(`"junit.xml"`)
 - [log](#log)
 
-### args
+### ✔ args
 
 Uses `yargs` to parse `process.argv` accessible on `setup.args`
 
@@ -35,7 +35,7 @@ Uses `yargs` to parse `process.argv` accessible on `setup.args`
 
 The `options` argument is passed to `yargs.config`
 
-### matchTestFiles(...patterns)
+### ✔ matchTestFiles(...patterns)
 
 Use glob patterns to find test files to run.
 
@@ -43,11 +43,11 @@ Use glob patterns to find test files to run.
 pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
-### assert
+### ✔ assert
 
 Loads node's assert as a global variable inside of tests.
 
-### specSyntax
+### ✔ specSyntax
 
 Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
@@ -94,7 +94,7 @@ describe("counting", () => {
 
 The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
 
-### suiteSyntax
+### ✔ suiteSyntax
 
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
@@ -116,7 +116,7 @@ test(`should have incremented`, () => assert(value == 1));
 
 `test.skip`/`it.skip` will skip tests.
 
-### runner
+### ✔ runner
 
 Run tests.
 
@@ -124,7 +124,7 @@ Run tests.
 pipeline(runner);
 ```
 
-### exitOnFailedTests
+### ✔ exitOnFailedTests
 
 Exit with code of 1 on any failed result.
 
@@ -132,7 +132,7 @@ Exit with code of 1 on any failed result.
 pipeline(exitOnFailedTests);
 ```
 
-### reporter
+### ✔ reporter
 
 Report progress and results to console.
 
@@ -140,7 +140,7 @@ Report progress and results to console.
 pipeline(reporter);
 ```
 
-### randomize
+### ✔ randomize
 
 Randomized the order tests are run.
 
@@ -148,7 +148,7 @@ Randomized the order tests are run.
 pipeline(randomize);
 ```
 
-### log
+### ✔ log
 
 Add logger that outputs in test results. Useful for debugging.
 
@@ -159,7 +159,7 @@ pipeline(log);
 log("Message", { some: "value" });
 ```
 
-### junit(filePath)
+### ✔ junit(filePath)
 
 Write results to junit file.
 
@@ -179,7 +179,7 @@ const assertGlobal = globals("assert", assert);
 pipeline(assertGlobal);
 ```
 
-### compose(...middlewears)
+### ✔ compose(...middlewears)
 
 Compose multiple middlewear together as a new middlewear.
 
@@ -192,7 +192,7 @@ const events = compose(
 pipeline(events);
 ```
 
-### event(type, callback)
+### ✔ event(type, callback)
 
 Callback on event type
 
@@ -232,7 +232,7 @@ Emitted when test has failed. Payload is result object.
 
 Emitted when test has errored. Payload is result object.
 
-### random
+### ✔ random
 
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
@@ -252,7 +252,7 @@ test("should get random value", () => {
 
 The `--seed` arg will be passed to chance.
 
-### mock
+### ✔ mock
 
 Provides a `mock` global test variable which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
 
@@ -270,7 +270,7 @@ test("should get mock function", () => {
 });
 ```
 
-### multiassert
+### ✔ multiassert
 
 Provides a `multiassert` global test variable which is an alias to [@testingrequired/multiassert](https://github.com/testingrequired/multiassert).
 

@@ -61,6 +61,22 @@ describe("loadTests", () => {
     });
   });
 
+  describe("afterEach", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/afterEachTest.js"
+      ];
+
+      specSyntax(setup);
+      runSetupTests(setup);
+    });
+
+    it("should call afterEach hooks", () => {
+      expect(testMockFn).toBeCalledTimes(4);
+      expect(afterEachMockFn).toBeCalledTimes(8);
+    });
+  });
+
   describe("test descriptions", () => {
     beforeEach(() => {
       setup.testFilePaths = [

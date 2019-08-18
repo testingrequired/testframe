@@ -22,35 +22,68 @@ pipeline(defaults);
 
 ## ✔ args
 
-Uses `yargs` to parse `process.argv` accessible on `setup.args`
+Parse command line arguments to `setup.args`.
+
+Uses [`yargs`](https://yargs.js.org/).
+
+```javascript
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.args);
+
+// Middlewear
+function setupMiddlewear(setup: Setup) {
+  setup.args; // Contains parsed command line arguments
+}
+```
 
 ## ✔ args.withConfig(options)
 
-### Options
+Parse command line arugments using `yargs` options.
 
-The `options` argument is passed to `yargs.config`
+```javascript
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.args.withOptions({}));
+
+// Middlewear
+function setupMiddlewear(setup: Setup) {
+  setup.args; // Contains parsed command line arguments
+}
+```
+
+## ✔ assert
+
+Loads node's `assert` as a global test variable.
+
+```javascript
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.assert);
+
+// Test
+assert.strictEquals(1, 1);
+```
 
 ## ✔ matchTestFiles(...patterns)
 
 Use glob patterns to find test files to run.
 
 ```javascript
+// Framework
 pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
-
-## ✔ assert
-
-Loads node's assert as a global variable inside of tests.
 
 ## ✔ specSyntax
 
 Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
 ```javascript
-pipeline(specSyntax);
-```
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.specSyntax);
 
-```javascript
+// Test
 describe("counting", () => {
   let value;
 
@@ -94,10 +127,11 @@ The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip`
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
 ```javascript
-pipeline(suiteSyntax);
-```
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.suiteSyntax);
 
-```javascript
+// Test
 let value = 0;
 
 beforeEach(() => {
@@ -113,10 +147,12 @@ test(`should have incremented`, () => assert(value == 1));
 
 ## ✔ runner
 
-Run tests.
+Run pipeline `setup.tests` and report results to the pipeline's `results`
 
 ```javascript
-pipeline(runner);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.runner);
 ```
 
 ## ✔ exitOnFailedTests
@@ -124,23 +160,29 @@ pipeline(runner);
 Exit with code of 1 on any failed result.
 
 ```javascript
-pipeline(exitOnFailedTests);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.exitOnFailedTests);
 ```
 
 ## ✔ setupReporter
 
-Report setup to console.
+Basic report of setup to console.
 
 ```javascript
-pipeline(setupReporter);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.setupReporter);
 ```
 
 ## ✔ resultsReporter
 
-Report results to console.
+Basic report of results to console.
 
 ```javascript
-pipeline(resultsReporter);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.resultsReporter);
 ```
 
 ## ✔ randomize
@@ -148,7 +190,9 @@ pipeline(resultsReporter);
 Randomized the order tests are run.
 
 ```javascript
-pipeline(randomize);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.randomize);
 ```
 
 ## ✔ log
@@ -156,10 +200,17 @@ pipeline(randomize);
 Add logger that outputs in test results. Useful for debugging.
 
 ```javascript
-pipeline(log);
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.log);
 
-// In test
+// Test
 log("Message", { some: "value" });
+
+// Results
+Logs:
+
+"Message" {"some": "value"}
 ```
 
 ## ✔ junit(filePath)
@@ -167,7 +218,9 @@ log("Message", { some: "value" });
 Write results to junit file.
 
 ```javascript
-pipeline(junit("junit.xml"));
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.junit("junit.xml"));
 ```
 
 ## ✔ globals(key, value)
@@ -175,10 +228,11 @@ pipeline(junit("junit.xml"));
 Register global variable available inside tests.
 
 ```javascript
+// Middlewear
 import assert from "assert";
-
 const assertGlobal = globals("assert", assert);
 
+// Framework
 pipeline(assertGlobal);
 ```
 
@@ -187,11 +241,14 @@ pipeline(assertGlobal);
 Compose multiple middlewear together as a new middlewear.
 
 ```javascript
+// Middlewear
 const events = compose(
   event("test:start", test => {}),
   event("test:result", result => {})
 );
 
+// Framework
+import events from "./path/to/eventsMiddlewear";
 pipeline(events);
 ```
 
@@ -200,7 +257,9 @@ pipeline(events);
 Callback on event type
 
 ```javascript
-pipeline(event("test:result", result => {}));
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.event("test:result", result => {}));
 ```
 
 ### callback
@@ -240,12 +299,11 @@ Emitted when test has errored. Payload is result object.
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
 ```javascript
-pipeline(random);
-```
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.random);
 
-Used in test:
-
-```javascript
+// Test
 test("should get random value", () => {
   console.log(random.string());
 });
@@ -260,12 +318,11 @@ The `--seed` arg will be passed to chance.
 Provides a `mock` global test variable which is a [testdouble](https://github.com/testdouble/testdouble.js/) instance.
 
 ```javascript
-pipeline(mock);
-```
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.mock);
 
-Used in test:
-
-```javascript
+// Test
 test("should get mock function", () => {
   const mockFunction = mock.func();
 
@@ -278,12 +335,11 @@ test("should get mock function", () => {
 Provides a `multiassert` global test variable which is an alias to [@testingrequired/multiassert](https://github.com/testingrequired/multiassert).
 
 ```javascript
-pipeline(multiassert);
-```
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.multiassert);
 
-Used in test:
-
-```javascript
+// Test
 test("should get mock function", () => {
   const point = {
     x: 1
@@ -299,6 +355,7 @@ test("should get mock function", () => {
     e.message === "AssertionError: y undefined,AssertionError: z undefined";
     e.errors[0].message === "AssertionError: y undefined";
     e.errors[1].message === "AssertionError: z undefined";
+    throw e;
   }
 });
 ```

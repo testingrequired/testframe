@@ -1,12 +1,7 @@
-beforeEach(global.beforeEachMock);
-afterEach(global.afterEachMock);
+describe("skip", () => {
+  it.skip("test 1", testMock);
 
-test.skip(`test2`, global.testMock);
-
-describe.skip("describe skips", () => {
-  it("test3", global.testMock);
-
-  describe("nested describe skips", () => {
-    it("test4", global.testMock);
+  describe.skip("skipped describe", () => {
+    it("test 2", testMock);
   });
 });

@@ -9,7 +9,7 @@ export default function runner(setup: Setup, events: EventEmitter) {
     const { tests, globals } = setup;
 
     tests.forEach(test => {
-      const { testFilePath, description, fn, runState } = test;
+      const { testFilePath, description, fn: testFn, runState } = test;
 
       events.emit("test:start", test);
 
@@ -23,7 +23,9 @@ export default function runner(setup: Setup, events: EventEmitter) {
         case "run":
           try {
             createGlobals(globals);
-            fn.call(null);
+
+            testFn.call(null);
+
             result.state = "passed";
           } catch (e) {
             mapErrorToResult(e, result);

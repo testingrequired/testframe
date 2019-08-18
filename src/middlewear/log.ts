@@ -9,12 +9,19 @@ export default (setup: Setup) => {
     logs.push(args.map(arg => JSON.stringify(arg)).join(" "));
   }
 
+  const consoleProxy = new Proxy(console, {
+    get: (target, prop) => {
+      return log;
+    }
+  });
+
   globals("log", log)(setup);
+  globals("console", consoleProxy)(setup);
 
   return (results: Results) => {
     if (logs.length) {
       console.log("Logs\n");
-      logs.forEach(log => console.log(log));
+      logs.forEach(log => console.log(`- ${log}\n`));
       console.log("\n");
     }
   };

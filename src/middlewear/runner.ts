@@ -8,6 +8,8 @@ export default function runner(setup: Setup, events: EventEmitter) {
   return (results: Results) => {
     const { tests, globals } = setup;
 
+    const globalReplacements = new Map();
+
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
 
@@ -22,7 +24,7 @@ export default function runner(setup: Setup, events: EventEmitter) {
       switch (runState) {
         case "run":
           try {
-            createGlobals(globals);
+            createGlobals(globals, globalReplacements);
 
             testFn.call(null);
 
@@ -39,7 +41,7 @@ export default function runner(setup: Setup, events: EventEmitter) {
                 break;
             }
           } finally {
-            removeGlobals(globals);
+            removeGlobals(globals, globalReplacements);
           }
           break;
 
@@ -76,18 +78,26 @@ function mapErrorToResult(e, result) {
   }
 }
 
-function createGlobals(globals) {
+function createGlobals(globals, globalReplacements: Map<any, any>) {
   Object.entries(globals).forEach(i => {
     const [key, value] = i;
 
-    (global as any)[key] = value;
+    if (global.hasOwnProperty(key)) {
+      globalReplacements.set(key, global[key]);
+    }
+
+    global[key] = value;
   });
 }
 
-function removeGlobals(globals) {
+function removeGlobals(globals, globalReplacements: Map<any, any>) {
   Object.entries(globals).forEach(i => {
     const [key, value] = i;
 
-    (global as any)[key] = value;
+    if (globalReplacements.has(key)) {
+      global[key] = globalReplacements.get(key);
+    } else {
+      delete global[key];
+    }
   });
 }

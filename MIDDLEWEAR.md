@@ -12,6 +12,7 @@ Includes several recommended middlewear to get you started:
 - [setupReporter](#-setupReporter)
 - [resultsReporter](#-resultsReporter)
 - [runner](#-runner)
+- [exitOnErroredTests](#-exitOnErroredTests)
 - [exitOnFailedTests](#-exitonfailedtests)
 - [junit](#-junitfilepath)(`"junit.xml"`)
 - [log](#-log)
@@ -155,9 +156,19 @@ import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.runner);
 ```
 
+## ✔ exitOnErroredTests
+
+Exit with code of `2` on any `errored` result.
+
+```javascript
+// Framework
+import { middlewear } from "@testingrequired/tf";
+pipeline(middlewear.exitOnErroredTests);
+```
+
 ## ✔ exitOnFailedTests
 
-Exit with code of 1 on any failed result.
+Exit with code of `1` on any `failed` result.
 
 ```javascript
 // Framework

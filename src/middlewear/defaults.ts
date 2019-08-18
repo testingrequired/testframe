@@ -9,6 +9,7 @@ import randomize from "./randomize";
 import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
 import log from "./log";
+import exitOnErroredTests from "./exitOnErroredTests";
 
 export default compose(
   args,
@@ -17,6 +18,7 @@ export default compose(
   setupReporter,
   resultsReporter,
   runner,
+  exitOnErroredTests,
   exitOnFailedTests,
   junit("junit.xml"),
   log

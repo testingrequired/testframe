@@ -45,6 +45,22 @@ describe("loadTests", () => {
     });
   });
 
+  describe("bare beforeEach", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/bareBeforeEachTest.js"
+      ];
+
+      specSyntax(setup);
+      runSetupTests(setup);
+    });
+
+    it("should call beforeEach hooks", () => {
+      expect(testMockFn).toBeCalledTimes(1);
+      expect(beforeEachMockFn).toBeCalledTimes(2);
+    });
+  });
+
   describe("test descriptions", () => {
     beforeEach(() => {
       setup.testFilePaths = [

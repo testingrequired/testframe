@@ -1,5 +1,7 @@
 # @testingrequired/tf 🧪
 
+[![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
+
 ## Features
 
 - Testing style agnostic

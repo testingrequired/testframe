@@ -226,7 +226,7 @@ pipeline(middlewear.randomize);
 
 ## ✔ log
 
-Add logger that outputs in test results. Useful for debugging.
+Captures `console` logging and displays it in results. Useful for debugging.
 
 Included in: 📚 starter
 
@@ -236,7 +236,7 @@ import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.log);
 
 // Test
-log("Message", { some: "value" });
+console.log("Message", { some: "value" });
 
 // Results
 Logs:

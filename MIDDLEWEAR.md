@@ -23,6 +23,7 @@ pipeline(defaults);
 - [runner](#runner)
 - [exitOnFailedTests](#exitonfailedtests)
 - [junit](#junitfilepath)(`"junit.xml"`)
+- [log](#log)
 
 ### args
 
@@ -145,6 +146,17 @@ Randomized the order tests are run.
 
 ```javascript
 pipeline(randomize);
+```
+
+### log
+
+Add logger that outputs in test results. Useful for debugging.
+
+```javascript
+pipeline(log);
+
+// In test
+log("Message", { some: "value" });
 ```
 
 ### junit(filePath)

@@ -68,6 +68,26 @@ describe("loadTests", () => {
     });
   });
 
+  describe("skip", () => {
+    beforeEach(() => {
+      setup.testFilePaths = [
+        "./src/middlewear/testUtils/exampleTests/spec/skipTest.js"
+      ];
+
+      specSyntax(setup);
+      runSetupTests(setup);
+    });
+
+    it("should label test as skipped", () => {
+      expect(setup.tests[0].runState).toEqual("skip");
+      expect(setup.tests[1].runState).toEqual("skip");
+    });
+
+    it("should not run tests", () => {
+      expect(testMockFn).toBeCalledTimes(0);
+    });
+  });
+
   // describe("basic", () => {
   //   beforeEach(() => {
   //     setup.testFilePaths = [

@@ -16,14 +16,14 @@ pipeline(defaults);
 
 #### Included Middlewear
 
-- [args](#args)
-- [globals](#globalskey-value)(`"assert"`, `assert`)
-- [randomize](#randomize)
-- [reporter](#reporter)
-- [runner](#runner)
-- [exitOnFailedTests](#exitonfailedtests)
-- [junit](#junitfilepath)(`"junit.xml"`)
-- [log](#log)
+- [args](#-args)
+- [globals](#-globalskey-value)(`"assert"`, `assert`)
+- [randomize](#-randomize)
+- [reporter](#-reporter)
+- [runner](#-runner)
+- [exitOnFailedTests](#-exitonfailedtests)
+- [junit](#-junitfilepath)(`"junit.xml"`)
+- [log](#-log)
 
 ### ✔ args
 

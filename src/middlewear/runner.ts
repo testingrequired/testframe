@@ -23,17 +23,18 @@ export default function runner(setup: Setup, events: EventEmitter) {
         case "run":
           try {
             createGlobals(globals);
-            fn.call(undefined);
+            fn.call(null);
             result.state = "passed";
           } catch (e) {
-            if (e instanceof AssertionError) {
-              result.state = "failed";
-              result.error = e;
-              events.emit("test:failure", result);
-            } else {
-              result.state = "errored";
-              result.error = e;
-              events.emit("test:error", result);
+            mapErrorToResult(e, result);
+
+            switch (result.state) {
+              case "failed":
+                events.emit("test:failure", result);
+                break;
+              case "errored":
+                events.emit("test:error", result);
+                break;
             }
           } finally {
             removeGlobals(globals);
@@ -57,6 +58,20 @@ export default function runner(setup: Setup, events: EventEmitter) {
       results.push(result);
     });
   };
+}
+
+function mapErrorToResult(e, result) {
+  switch (true) {
+    case e instanceof AssertionError:
+      result.state = "failed";
+      result.error = e;
+      break;
+
+    default:
+      result.state = "errored";
+      result.error = e;
+      break;
+  }
 }
 
 function createGlobals(globals) {

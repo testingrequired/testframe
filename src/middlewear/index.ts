@@ -10,7 +10,7 @@ export { default as setupFile } from "./setupFile";
 export { default as exitOnErroredTests } from "./exitOnErroredTests";
 export { default as exitOnFailedTests } from "./exitOnFailedTests";
 export { default as compose } from "./compose";
-export { default as defaults } from "./defaults";
+export { default as starter } from "./starter";
 export { default as event } from "./event";
 export { default as args } from "./args";
 export { default as assert } from "./assert";

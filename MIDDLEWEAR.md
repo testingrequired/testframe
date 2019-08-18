@@ -2,7 +2,7 @@
 
 Middlewear are the building blocks for functionality within the framework.
 
-## ✔ defaults
+## 📚 starter
 
 Includes several recommended middlewear to get you started:
 
@@ -18,7 +18,8 @@ Includes several recommended middlewear to get you started:
 - [log](#-log)
 
 ```javascript
-pipeline(defaults);
+import { middlewear } from "@testingrequired/tf";
+pipeline(starter.middlewear);
 ```
 
 ## ✔ args
@@ -26,6 +27,8 @@ pipeline(defaults);
 Parse command line arguments to `setup.args`.
 
 Uses [`yargs`](https://yargs.js.org/).
+
+Included in: 📚 starter
 
 ```javascript
 // Framework
@@ -56,6 +59,8 @@ function setupMiddlewear(setup: Setup) {
 ## ✔ assert
 
 Loads node's `assert` as a global test variable.
+
+Included in: 📚 starter
 
 ```javascript
 // Framework
@@ -150,6 +155,8 @@ test(`should have incremented`, () => assert(value == 1));
 
 Run pipeline `setup.tests` and report results to the pipeline's `results`
 
+Included in: 📚 starter
+
 ```javascript
 // Framework
 import { middlewear } from "@testingrequired/tf";
@@ -159,6 +166,8 @@ pipeline(middlewear.runner);
 ## ✔ exitOnErroredTests
 
 Exit with code of `2` on any `errored` result.
+
+Included in: 📚 starter
 
 ```javascript
 // Framework
@@ -170,6 +179,8 @@ pipeline(middlewear.exitOnErroredTests);
 
 Exit with code of `1` on any `failed` result.
 
+Included in: 📚 starter
+
 ```javascript
 // Framework
 import { middlewear } from "@testingrequired/tf";
@@ -179,6 +190,8 @@ pipeline(middlewear.exitOnFailedTests);
 ## ✔ setupReporter
 
 Basic report of setup to console.
+
+Included in: 📚 starter
 
 ```javascript
 // Framework
@@ -190,6 +203,8 @@ pipeline(middlewear.setupReporter);
 
 Basic report of results to console.
 
+Included in: 📚 starter
+
 ```javascript
 // Framework
 import { middlewear } from "@testingrequired/tf";
@@ -200,6 +215,8 @@ pipeline(middlewear.resultsReporter);
 
 Randomized the order tests are run.
 
+Included in: 📚 starter
+
 ```javascript
 // Framework
 import { middlewear } from "@testingrequired/tf";
@@ -209,6 +226,8 @@ pipeline(middlewear.randomize);
 ## ✔ log
 
 Add logger that outputs in test results. Useful for debugging.
+
+Included in: 📚 starter
 
 ```javascript
 // Framework
@@ -227,6 +246,8 @@ Logs:
 ## ✔ junit(filePath)
 
 Write results to junit file.
+
+Included in: 📚 starter
 
 ```javascript
 // Framework

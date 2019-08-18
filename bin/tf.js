@@ -1,10 +1,10 @@
 import { pipeline, run, middlewear } from "../lib";
 
-const { defaults, specSyntax, matchTestFiles, random, mock } = middlewear;
+const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
 
 run(
   pipeline(
-    defaults,
+    starter,
     matchTestFiles("./tests/**/*.test.js"),
     specSyntax,
     random,

@@ -12,28 +12,27 @@ export default function printResults(setup: Setup, events?: EventEmitter) {
       entry => {
         const [testFilePath, results] = entry;
 
-        console.log(
-          `[${testFilePath} (${results[results.length - 1].end.getTime() -
-            results[0].start.getTime()} ms)]:`
-        );
+        const testFileTime =
+          results[results.length - 1].end.getTime() -
+          results[0].start.getTime();
 
+        console.log(`[${testFilePath} (${testFileTime} ms)]:`);
         console.log();
 
-        results.forEach(result => {
-          console.log(
-            `- ${result.state}: ${result.description} (${result.end.getTime() -
-              result.start.getTime()} ms)`
-          );
+        results.forEach(({ end, start, state, description, error }) => {
+          const timeTime = end.getTime() - start.getTime();
 
-          if (result.state === "failed") {
+          console.log(`- ${state}: ${description} (${timeTime} ms)`);
+
+          if (state === "failed") {
             console.log();
-            console.log(`${result.error.message}`);
+            console.log(`${error.message}`);
           }
 
-          if (result.state === "errored") {
+          if (state === "errored") {
             console.log();
-            console.log(`Error: ${result.error.message}\n`);
-            console.log(`Stack: ${result.error.stack}`);
+            console.log(`Error: ${error.message}\n`);
+            console.log(`Stack: ${error.stack}`);
           }
 
           console.log();

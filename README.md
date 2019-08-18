@@ -86,9 +86,14 @@ afterEach(() => {
 });
 
 describe("mock function", () => {
-  beforeEach(() => mockFn());
+  let symbol;
 
-  it("should be called", () => mock.verify(mockFn()));
+  beforeEach(() => {
+    symbol = Symbol();
+    mockFn(symbol);
+  });
+
+  it("should be called", () => verify(mockFn(symbol)));
 });
 ```
 

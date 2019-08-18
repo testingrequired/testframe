@@ -1,16 +1,16 @@
 describe("mock", () => {
   it("should work", () => {
     const mockFn = mock.func();
+    const expectedInput = Symbol();
+    const expectedOutput = Symbol();
 
-    when(mockFn(5)).thenReturn(10);
+    when(mockFn(expectedInput)).thenReturn(expectedOutput);
 
     function testFn() {
-      return mockFn(5);
+      return mockFn(expectedInput);
     }
 
-    const result = testFn();
-
-    verify(mockFn(5));
-    assert.strictEqual(result, 10);
+    assert.strictEqual(testFn(), expectedOutput);
+    verify(mockFn(expectedInput));
   });
 });

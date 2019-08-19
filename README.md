@@ -7,7 +7,7 @@
 - Testing style agnostic
 - Easy to understand codebase
 - Most batteries included
-- Extendable
+- Effortlessly extendable
 
 ## Built With
 

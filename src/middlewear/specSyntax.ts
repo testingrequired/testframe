@@ -2,11 +2,17 @@ import path from "path";
 import Setup from "../types/Setup";
 import TestFunction from "../types/TestFunction";
 import Test from "../types/Test";
+import flat from "../utils/flat";
 
 declare var global: any;
 
 export default function specSyntax(setup: Setup) {
-  setup.tests.push(...setup.testFilePaths.flatMap(loadTestFile));
+  const tests = setup.testFilePaths.reduce<Array<Test>>(
+    (tests, testFilePath) => [...tests, ...loadTestFile(testFilePath)],
+    []
+  );
+
+  setup.tests.push(...tests);
 }
 
 /**

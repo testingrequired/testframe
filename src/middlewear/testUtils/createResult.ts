@@ -5,5 +5,8 @@ export default (id: string, state: ResultStates = "passed"): Result => ({
   description: `${id} description`,
   state,
   start: new Date(),
-  end: new Date()
+  end: new Date(),
+  get time() {
+    return this.end.getTime() - this.start.getTime();
+  }
 });

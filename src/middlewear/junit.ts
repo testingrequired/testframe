@@ -18,7 +18,7 @@ export default (filePath: string) => (setup: Setup) => (results: Results) => {
     }
 
     const testCase = suite.testCase().name(description);
-    testCase.time(result.end.getTime() - result.start.getTime());
+    testCase.time(result.time);
 
     switch (result.state) {
       case "failed":
@@ -30,7 +30,7 @@ export default (filePath: string) => (setup: Setup) => (results: Results) => {
         testCase.skipped();
         break;
     }
-
-    junit.writeTo(filePath);
   });
+
+  junit.writeTo(filePath);
 };

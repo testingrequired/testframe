@@ -19,10 +19,8 @@ export default function printResults(setup: Setup, events?: EventEmitter) {
         console.log(`[${testFilePath} (${testFileTime} ms)]:`);
         console.log();
 
-        results.forEach(({ end, start, state, description, error }) => {
-          const timeTime = end.getTime() - start.getTime();
-
-          console.log(`- ${state}: ${description} (${timeTime} ms)`);
+        results.forEach(({ state, description, error, time }) => {
+          console.log(`- ${state}: ${description} (${time} ms)`);
 
           if (state === "failed") {
             console.log();

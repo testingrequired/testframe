@@ -15,7 +15,12 @@ export default function runner(setup: Setup, events: EventEmitter) {
 
       events.emit("test:start", test);
 
-      let result: Result = {};
+      let result: Result = {
+        get time() {
+          return this.end.getTime() - this.start.getTime();
+        }
+      };
+
       let start = new Date();
 
       result.testFilePath = testFilePath;

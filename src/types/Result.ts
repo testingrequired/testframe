@@ -7,4 +7,5 @@ export default interface Result {
   error?: Error;
   start?: Date;
   end?: Date;
+  readonly time: number;
 }

@@ -8,7 +8,7 @@
 
 ## Learning
 
-The [anatomy] documentation covers basic domain types and interfaces.
+The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces.
 
 ## Scripts
 
@@ -16,7 +16,11 @@ The [anatomy] documentation covers basic domain types and interfaces.
 
 Run unit tests: `./src/**/*.test.ts`.
 
+Ran with `jest`
+
 ### coverage
+
+Run unit tests with code coverage enabled.
 
 ### cli
 

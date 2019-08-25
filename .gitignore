@@ -1,6 +1,7 @@
 lib
 dist
 node_modules
+coverage
 results.json
 results2.json
 junit.xml

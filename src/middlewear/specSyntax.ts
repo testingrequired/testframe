@@ -2,7 +2,6 @@ import path from "path";
 import Setup from "../types/Setup";
 import TestFunction from "../types/TestFunction";
 import Test from "../types/Test";
-import flat from "../utils/flat";
 
 declare var global: any;
 

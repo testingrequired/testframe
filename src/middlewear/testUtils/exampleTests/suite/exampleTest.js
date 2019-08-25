@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 afterEach(global.afterEachMock);
 
 beforeEach(global.beforeEachMock);

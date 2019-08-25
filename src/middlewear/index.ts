@@ -6,7 +6,6 @@ export { default as runner } from "./runner";
 export { default as resultsReporter } from "./resultsReporter";
 export { default as setupReporter } from "./setupReporter";
 export { default as junit } from "./junit";
-export { default as setupFile } from "./setupFile";
 export { default as exitOnErroredTests } from "./exitOnErroredTests";
 export { default as exitOnFailedTests } from "./exitOnFailedTests";
 export { default as compose } from "./compose";

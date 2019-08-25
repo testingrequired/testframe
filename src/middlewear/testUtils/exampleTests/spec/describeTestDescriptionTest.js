@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 describe("describe 1", () => {
   it("test 1", testMock);
 

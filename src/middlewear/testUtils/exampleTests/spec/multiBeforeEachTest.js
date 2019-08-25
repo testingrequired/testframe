@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 describe("describe 1", () => {
   beforeEach(beforeEachMock);
 

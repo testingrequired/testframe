@@ -12,9 +12,10 @@ export default function printResults(setup: Setup, events?: EventEmitter) {
       entry => {
         const [testFilePath, results] = entry;
 
-        const testFileTime =
-          results[results.length - 1].end.getTime() -
-          results[0].start.getTime();
+        const testFileTime = results.reduce(
+          (time, result) => time + result.time,
+          0
+        );
 
         console.log(`[${testFilePath} (${testFileTime} ms)]:`);
         console.log();

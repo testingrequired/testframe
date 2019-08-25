@@ -12,10 +12,6 @@ Build your test rig.
 
 ## Getting Started
 
-### Node
-
-Supported node versions: latest & lts
-
 ### Install
 
 [![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftf)
@@ -23,6 +19,10 @@ Supported node versions: latest & lts
 ```bash
 $ npm i -D @testingrequired/tf@latest
 ```
+
+#### Supported Node Versions
+
+`latest` & `lts`
 
 ### Create Framework File
 

@@ -2,21 +2,19 @@
 
 [![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
 
+Build your test rig.
+
 ## Features
 
 - Testing style agnostic
-- Easy to understand codebase
 - Most batteries included
 - Effortlessly extendable
 
-## Built With
-
-- [typescript](https://www.typescriptlang.org/)
-- [yargs](https://github.com/yargs/yargs)
-- [testdouble](https://github.com/testdouble/testdouble.js/)
-- [chancejs](https://chancejs.com/)
-
 ## Getting Started
+
+### Node
+
+Supported node versions: latest & lts
 
 ### Install
 
@@ -24,12 +22,6 @@
 
 ```bash
 $ npm i -D @testingrequired/tf@latest
-```
-
-or
-
-```bash
-$ yarn add -D @testingrequired/tf@latest
 ```
 
 ### Create Framework File
@@ -118,3 +110,10 @@ See [anatomy](ANATOMY.md).
 ## Contributing
 
 See [development](DEVELOPMENT.md).
+
+## Built With
+
+- [typescript](https://www.typescriptlang.org/)
+- [yargs](https://github.com/yargs/yargs)
+- [testdouble](https://github.com/testdouble/testdouble.js/)
+- [chancejs](https://chancejs.com/)

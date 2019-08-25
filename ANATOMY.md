@@ -31,18 +31,40 @@ interface Setup {
 }
 ```
 
+## Test
+
+All tests are loaded in to this common format.
+
+```typescript
+interface Test {
+  testFilePath: string;
+  description: string;
+  fn: () => void;
+  runState: "run" | "skip";
+}
+```
+
+The `testFilePath` is the path to the test file relative to `process.cwd`.
+
+The `description` is a text representation of the test.
+
+The `fn` has the test and all required before/after functions included.
+
+The `runState` determines if the test will run.
+
 ## Result
 
 The `Result` object contains the results from a `Test`. There will always be a result for each test.
 
 ```typescript
 interface Result {
-  testFilePath?: string;
-  description?: string;
-  state?: ResultStates;
+  testFilePath: string;
+  description: string;
+  state: ResultStates;
   error?: Error;
-  start?: Date;
-  end?: Date;
+  start: Date;
+  end: Date;
+  time: number;
 }
 ```
 
@@ -72,24 +94,3 @@ const middlewear = (setup: Setup) => {
   };
 };
 ```
-
-## Test
-
-All tests are loaded in to this common format.
-
-```typescript
-interface Test {
-  testFilePath: string;
-  description: string;
-  fn: () => void;
-  runState: "run" | "skip";
-}
-```
-
-The `testFilePath` is the path to the test file relative to `process.cwd`.
-
-The `description` is a text representation of the test.
-
-The `fn` has the test and all required before/after functions included.
-
-The `runState` determines if the test will run.

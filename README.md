@@ -114,3 +114,7 @@ See [middlewear](MIDDLEWEAR.md).
 ## Core Concepts
 
 See [anatomy](ANATOMY.md).
+
+## Contributing
+
+See [development](DEVELOPMENT.md).

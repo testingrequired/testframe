@@ -1,6 +1,8 @@
-# @testingrequired/tf 🧪
+# @testingrequired/tf
 
 [![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
+
+A framework for test rigging.
 
 ## Features
 

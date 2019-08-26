@@ -14,6 +14,10 @@ The project currently only increments patch version until the release cut. Break
 
 The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces.
 
+## Starting
+
+Take a look at [good first issues](labels/good%20first%20issue)
+
 ## Scripts
 
 ### test

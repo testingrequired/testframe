@@ -16,7 +16,7 @@ The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces
 
 ## Starting
 
-Take a look at [good first issues](labels/good%20first%20issue)
+Take a look at [good first issues](https://github.com/testingrequired/tf/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
 ## Scripts
 

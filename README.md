@@ -10,6 +10,10 @@ Build your test rig.
 - Most batteries included
 - Effortlessly extendable
 
+## Note
+
+This is not a production ready project yet. Breaking changes should be expected.
+
 ## Getting Started
 
 ### Install

@@ -6,6 +6,10 @@
 2. `$ npm i`
 3. `$ npm run verify`
 
+## Versioning
+
+The project currently only increments patch version until the release cut. Breaking changes are expected. This is not production ready.
+
 ## Learning
 
 The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces.

@@ -6,7 +6,7 @@ import createSetup from "./testUtils/createSetup";
 
 jest.mock("./globals");
 
-describe("mock", () => {
+describe("assert", () => {
   let setup: Setup;
   let setupMiddlewear = jest.fn();
 

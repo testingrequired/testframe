@@ -1,26 +1,20 @@
 import mock from "./mock";
-import globals from "./globals";
 import Setup from "../types/Setup";
 import testdouble from "testdouble";
-
-jest.mock("./globals");
+import createSetup from "./testUtils/createSetup";
 
 describe("mock", () => {
   let setup: Setup;
-  let setupMiddlewear = jest.fn();
 
   beforeEach(() => {
-    setup = jest.fn() as any;
-
-    (globals as any).mockImplementation(() => setupMiddlewear);
+    setup = createSetup();
   });
 
   it("should create globals", () => {
     mock(setup);
 
-    expect(globals).toBeCalledWith("mock", testdouble);
-    expect(globals).toBeCalledWith("verify", testdouble.verify);
-    expect(globals).toBeCalledWith("when", testdouble.when);
-    expect(setupMiddlewear).toBeCalledWith(setup);
+    expect(setup.globals.mock).toBe(testdouble);
+    expect(setup.globals.verify).toBe(testdouble.verify);
+    expect(setup.globals.when).toBe(testdouble.when);
   });
 });

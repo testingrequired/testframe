@@ -69,6 +69,23 @@ describe("loadTests", () => {
       });
     });
 
+    describe("when test is skipped", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
+
+          it.skip("", testMockFn);
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook zero times", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(0);
+      });
+    });
+
     describe("when defined after test", () => {
       beforeEach(() => {
         jest.mock(mockTestPath, () => {
@@ -223,6 +240,23 @@ describe("loadTests", () => {
       beforeEach(() => {
         jest.mock(mockTestPath, () => {
           afterEach(afterEachMockFn);
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call after each hook zero times", () => {
+        expect(afterEachMockFn).toBeCalledTimes(0);
+      });
+    });
+
+    describe("when test is skipped", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          afterEach(afterEachMockFn);
+
+          it.skip("", testMockFn);
         });
 
         specSyntax(setup);

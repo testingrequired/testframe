@@ -17,13 +17,8 @@ describe("loadTests", () => {
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();
-    (global as any).beforeEachMock = beforeEachMockFn;
-
     afterEachMockFn = jest.fn();
-    (global as any).afterEachMock = afterEachMockFn;
-
     testMockFn = jest.fn();
-    (global as any).testMock = testMockFn;
 
     setup = createSetup();
 

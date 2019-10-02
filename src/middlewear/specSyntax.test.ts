@@ -17,13 +17,8 @@ describe("loadTests", () => {
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();
-    (global as any).beforeEachMock = beforeEachMockFn;
-
     afterEachMockFn = jest.fn();
-    (global as any).afterEachMock = afterEachMockFn;
-
     testMockFn = jest.fn();
-    (global as any).testMock = testMockFn;
 
     setup = createSetup();
 
@@ -32,6 +27,60 @@ describe("loadTests", () => {
 
   afterEach(() => {
     jest.resetModules();
+  });
+
+  describe("it", () => {
+    describe("when defined at top level", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          it("test", testMockFn);
+        });
+
+        specSyntax(setup);
+      });
+
+      it("should define a test", () => {
+        expect(setup.tests).toHaveLength(1);
+      });
+
+      it("should not call test function", () => {
+        expect(testMockFn).toBeCalledTimes(0);
+      });
+
+      it("should set test description", () => {
+        expect(setup.tests[0].description).toEqual("test");
+      });
+    });
+
+    describe("when defined in a describe", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("describe", () => {
+            it("test", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+      });
+
+      it("should prepend the describe description to test description", () => {
+        expect(setup.tests[0].description).toEqual("describe test");
+      });
+    });
+
+    describe("when defined as a skipped test", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          it.skip("test", testMockFn);
+        });
+
+        specSyntax(setup);
+      });
+
+      it("should have a skipped run state", () => {
+        expect(setup.tests[0].runState).toEqual("skip");
+      });
+    });
   });
 
   describe("beforeEach", () => {
@@ -400,46 +449,56 @@ describe("loadTests", () => {
     });
   });
 
-  describe("test descriptions", () => {
+  describe("describe", () => {
+    let describeMockFn;
+
     beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/spec/describeTestDescriptionTest.js"
-      ];
+      describeMockFn = jest.fn();
+
+      jest.mock(mockTestPath, () => {
+        describe("describe", describeMockFn);
+      });
 
       specSyntax(setup);
     });
 
-    it("should have correct nesting", () => {
-      expect(setup.tests[0].description).toEqual("describe 1 test 1");
-      expect(setup.tests[1].description).toEqual(
-        "describe 1 describe 2 test 2"
-      );
-      expect(setup.tests[2].description).toEqual(
-        "describe 1 describe 2 describe 3 test 3"
-      );
-      expect(setup.tests[3].description).toEqual(
-        "describe 1 describe 2 test 4"
-      );
-    });
-  });
-
-  describe("skip", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/spec/skipTest.js"
-      ];
-
-      specSyntax(setup);
-      runSetupTests(setup);
+    it("should call describe function", () => {
+      expect(describeMockFn).toBeCalledTimes(1);
     });
 
-    it("should label test as skipped", () => {
-      expect(setup.tests[0].runState).toEqual("skip");
-      expect(setup.tests[1].runState).toEqual("skip");
-    });
+    describe("when defined as a skipped describe", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            it("", testMockFn);
 
-    it("should not run tests", () => {
-      expect(testMockFn).toBeCalledTimes(0);
+            describe.skip("", () => {
+              it("", testMockFn);
+              it("", testMockFn);
+
+              describe("", () => {
+                it("", testMockFn);
+              });
+            });
+
+            it("", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should set all tests at that level to skip", () => {
+        expect(setup.tests[1].runState).toEqual("skip");
+        expect(setup.tests[2].runState).toEqual("skip");
+        expect(setup.tests[3].runState).toEqual("skip");
+      });
+
+      it("should leave all tests at higher level to run", () => {
+        expect(setup.tests[0].runState).toEqual("run");
+        expect(setup.tests[4].runState).toEqual("run");
+      });
     });
   });
 });

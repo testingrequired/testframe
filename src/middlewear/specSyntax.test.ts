@@ -6,6 +6,9 @@ function runSetupTests(setup: Setup) {
   setup.tests.forEach(test => test.fn());
 }
 
+const expectedTestPath = "./src/middlewear/testUtils/exampleTests/spec/test.js";
+const mockTestPath = "./testUtils/exampleTests/spec/test.js";
+
 describe("loadTests", () => {
   let setup: Setup;
   let beforeEachMockFn;
@@ -23,6 +26,8 @@ describe("loadTests", () => {
     (global as any).testMock = testMockFn;
 
     setup = createSetup();
+
+    setup.testFilePaths = [expectedTestPath];
   });
 
   afterEach(() => {
@@ -30,50 +35,169 @@ describe("loadTests", () => {
   });
 
   describe("beforeEach", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/spec/beforeEachTest.js"
-      ];
+    describe("when defined at top level", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
 
-      specSyntax(setup);
-      runSetupTests(setup);
+          it("", testMockFn);
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook once", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(1);
+      });
     });
 
-    it("should call beforeEach hooks", () => {
-      expect(testMockFn).toBeCalledTimes(4);
-      expect(beforeEachMockFn).toBeCalledTimes(8);
-    });
-  });
+    describe("when no tests defined", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+          });
+        });
 
-  describe("bare beforeEach", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/spec/bareBeforeEachTest.js"
-      ];
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
 
-      specSyntax(setup);
-      runSetupTests(setup);
-    });
-
-    it("should call beforeEach hooks", () => {
-      expect(testMockFn).toBeCalledTimes(1);
-      expect(beforeEachMockFn).toBeCalledTimes(2);
-    });
-  });
-
-  describe("multi beforeEach", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/spec/multiBeforeEachTest.js"
-      ];
-
-      specSyntax(setup);
-      runSetupTests(setup);
+      it("should call before each hook zero times", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(0);
+      });
     });
 
-    it("should call beforeEach hooks", () => {
-      expect(testMockFn).toBeCalledTimes(3);
-      expect(beforeEachMockFn).toBeCalledTimes(5);
+    describe("when defined after test", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          it("", testMockFn);
+
+          beforeEach(beforeEachMockFn);
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should not run before each hook for test", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(0);
+      });
+    });
+
+    describe("when defined in a describe", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+
+            it("", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook once", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(1);
+      });
+    });
+
+    describe("when defined multiple times as same level", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+            beforeEach(beforeEachMockFn);
+
+            it("", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook twice", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(2);
+      });
+    });
+
+    describe("when defined at multiple levels", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+
+            describe("", () => {
+              beforeEach(beforeEachMockFn);
+
+              it("", testMockFn);
+            });
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook twice", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(2);
+      });
+    });
+
+    describe("when defined at multiple levels with multiple tests", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+
+            it("", testMockFn);
+
+            describe("", () => {
+              beforeEach(beforeEachMockFn);
+
+              it("", testMockFn);
+            });
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook three times", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(3);
+      });
+    });
+
+    describe("when defined after a describe", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("", () => {
+            beforeEach(beforeEachMockFn);
+
+            it("", testMockFn);
+
+            describe("", () => {
+              beforeEach(beforeEachMockFn);
+
+              it("", testMockFn);
+            });
+
+            it("", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook four times", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(4);
+      });
     });
   });
 

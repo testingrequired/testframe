@@ -121,6 +121,25 @@ describe("loadTests", () => {
       });
     });
 
+    describe("when defined with a describe inside", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          describe("describe", () => {
+            it("test", () => {
+              describe("", () => {});
+            });
+          });
+        });
+      });
+
+      it("should throw reference error", () => {
+        expect(() => {
+          specSyntax(setup);
+          runSetupTests(setup);
+        }).toThrow(ReferenceError);
+      });
+    });
+
     describe("when defined as a skipped test", () => {
       beforeEach(() => {
         jest.mock(mockTestPath, () => {

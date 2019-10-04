@@ -6,7 +6,7 @@ A testing framework.
 
 ## Features
 
-- Testing style agnostic
+- Testing behavior agnostic
 - Effortlessly extendable
 - [Most batteries included](MIDDLEWEAR.md)
 

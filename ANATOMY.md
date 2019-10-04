@@ -2,9 +2,9 @@
 
 This document explains the basic logic and domain language. It uses typescript interfaces to illustrate.
 
-## Framework File
+## Executable
 
-A node executable javascript file where you define how the framework is configured/behaves.
+A node executable file where you define how the framework is configured/behaves.
 
 ```javascript
 import { run, pipeline, middlewear } from "@testingrequired/tf";
@@ -14,9 +14,40 @@ const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
 run(pipeline(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
 
-## Pipeline
+### Run
 
-Pipelines run middlewear to define test execution environments. This includes configuring `setup` and reporting `results`. Each pipeline has it's own `setup` and `results`.
+The run function can run multiple pipelines allowing you to configure a number of different type of tests.
+
+### Pipeline
+
+A pipeline is a collection of middlewear that represents a set of tests: unit tests, end to end tests, api tests. The middlewear passed will define how tests are found, executed and reported.
+
+## Middlewear
+
+Middlewear is central to defining framework behavior. It's a curried function that executes in two phases: [`setup`](#setup) & [`results`](#results).
+
+```typescript
+interface SetupExecutor {
+  (setup: Setup, events?: EventEmitter): void | ResultsExecutor;
+}
+
+interface ResultsExecutor {
+  (results: Array<Result>): void;
+}
+
+type Middlewear = SetupExecutor;
+```
+
+### Example
+
+```typescript
+const middlewear = (setup: Setup) => {
+  console.log("Runs during setup");
+  return (results: Results) => {
+    console.log("Runs during results");
+  };
+};
+```
 
 ## Setup
 
@@ -31,9 +62,9 @@ interface Setup {
 }
 ```
 
-## Test
+### Test
 
-All tests are loaded in to this common format.
+All tests are loaded in to this common format regardless of test syntax.
 
 ```typescript
 interface Test {
@@ -66,31 +97,4 @@ interface Result {
   end: Date;
   time: number;
 }
-```
-
-## Middlewear
-
-Middlewear is central to defining framework behavior. It's a curried function that executes in two phases: `setup` & `results`.
-
-```typescript
-interface SetupExecutor {
-  (setup: Setup, events?: EventEmitter): void | ResultsExecutor;
-}
-
-interface ResultsExecutor {
-  (results: Results): void;
-}
-
-type Middlewear = SetupExecutor;
-```
-
-### Example
-
-```typescript
-const middlewear = (setup: Setup) => {
-  console.log("Runs during setup");
-  return (results: Results) => {
-    console.log("Runs during results");
-  };
-};
 ```

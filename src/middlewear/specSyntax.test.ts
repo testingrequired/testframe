@@ -173,6 +173,25 @@ describe("loadTests", () => {
       });
     });
 
+    describe("when defined at top level outside of a describe", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
+
+          describe("", () => {
+            it("", testMockFn);
+          });
+        });
+
+        specSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should call before each hook once", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(1);
+      });
+    });
+
     describe("when no tests defined", () => {
       beforeEach(() => {
         jest.mock(mockTestPath, () => {

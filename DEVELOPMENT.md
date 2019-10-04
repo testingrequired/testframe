@@ -18,6 +18,10 @@ The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces
 
 Take a look at [good first issues](https://github.com/testingrequired/tf/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
+## VS Code
+
+There is a VS Code debug configuration `Launch CLI` that allows you to debug running `./bin/tf.js`.
+
 ## Scripts
 
 ### test

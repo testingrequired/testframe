@@ -2,6 +2,27 @@
 
 Middlewear are the building blocks for functionality within the framework.
 
+- [starter](#-starter)
+- [args](#-args)
+- [assert](#-assert)
+- [matchTestFiles](#-matchtestfilespatterns)
+- [specSyntax](#-specsyntax)
+- [suiteSyntax](#-suitesyntax)
+- [runner](#-runner)
+- [exitOnErroredTests](#-exitonerroredtests)
+- [exitOnFailedTests](#-exitonfailedtests)
+- [setupReporter](#-setupreporter)
+- [resultsReporter](#-resultreporter)
+- [randomize](#-randomize)
+- [log](#-log)
+- [junit](#-junitfilepath)
+- [globals](#-globalskey-value)
+- [compose](#-composemiddlewears)
+- [event](#-eventtype-callback)
+- [random](#-random)
+- [mock](#-mock)
+- [multiassert](#-multiassert)
+
 ## 📚 starter
 
 Includes several recommended middlewear to get you started:

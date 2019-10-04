@@ -39,7 +39,7 @@ Includes several recommended middlewear to get you started:
 - [log](#-log)
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.starter);
 ```
@@ -53,7 +53,7 @@ Uses [`yargs`](https://yargs.js.org/).
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.args);
 
@@ -68,7 +68,7 @@ function setupMiddlewear(setup: Setup) {
 Parse command line arugments using `yargs` options.
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.args.withOptions({}));
 
@@ -85,7 +85,7 @@ Loads node's `assert` as a global test variable.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.assert);
 
@@ -98,7 +98,7 @@ assert.strictEquals(1, 1);
 Use glob patterns to find test files to run.
 
 ```javascript
-// Framework
+// Executable
 pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
@@ -107,7 +107,7 @@ pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.specSyntax);
 
@@ -155,7 +155,7 @@ The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip`
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.suiteSyntax);
 
@@ -180,7 +180,7 @@ Run pipeline `setup.tests` and report results to the pipeline's `results`
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.runner);
 ```
@@ -192,7 +192,7 @@ Exit with code of `2` on any `errored` result.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.exitOnErroredTests);
 ```
@@ -204,7 +204,7 @@ Exit with code of `1` on any `failed` result.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.exitOnFailedTests);
 ```
@@ -216,7 +216,7 @@ Basic report of setup to console.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.setupReporter);
 ```
@@ -228,7 +228,7 @@ Basic report of results to console.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.resultsReporter);
 ```
@@ -240,7 +240,7 @@ Randomized the order tests are run.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.randomize);
 ```
@@ -252,7 +252,7 @@ Captures `console` logging and displays it in results. Useful for debugging.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.log);
 
@@ -272,7 +272,7 @@ Write results to junit file.
 Included in: 📚 starter
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.junit("junit.xml"));
 ```
@@ -286,7 +286,7 @@ Register global variable available inside tests.
 import assert from "assert";
 const assertGlobal = globals("assert", assert);
 
-// Framework
+// Executable
 pipeline(assertGlobal);
 ```
 
@@ -301,7 +301,7 @@ const events = compose(
   event("test:result", result => {})
 );
 
-// Framework
+// Executable
 import events from "./path/to/eventsMiddlewear";
 pipeline(events);
 ```
@@ -311,7 +311,7 @@ pipeline(events);
 Callback on event type
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.event("test:result", result => {}));
 ```
@@ -353,7 +353,7 @@ Emitted when test has errored. Payload is [result](ANATOMY.md#result) object.
 Provides a `random` global test variable which provides a [chance](https://chancejs.com) instance.
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.random);
 
@@ -374,7 +374,7 @@ Provides a `mock`, `when` and `verify` global test variables.
 This is powered by [testdouble](https://github.com/testdouble/testdouble.js/).
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.mock);
 
@@ -402,7 +402,7 @@ describe("mock", () => {
 Provides a `multiassert` global test variable which is an alias to [@testingrequired/multiassert](https://github.com/testingrequired/multiassert).
 
 ```javascript
-// Framework
+// Executable
 import { middlewear } from "@testingrequired/tf";
 pipeline(middlewear.multiassert);
 

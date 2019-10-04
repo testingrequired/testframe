@@ -12,7 +12,7 @@ Middlewear are the building blocks for functionality within the framework.
 - [exitOnErroredTests](#-exitonerroredtests)
 - [exitOnFailedTests](#-exitonfailedtests)
 - [setupReporter](#-setupreporter)
-- [resultsReporter](#-resultreporter)
+- [resultsReporter](#-resultsreporter)
 - [randomize](#-randomize)
 - [log](#-log)
 - [junit](#-junitfilepath)

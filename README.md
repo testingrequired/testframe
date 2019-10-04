@@ -91,15 +91,17 @@ $ npm test
 
 ### Example Project
 
-https://github.com/testingrequired/tf-example
+See a simple implementation: https://github.com/testingrequired/tf-example
 
-## Middlewear
+### Next Steps
 
-See [middlewear](MIDDLEWEAR.md).
+#### Middlewear
 
-## Core Concepts
+Look through the growing list of available [middlewear](MIDDLEWEAR.md) to build the testing functionality your project needs.
 
-See [anatomy](ANATOMY.md).
+#### More In Depth
+
+The [anatomy](ANATOMY.md) documentation explains how the framework is structured and how middlewear works. This would be a good place to start if you want to write custom middlewear.
 
 ## Contributing
 

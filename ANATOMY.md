@@ -24,7 +24,7 @@ A pipeline is a collection of middlewear that represents a set of tests: unit te
 
 ## Middlewear
 
-Middlewear is central to defining framework behavior. It's a curried function that executes in two phases: [`setup`](#setup) & [`results`](#results).
+Middlewear is a two stage curried function: [`setup`](#setup) then an optional [`results`](#results).
 
 ```typescript
 interface SetupExecutor {
@@ -38,7 +38,9 @@ interface ResultsExecutor {
 type Middlewear = SetupExecutor;
 ```
 
-### Example
+### Example Implementation
+
+This demonstrates how execution works:
 
 ```typescript
 const middlewear = (setup: Setup) => {
@@ -46,6 +48,24 @@ const middlewear = (setup: Setup) => {
   return (results: Results) => {
     console.log("Runs during results");
   };
+};
+```
+
+You can also return nothing as results is optional:
+
+```typescript
+const middlewear = (setup: Setup) => {
+  console.log("Runs during setup");
+};
+```
+
+An event emitter is also passed in during the setup stage:
+
+```typescript
+const middlewear = (setup: Setup, events?: EventEmitter) => {
+  console.log("Runs during setup");
+
+  events.on("someEvent", () => console.log("Runs on event"));
 };
 ```
 

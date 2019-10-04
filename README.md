@@ -50,7 +50,7 @@ const { starter, matchTestFiles, specSyntax } = middlewear;
 run(pipeline(starter, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
 ```
 
-The [`pipeline`](#ANATOMY.md#pipeline) function composes middlewear configure and run your tests. Here [`matchTestFiles`](MIDDLEWEAR.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWEAR.md#-specsyntax) defines how to read the them.
+The [`pipeline`](ANATOMY.md#pipeline) composes middlewear to configure and run your tests. Here [`matchTestFiles`](MIDDLEWEAR.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWEAR.md#-specsyntax) defines how to read the them.
 
 [`starter`](MIDDLEWEAR.md#-starter) is an optional but recommended middlewear that provides common testing functionality: [randomize test order](MIDDLEWEAR.md#-randomize), [run tests](MIDDLEWEAR.md#-runner), [report results](MIDDLEWEAR.md#-resultsReporter) and more.
 

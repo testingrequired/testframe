@@ -377,9 +377,7 @@ The `--seed` arg will be passed to chance.
 
 ## ✔ mock
 
-Provides a `mock`, `when` and `verify` global test variables.
-
-This is powered by [testdouble](https://github.com/testdouble/testdouble.js/).
+Provides a `mock` (an instance of [testdouble](https://github.com/testdouble/testdouble.js/)), `when`, `verify` and `replace` global test variables.
 
 ```javascript
 // Executable

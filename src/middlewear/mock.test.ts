@@ -16,5 +16,6 @@ describe("mock", () => {
     expect(setup.globals.mock).toBe(testdouble);
     expect(setup.globals.verify).toBe(testdouble.verify);
     expect(setup.globals.when).toBe(testdouble.when);
+    expect(setup.globals.replace).toBe(testdouble.replace);
   });
 });

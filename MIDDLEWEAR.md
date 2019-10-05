@@ -11,6 +11,7 @@ Middlewear are the building blocks for functionality within the framework.
 - [runner](#-runner)
 - [exitOnErroredTests](#-exitonerroredtests)
 - [exitOnFailedTests](#-exitonfailedtests)
+- [exitOnNoTests](#-exitonnotests)
 - [setupReporter](#-setupreporter)
 - [resultsReporter](#-resultsreporter)
 - [randomize](#-randomize)
@@ -206,6 +207,18 @@ Included in: 📚 starter
 // Executable
 import { middlewear } from "@testingrequired/tf";
 config(middlewear.exitOnFailedTests);
+```
+
+## ✔ exitOnNoTests
+
+Exit with code of `1` when setup finishes with no tests defined.
+
+Included in: 📚 starter
+
+```javascript
+// Executable
+import { middlewear } from "@testingrequired/tf";
+config(middlewear.exitOnNoTests);
 ```
 
 ## ✔ setupReporter

@@ -43,14 +43,14 @@ run();
 This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middlewear](MIDDLEWEAR.md) in the executable:
 
 ```javascript
-import { run, pipeline, middlewear } from "@testingrequired/tf";
+import { run, config, middlewear } from "@testingrequired/tf";
 
 const { starter, matchTestFiles, specSyntax } = middlewear;
 
-run(pipeline(starter, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
+run(config(starter, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
 ```
 
-The [`pipeline`](ANATOMY.md#pipeline) composes middlewear to configure and run your tests. Here [`matchTestFiles`](MIDDLEWEAR.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWEAR.md#-specsyntax) defines how to read the them.
+A [`config`](ANATOMY.md#config) composes middlewear to define that behavior. Here [`matchTestFiles`](MIDDLEWEAR.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWEAR.md#-specsyntax) defines how to read the them.
 
 [`starter`](MIDDLEWEAR.md#-starter) is an optional middlewear that bundles some of the core middlewears to get you started: [randomize test order](MIDDLEWEAR.md#-randomize), [run tests](MIDDLEWEAR.md#-runner), [report results](MIDDLEWEAR.md#-resultsReporter) and more. Of course you can skip this and define exactly what middlewear you wish to use.
 

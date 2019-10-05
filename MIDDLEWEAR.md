@@ -40,7 +40,7 @@ Includes several recommended middlewear to get you started:
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.starter);
+config(middlewear.starter);
 ```
 
 ## ✔ args
@@ -54,7 +54,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.args);
+config(middlewear.args);
 
 // Middlewear
 function setupMiddlewear(setup: Setup) {
@@ -69,7 +69,7 @@ Parse command line arugments using `yargs` options.
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.args.withOptions({}));
+config(middlewear.args.withOptions({}));
 
 // Middlewear
 function setupMiddlewear(setup: Setup) {
@@ -86,7 +86,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.assert);
+config(middlewear.assert);
 
 // Test
 assert.strictEquals(1, 1);
@@ -98,7 +98,7 @@ Use glob patterns to find test files to run.
 
 ```javascript
 // Executable
-pipeline(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
+config(matchTestFiles("tests/**/*.test.js", "src/**/*.test.js"));
 ```
 
 ## ✔ specSyntax
@@ -108,7 +108,7 @@ Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.specSyntax);
+config(middlewear.specSyntax);
 
 // Test
 describe("counting", () => {
@@ -156,7 +156,7 @@ Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.suiteSyntax);
+config(middlewear.suiteSyntax);
 
 // Test
 let value = 0;
@@ -174,14 +174,14 @@ test(`should have incremented`, () => assert(value == 1));
 
 ## ✔ runner
 
-Run pipeline `setup.tests` and report results to the pipeline's `results`
+Run `setup.tests` and record results.
 
 Included in: 📚 starter
 
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.runner);
+config(middlewear.runner);
 ```
 
 ## ✔ exitOnErroredTests
@@ -193,7 +193,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.exitOnErroredTests);
+config(middlewear.exitOnErroredTests);
 ```
 
 ## ✔ exitOnFailedTests
@@ -205,7 +205,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.exitOnFailedTests);
+config(middlewear.exitOnFailedTests);
 ```
 
 ## ✔ setupReporter
@@ -217,7 +217,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.setupReporter);
+config(middlewear.setupReporter);
 ```
 
 ## ✔ resultsReporter
@@ -229,7 +229,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.resultsReporter);
+config(middlewear.resultsReporter);
 ```
 
 ## ✔ randomize
@@ -241,7 +241,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.randomize);
+config(middlewear.randomize);
 ```
 
 ## ✔ log
@@ -253,7 +253,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.log);
+config(middlewear.log);
 
 // Test
 console.log("Message", { some: "value" });
@@ -273,7 +273,7 @@ Included in: 📚 starter
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.junit("junit.xml"));
+config(middlewear.junit("junit.xml"));
 ```
 
 ## ✔ globals(key, value)
@@ -286,7 +286,7 @@ import assert from "assert";
 const assertGlobal = globals("assert", assert);
 
 // Executable
-pipeline(assertGlobal);
+config(assertGlobal);
 ```
 
 ## ✔ compose(...middlewears)
@@ -302,7 +302,7 @@ const events = compose(
 
 // Executable
 import events from "./path/to/eventsMiddlewear";
-pipeline(events);
+config(events);
 ```
 
 ## ✔ event(type, callback)
@@ -312,7 +312,7 @@ Callback on event type
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.event("test:result", result => {}));
+config(middlewear.event("test:result", result => {}));
 ```
 
 ### callback
@@ -354,7 +354,7 @@ Provides a `random` global test variable which provides a [chance](https://chanc
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.random);
+config(middlewear.random);
 
 // Test
 test("should get random value", () => {
@@ -375,7 +375,7 @@ This is powered by [testdouble](https://github.com/testdouble/testdouble.js/).
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.mock);
+config(middlewear.mock);
 
 // Test
 describe("mock", () => {
@@ -403,7 +403,7 @@ Provides a `multiassert` global test variable which is an alias to [@testingrequ
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
-pipeline(middlewear.multiassert);
+config(middlewear.multiassert);
 
 // Test
 test("should get mock function", () => {

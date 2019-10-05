@@ -1,9 +1,9 @@
-import { pipeline, run, middlewear } from "../lib";
+import { run, config, middlewear } from "../lib";
 
 const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
 
 run(
-  pipeline(
+  config(
     starter,
     matchTestFiles("./tests/**/*.test.js"),
     specSyntax,

@@ -7,20 +7,20 @@ This document explains the basic logic and domain language. It uses typescript i
 A node executable file where you define how the framework is configured/behaves.
 
 ```javascript
-import { run, pipeline, middlewear } from "@testingrequired/tf";
+import { run, config, middlewear } from "@testingrequired/tf";
 
-const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
+const { starter, matchTestFiles, specSyntax } = middlewear;
 
-run(pipeline(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
+run(config(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
 
 ### Run
 
-The run function can run multiple pipelines allowing you to configure a number of different type of tests.
+The run function can run multiple configs allowing you to configure a number of different type of tests.
 
-### Pipeline
+### Config
 
-A pipeline is a collection of middlewear that represents a set of tests: unit tests, end to end tests, api tests. The middlewear passed will define how tests are found, executed and reported.
+A config is a collection of middlewear that represents a set of tests: unit tests, end to end tests, api tests. The middlewear used will define how tests are found, executed and reported.
 
 ## Middlewear
 

@@ -213,8 +213,6 @@ config(middlewear.exitOnFailedTests);
 
 Exit with code of `1` when setup finishes with no tests defined.
 
-Included in: 📚 starter
-
 ```javascript
 // Executable
 import { middlewear } from "@testingrequired/tf";
@@ -280,8 +278,6 @@ Logs:
 ## ✔ junit(filePath)
 
 Write results to junit file.
-
-Included in: 📚 starter
 
 ```javascript
 // Executable

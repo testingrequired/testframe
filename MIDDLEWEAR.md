@@ -2,27 +2,37 @@
 
 Middlewear are the building blocks for functionality within the framework.
 
-- [starter](#-starter)
+## Index
+
+### Setup
+
 - [args](#-args)
 - [assert](#-assert)
-- [matchTestFiles](#-matchtestfilespatterns)
-- [specSyntax](#-specsyntax)
-- [suiteSyntax](#-suitesyntax)
-- [runner](#-runner)
-- [exitOnErroredTests](#-exitonerroredtests)
-- [exitOnFailedTests](#-exitonfailedtests)
 - [exitOnNoTests](#-exitonnotests)
-- [setupReporter](#-setupreporter)
-- [resultsReporter](#-resultsreporter)
-- [randomize](#-randomize)
-- [log](#-log)
-- [junit](#-junitfilepath)
 - [globals](#-globalskey-value)
-- [compose](#-composemiddlewears)
-- [event](#-eventtype-callback)
-- [random](#-random)
+- [log](#-log)
+- [matchTestFiles](#-matchtestfilespatterns)
 - [mock](#-mock)
 - [multiassert](#-multiassert)
+- [random](#-random)
+- [randomize](#-randomize)
+- [setupReporter](#-setupreporter)
+- [specSyntax](#-specsyntax)
+- [suiteSyntax](#-suitesyntax)
+
+### Results
+
+- [exitOnErroredTests](#-exitonerroredtests)
+- [exitOnFailedTests](#-exitonfailedtests)
+- [junit](#-junitfilepath)
+- [resultsReporter](#-resultsreporter)
+- [runner](#-runner)
+
+### Utility
+
+- [compose](#-composemiddlewears)
+- [event](#-eventtype-callback)
+- [starter](#-starter)
 
 ## 📚 starter
 
@@ -30,13 +40,13 @@ Includes several recommended middlewear to get you started:
 
 - [args](#-args)
 - [assert](#-assert)
-- [randomize](#-randomize)
-- [setupReporter](#-setupReporter)
-- [resultsReporter](#-resultsReporter)
-- [runner](#-runner)
 - [exitOnErroredTests](#-exitOnErroredTests)
 - [exitOnFailedTests](#-exitonfailedtests)
 - [log](#-log)
+- [randomize](#-randomize)
+- [resultsReporter](#-resultsReporter)
+- [runner](#-runner)
+- [setupReporter](#-setupReporter)
 
 ```javascript
 // Executable

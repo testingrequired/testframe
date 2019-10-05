@@ -1,7 +1,7 @@
 {
   "name": "@testingrequired/tf",
-  "version": "0.0.21",
-  "description": "Middlewear based test framework",
+  "version": "0.0.22",
+  "description": "A testing framework",
   "main": "lib/index.js",
   "files": [
     "LICENSE",

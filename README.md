@@ -103,6 +103,10 @@ Look through the growing list of available [middlewear](MIDDLEWEAR.md) to build 
 
 The [anatomy](ANATOMY.md) documentation explains how the framework is structured and how middlewear works. This would be a good place to start if you want to write custom middlewear.
 
+### Custom Middlewear
+
+Define the behavior required to run your tests by writing [custom middlewear](WRITING_MIDDLEWEAR.md).
+
 ### Contributing
 
 See [development](DEVELOPMENT.md).

@@ -4,7 +4,6 @@ import globals from "./globals";
 import runner from "./runner";
 import setupReporter from "./setupReporter";
 import resultsReporter from "./resultsReporter";
-import junit from "./junit";
 import randomize from "./randomize";
 import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
@@ -20,6 +19,5 @@ export default compose(
   runner,
   exitOnErroredTests,
   exitOnFailedTests,
-  junit("junit.xml"),
   log
 );

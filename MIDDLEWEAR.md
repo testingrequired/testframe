@@ -35,7 +35,6 @@ Includes several recommended middlewear to get you started:
 - [runner](#-runner)
 - [exitOnErroredTests](#-exitOnErroredTests)
 - [exitOnFailedTests](#-exitonfailedtests)
-- [junit](#-junitfilepath)(`"junit.xml"`)
 - [log](#-log)
 
 ```javascript

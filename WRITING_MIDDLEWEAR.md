@@ -73,3 +73,21 @@ export default (setup: Setup, events?: EventEmitter) => {
 ```
 
 The advantage here is that we no longer have to worry about results being populated as a dependency. This event will fire when it's ready.
+
+```javascript
+import { run, config, middlewear } from "@testingrequired/tf";
+import testFailedReporter from "./testFailedReporter";
+
+const { starter, matchTestFiles, specSyntax } = middlewear;
+
+run(
+  config(
+    testFailedReporter,
+    starter,
+    matchTestFiles("./tests/**/*.spec.js"),
+    specSyntax
+  )
+);
+```
+
+This would work just fine.

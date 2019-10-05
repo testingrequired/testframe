@@ -1,4 +1,4 @@
-# Anatomy
+# 🧬 Anatomy
 
 This document explains the basic logic and domain language. It uses typescript interfaces to illustrate.
 

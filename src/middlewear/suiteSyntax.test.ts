@@ -2,7 +2,14 @@ import suiteSyntax from "./suiteSyntax";
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
 
-describe("loadTests", () => {
+function runSetupTests(setup: Setup) {
+  setup.tests.forEach(test => test.fn());
+}
+
+const expectedTestPath = "./src/middlewear/testUtils/exampleTests/test.js";
+const mockTestPath = "./testUtils/exampleTests/test.js";
+
+describe("suiteSyntax", () => {
   let setup: Setup;
   let beforeEachMockFn;
   let afterEachMockFn;
@@ -10,70 +17,171 @@ describe("loadTests", () => {
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();
-    (global as any).beforeEachMock = beforeEachMockFn;
-
     afterEachMockFn = jest.fn();
-    (global as any).afterEachMock = afterEachMockFn;
-
     testMockFn = jest.fn();
-    (global as any).testMock = testMockFn;
 
     setup = createSetup();
+
+    setup.testFilePaths = [expectedTestPath];
   });
 
   afterEach(() => {
     jest.resetModules();
   });
 
-  describe("basic", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/suite/exampleTest.js"
-      ];
+  describe("test", () => {
+    describe("when defined", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          test("testDescription", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should set test description", () => {
+        expect(setup.tests[0].description).toEqual("testDescription");
+      });
+
+      it("should set test run state", () => {
+        expect(setup.tests[0].runState).toEqual("run");
+      });
+
+      it("should be called when test run", () => {
+        expect(testMockFn).toBeCalledTimes(1);
+      });
     });
 
-    it("should load one test", () => {
-      suiteSyntax(setup);
+    describe("when defined as skipped", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          test.skip("testDescription", testMockFn);
+        });
 
-      expect(setup.tests.length).toBe(1);
-    });
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
 
-    it("should load run test", () => {
-      suiteSyntax(setup);
+      it("should set test run state to skipped", () => {
+        expect(setup.tests[0].runState).toEqual("skip");
+      });
 
-      expect(setup.tests[0].description).toBe("test1");
-      expect(setup.tests[0].runState).toBe("run");
-      setup.tests[0].fn();
-      expect(beforeEachMockFn).toHaveBeenNthCalledWith(1);
-      expect(testMockFn).toHaveBeenNthCalledWith(1);
-      expect(afterEachMockFn).toHaveBeenNthCalledWith(1);
-    });
-
-    it("should run hooks for each test", () => {
-      suiteSyntax(setup);
-
-      setup.tests[0].fn();
-
-      expect(beforeEachMockFn).toBeCalledTimes(1);
-      expect(afterEachMockFn).toBeCalledTimes(1);
+      it("should be called when test run", () => {
+        expect(testMockFn).toBeCalledTimes(0);
+      });
     });
   });
 
-  describe("skip", () => {
-    beforeEach(() => {
-      setup.testFilePaths = [
-        "./src/middlewear/testUtils/exampleTests/suite/skipTest.js"
-      ];
+  describe("beforeEach", () => {
+    describe("when defined", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
+
+          test("", testMockFn);
+          test("", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should be called for each test", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(2);
+      });
     });
 
-    it("should load skipped test", () => {
-      suiteSyntax(setup);
+    describe("when defined multiple times", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
+          beforeEach(beforeEachMockFn);
 
-      expect(setup.tests[0].description).toBe("test2");
-      expect(setup.tests[0].runState).toBe("skip");
-      setup.tests[0].fn();
+          test("", testMockFn);
+          test("", testMockFn);
+        });
 
-      expect(testMockFn).not.toBeCalled();
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should be called twice for each test", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(4);
+      });
+    });
+
+    describe("when defined with skipped test", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          beforeEach(beforeEachMockFn);
+
+          test.skip("", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should not be called", () => {
+        expect(beforeEachMockFn).toBeCalledTimes(0);
+      });
+    });
+  });
+
+  describe("afterEach", () => {
+    describe("when defined", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          afterEach(afterEachMockFn);
+
+          test("", testMockFn);
+          test("", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should be called for each test", () => {
+        expect(afterEachMockFn).toBeCalledTimes(2);
+      });
+    });
+
+    describe("when defined multiple times", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          afterEach(afterEachMockFn);
+          afterEach(afterEachMockFn);
+
+          test("", testMockFn);
+          test("", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should be called twice for each test", () => {
+        expect(afterEachMockFn).toBeCalledTimes(4);
+      });
+    });
+
+    describe("when defined with skipped test", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          afterEach(afterEachMockFn);
+
+          test.skip("", testMockFn);
+        });
+
+        suiteSyntax(setup);
+        runSetupTests(setup);
+      });
+
+      it("should not be called", () => {
+        expect(afterEachMockFn).toBeCalledTimes(0);
+      });
     });
   });
 });

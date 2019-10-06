@@ -9,7 +9,7 @@ function runSetupTests(setup: Setup) {
 const expectedTestPath = "./src/middlewear/testUtils/exampleTests/spec/test.js";
 const mockTestPath = "./testUtils/exampleTests/spec/test.js";
 
-describe("loadTests", () => {
+describe("specSyntax", () => {
   let setup: Setup;
   let beforeEachMockFn;
   let afterEachMockFn;

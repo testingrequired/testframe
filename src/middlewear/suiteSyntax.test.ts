@@ -40,6 +40,10 @@ describe("suiteSyntax", () => {
         runSetupTests(setup);
       });
 
+      it("should define a test", () => {
+        expect(setup.tests).toHaveLength(1);
+      });
+
       it("should set test description", () => {
         expect(setup.tests[0].description).toEqual("testDescription");
       });

@@ -90,18 +90,23 @@ describe("specSyntax", () => {
         });
 
         specSyntax(setup);
+        runSetupTests(setup);
       });
 
       it("should define a test", () => {
         expect(setup.tests).toHaveLength(1);
       });
 
-      it("should not call test function", () => {
-        expect(testMockFn).toBeCalledTimes(0);
-      });
-
       it("should set test description", () => {
         expect(setup.tests[0].description).toEqual("test");
+      });
+
+      it("should set test run state", () => {
+        expect(setup.tests[0].runState).toEqual("run");
+      });
+
+      it("should be called when test run", () => {
+        expect(testMockFn).toBeCalledTimes(1);
       });
     });
 

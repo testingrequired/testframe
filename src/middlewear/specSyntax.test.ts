@@ -116,6 +116,8 @@ describe("specSyntax", () => {
           describe("describe", () => {
             it("test", testMockFn);
           });
+
+          it("test 2", testMockFn);
         });
 
         specSyntax(setup);
@@ -123,6 +125,7 @@ describe("specSyntax", () => {
 
       it("should prepend the describe description to test description", () => {
         expect(setup.tests[0].description).toEqual("describe test");
+        expect(setup.tests[1].description).toEqual("test 2");
       });
     });
 

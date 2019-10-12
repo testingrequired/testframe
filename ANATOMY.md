@@ -7,9 +7,9 @@ This document explains the basic logic and domain language. It uses typescript i
 A node executable file where you define how the framework is configured/behaves.
 
 ```javascript
-import { run, config, middlewear } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/tf";
 
-const { starter, matchTestFiles, specSyntax } = middlewear;
+const { starter, matchTestFiles, specSyntax } = middleware;
 
 run(config(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 ```
@@ -20,11 +20,11 @@ The run function can run multiple configs allowing you to configure a number of 
 
 ### Config
 
-A config is a collection of middlewear that represents a set of tests: unit tests, end to end tests, api tests. The middlewear used will define how tests are found, executed and reported.
+A config is a collection of middleware that represents a set of tests: unit tests, end to end tests, api tests. The middleware used will define how tests are found, executed and reported.
 
-## Middlewear
+## Middleware
 
-Middlewear is a two stage curried function: [`setup`](#setup) then an optional [`results`](#results).
+Middleware is a two stage curried function: [`setup`](#setup) then an optional [`results`](#results).
 
 ```typescript
 interface SetupExecutor {
@@ -35,7 +35,7 @@ interface ResultsExecutor {
   (results: Array<Result>): void;
 }
 
-type Middlewear = SetupExecutor;
+type Middleware = SetupExecutor;
 ```
 
 ### Example Implementation
@@ -43,7 +43,7 @@ type Middlewear = SetupExecutor;
 This demonstrates how execution works:
 
 ```typescript
-const middlewear = (setup: Setup) => {
+const middleware = (setup: Setup) => {
   console.log("Runs during setup");
   return (results: Results) => {
     console.log("Runs during results");
@@ -54,7 +54,7 @@ const middlewear = (setup: Setup) => {
 You can also return nothing as results is optional:
 
 ```typescript
-const middlewear = (setup: Setup) => {
+const middleware = (setup: Setup) => {
   console.log("Runs during setup");
 };
 ```
@@ -62,7 +62,7 @@ const middlewear = (setup: Setup) => {
 An event emitter is also passed in during the setup stage:
 
 ```typescript
-const middlewear = (setup: Setup, events?: EventEmitter) => {
+const middleware = (setup: Setup, events?: EventEmitter) => {
   console.log("Runs during setup");
 
   events.on("someEvent", () => console.log("Runs on event"));

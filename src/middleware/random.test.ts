@@ -1,9 +1,9 @@
-import assertMiddlewear from "./assert";
+import randomMiddleware from "./random";
 import Setup from "../types/Setup";
-import assert from "assert";
+import Chance from "chance";
 import createSetup from "./testUtils/createSetup";
 
-describe("assert", () => {
+describe("random", () => {
   let setup: Setup;
 
   beforeEach(() => {
@@ -11,8 +11,8 @@ describe("assert", () => {
   });
 
   it("should create globals", () => {
-    assertMiddlewear(setup);
+    randomMiddleware(setup);
 
-    expect(setup.globals.assert).toBe(assert);
+    expect(setup.globals.random).toBeInstanceOf(Chance);
   });
 });

@@ -1,14 +1,14 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
-import Middlewear from "../types/Middlewear";
+import Middleware from "../types/Middleware";
 import { EventEmitter } from "events";
 import notEmpty from "../utils/notEmpty";
 
-export default (...middlewears: Array<Middlewear>) => (
+export default (...middlewares: Array<Middleware>) => (
   setup: Setup,
   events: EventEmitter
 ) => {
-  const resultExecutors = middlewears.map(setupPhase =>
+  const resultExecutors = middlewares.map(setupPhase =>
     setupPhase(setup, events)
   );
 

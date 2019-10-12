@@ -6,7 +6,7 @@ function runSetupTests(setup: Setup) {
   setup.tests.forEach(test => test.fn());
 }
 
-const expectedTestPath = "./src/middlewear/testUtils/exampleTests/test.js";
+const expectedTestPath = "./src/middleware/testUtils/exampleTests/test.js";
 const mockTestPath = "./testUtils/exampleTests/test.js";
 
 describe("specSyntax", () => {

@@ -1,6 +1,6 @@
-import { run, config, middlewear } from "../lib";
+import { run, config, middleware } from "../lib";
 
-const { starter, specSyntax, matchTestFiles, random, mock } = middlewear;
+const { starter, specSyntax, matchTestFiles, random, mock } = middleware;
 
 run(
   config(

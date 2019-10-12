@@ -1,4 +1,4 @@
-import junitMiddlewear from "./junit";
+import junitMiddleware from "./junit";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
@@ -38,22 +38,22 @@ describe("junit", () => {
   });
 
   it("should set test suite name to test file path", () => {
-    junitMiddlewear(expectedFilePath)(setup)(results);
+    junitMiddleware(expectedFilePath)(setup)(results);
     expect(testSuite.name).toBeCalledWith(`test/file/path/${resultId}.test.js`);
   });
 
   it("should set test case to test description", () => {
-    junitMiddlewear(expectedFilePath)(setup)(results);
+    junitMiddleware(expectedFilePath)(setup)(results);
     expect(testCase.name).toBeCalledWith(`${resultId} description`);
   });
 
   it("should set test case time to test time", () => {
-    junitMiddlewear(expectedFilePath)(setup)(results);
+    junitMiddleware(expectedFilePath)(setup)(results);
     expect(testCase.time).toBeCalledWith(results[0].time);
   });
 
   it("should write to file", () => {
-    junitMiddlewear(expectedFilePath)(setup)(results);
+    junitMiddleware(expectedFilePath)(setup)(results);
     expect(junit.writeTo).toBeCalledWith(expectedFilePath);
   });
 
@@ -66,12 +66,12 @@ describe("junit", () => {
     });
 
     it("should set test case failure to test case error message", () => {
-      junitMiddlewear(expectedFilePath)(setup)(results);
+      junitMiddleware(expectedFilePath)(setup)(results);
       expect(testCase.failure).toBeCalledWith(results[0].error.message);
     });
 
     it("should set test case stacktrace to test case error stacktrace", () => {
-      junitMiddlewear(expectedFilePath)(setup)(results);
+      junitMiddleware(expectedFilePath)(setup)(results);
       expect(testCase.stacktrace).toBeCalledWith(results[0].error.stack);
     });
   });
@@ -82,7 +82,7 @@ describe("junit", () => {
     });
 
     it("should set test case skipped", () => {
-      junitMiddlewear(expectedFilePath)(setup)(results);
+      junitMiddleware(expectedFilePath)(setup)(results);
       expect(testCase.skipped).toBeCalledTimes(1);
     });
   });

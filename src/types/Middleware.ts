@@ -10,6 +10,6 @@ export interface ResultsExecutor {
   (results: Results): void;
 }
 
-type Middlewear = SetupExecutor;
+type Middleware = SetupExecutor;
 
-export default Middlewear;
+export default Middleware;

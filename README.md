@@ -8,7 +8,7 @@ A testing framework.
 
 - Testing behavior agnostic
 - Effortlessly extendable
-- [Most batteries included](MIDDLEWEAR.md)
+- [Most batteries included](MIDDLEWARE.md)
 
 ## Note
 
@@ -40,19 +40,19 @@ run();
 
 ### Configure
 
-This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middlewear](MIDDLEWEAR.md) in the executable:
+This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middleware](MIDDLEWARE.md) in the executable:
 
 ```javascript
-import { run, config, middlewear } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/tf";
 
-const { starter, matchTestFiles, specSyntax } = middlewear;
+const { starter, matchTestFiles, specSyntax } = middleware;
 
 run(config(starter, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
 ```
 
-A [`config`](ANATOMY.md#config) composes middlewear to define that behavior. Here [`matchTestFiles`](MIDDLEWEAR.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWEAR.md#-specsyntax) defines how to read the them.
+A [`config`](ANATOMY.md#config) composes middleware to define that behavior. Here [`matchTestFiles`](MIDDLEWARE.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWARE.md#-specsyntax) defines how to read the them.
 
-[`starter`](MIDDLEWEAR.md#-starter) is an optional middlewear that bundles some of the core middlewears to get you started: [randomize test order](MIDDLEWEAR.md#-randomize), [run tests](MIDDLEWEAR.md#-runner), [report results](MIDDLEWEAR.md#-resultsReporter) and more. Of course you can skip this and define exactly what middlewear you wish to use.
+[`starter`](MIDDLEWARE.md#-starter) is an optional middleware that bundles some of the core middlewares to get you started: [randomize test order](MIDDLEWARE.md#-randomize), [run tests](MIDDLEWARE.md#-runner), [report results](MIDDLEWARE.md#-resultsReporter) and more. Of course you can skip this and define exactly what middleware you wish to use.
 
 ### Wire Test Script
 
@@ -95,17 +95,17 @@ See a simple implementation: https://github.com/testingrequired/tf-example
 
 ## Next Steps
 
-### Middlewear
+### Middleware
 
-Look through the growing list of available [middlewear](MIDDLEWEAR.md) to build the testing functionality your project needs.
+Look through the growing list of available [middleware](MIDDLEWARE.md) to build the testing functionality your project needs.
 
 ### More In Depth
 
-The [anatomy](ANATOMY.md) documentation explains how the framework is structured and how middlewear works. This would be a good place to start if you want to write custom middlewear.
+The [anatomy](ANATOMY.md) documentation explains how the framework is structured and how middleware works. This would be a good place to start if you want to write custom middleware.
 
-### Custom Middlewear
+### Custom Middleware
 
-Define the behavior required to run your tests by writing [custom middlewear](WRITING_MIDDLEWEAR.md).
+Define the behavior required to run your tests by writing [custom middleware](WRITING_MIDDLEWARE.md).
 
 ### Contributing
 

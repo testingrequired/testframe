@@ -20,7 +20,7 @@ describe("globals", () => {
     expect(() => {
       globals("foo", "bar")(setup);
     }).toThrow(
-      "Global 'foo' already registered. Please check your middlewear load order."
+      "Global 'foo' already registered. Please check your middleware load order."
     );
   });
 });

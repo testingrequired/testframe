@@ -1,4 +1,4 @@
-import multiassertMiddlewear from "./multiassert";
+import multiassertMiddleware from "./multiassert";
 import Setup from "../types/Setup";
 import multiassert from "@testingrequired/multiassert";
 import createSetup from "./testUtils/createSetup";
@@ -11,7 +11,7 @@ describe("multiassert", () => {
   });
 
   it("should create globals", () => {
-    multiassertMiddlewear(setup);
+    multiassertMiddleware(setup);
 
     expect(setup.globals.multiassert).toBe(multiassert);
   });

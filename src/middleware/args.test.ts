@@ -1,6 +1,6 @@
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
-import args from "../middlewear/args";
+import args from "../middleware/args";
 
 describe("args", () => {
   const setup: Setup = createSetup();

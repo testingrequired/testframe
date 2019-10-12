@@ -1,10 +1,10 @@
-import Middlewear from "./types/Middlewear";
+import Middleware from "./types/Middleware";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
 import { EventEmitter } from "events";
 import notEmpty from "./utils/notEmpty";
 
-export default (...middlewears: Middlewear[]) => () => {
+export default (...middlewares: Middleware[]) => () => {
   const setup: Setup = {
     testFilePaths: [],
     globals: {},
@@ -14,7 +14,7 @@ export default (...middlewears: Middlewear[]) => () => {
   const results: Results = [];
   const events = new EventEmitter();
 
-  const resultExecutors = middlewears.map(setupPhase =>
+  const resultExecutors = middlewares.map(setupPhase =>
     setupPhase(setup, events)
   );
 

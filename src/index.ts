@@ -1,6 +1,6 @@
 import "@babel/polyfill";
-import * as middlewear from "./middlewear/index";
+import * as middleware from "./middleware/index";
 
 export { default as config } from "./config";
 export { default as run } from "./run";
-export { middlewear };
+export { middleware };

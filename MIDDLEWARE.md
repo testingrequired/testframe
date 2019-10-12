@@ -1,6 +1,6 @@
-# 🧩 Middlewear
+# 🧩 Middleware
 
-Middlewear are the building blocks for functionality within the framework.
+Middleware are the building blocks for functionality within the framework.
 
 ## Index
 
@@ -30,13 +30,13 @@ Middlewear are the building blocks for functionality within the framework.
 
 ### Utility
 
-- [compose](#-composemiddlewears)
+- [compose](#-composemiddlewares)
 - [event](#-eventtype-callback)
 - [starter](#-starter)
 
 ## 📚 starter
 
-Includes several recommended middlewear to get you started:
+Includes several recommended middleware to get you started:
 
 - [args](#-args)
 - [assert](#-assert)
@@ -50,8 +50,8 @@ Includes several recommended middlewear to get you started:
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.starter);
+import { middleware } from "@testingrequired/tf";
+config(middleware.starter);
 ```
 
 ## ✔ args
@@ -64,11 +64,11 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.args);
+import { middleware } from "@testingrequired/tf";
+config(middleware.args);
 
-// Middlewear
-function setupMiddlewear(setup: Setup) {
+// Middleware
+function setupMiddleware(setup: Setup) {
   setup.args; // Contains parsed command line arguments
 }
 ```
@@ -79,11 +79,11 @@ Parse command line arugments using `yargs` options.
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.args.withOptions({}));
+import { middleware } from "@testingrequired/tf";
+config(middleware.args.withOptions({}));
 
-// Middlewear
-function setupMiddlewear(setup: Setup) {
+// Middleware
+function setupMiddleware(setup: Setup) {
   setup.args; // Contains parsed command line arguments
 }
 ```
@@ -96,8 +96,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.assert);
+import { middleware } from "@testingrequired/tf";
+config(middleware.assert);
 
 // Test
 assert.strictEquals(1, 1);
@@ -118,8 +118,8 @@ Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.specSyntax);
+import { middleware } from "@testingrequired/tf";
+config(middleware.specSyntax);
 
 // Test
 describe("counting", () => {
@@ -166,8 +166,8 @@ Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.suiteSyntax);
+import { middleware } from "@testingrequired/tf";
+config(middleware.suiteSyntax);
 
 // Test
 let value = 0;
@@ -191,8 +191,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.runner);
+import { middleware } from "@testingrequired/tf";
+config(middleware.runner);
 ```
 
 ## ✔ exitOnErroredTests
@@ -203,8 +203,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.exitOnErroredTests);
+import { middleware } from "@testingrequired/tf";
+config(middleware.exitOnErroredTests);
 ```
 
 ## ✔ exitOnFailedTests
@@ -215,8 +215,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.exitOnFailedTests);
+import { middleware } from "@testingrequired/tf";
+config(middleware.exitOnFailedTests);
 ```
 
 ## ✔ exitOnNoTests
@@ -225,8 +225,8 @@ Exit with code of `1` when setup finishes with no tests defined.
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.exitOnNoTests);
+import { middleware } from "@testingrequired/tf";
+config(middleware.exitOnNoTests);
 ```
 
 ## ✔ setupReporter
@@ -237,8 +237,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.setupReporter);
+import { middleware } from "@testingrequired/tf";
+config(middleware.setupReporter);
 ```
 
 ## ✔ resultsReporter
@@ -249,8 +249,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.resultsReporter);
+import { middleware } from "@testingrequired/tf";
+config(middleware.resultsReporter);
 ```
 
 ## ✔ randomize
@@ -261,8 +261,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.randomize);
+import { middleware } from "@testingrequired/tf";
+config(middleware.randomize);
 ```
 
 ## ✔ log
@@ -273,8 +273,8 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.log);
+import { middleware } from "@testingrequired/tf";
+config(middleware.log);
 
 // Test
 console.log("Message", { some: "value" });
@@ -291,8 +291,8 @@ Write results to junit file.
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.junit("junit.xml"));
+import { middleware } from "@testingrequired/tf";
+config(middleware.junit("junit.xml"));
 ```
 
 ## ✔ globals(key, value)
@@ -300,7 +300,7 @@ config(middlewear.junit("junit.xml"));
 Register global variable available inside tests.
 
 ```javascript
-// Middlewear
+// Middleware
 import assert from "assert";
 const assertGlobal = globals("assert", assert);
 
@@ -308,19 +308,19 @@ const assertGlobal = globals("assert", assert);
 config(assertGlobal);
 ```
 
-## ✔ compose(...middlewears)
+## ✔ compose(...middlewares)
 
-Compose multiple middlewear together as a new middlewear.
+Compose multiple middleware together as a new middleware.
 
 ```javascript
-// Middlewear
+// Middleware
 const events = compose(
   event("test:start", test => {}),
   event("test:result", result => {})
 );
 
 // Executable
-import events from "./path/to/eventsMiddlewear";
+import events from "./path/to/eventsMiddleware";
 config(events);
 ```
 
@@ -330,8 +330,8 @@ Callback on event type
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.event("test:result", result => {}));
+import { middleware } from "@testingrequired/tf";
+config(middleware.event("test:result", result => {}));
 ```
 
 ### callback
@@ -344,11 +344,11 @@ config(middlewear.event("test:result", result => {}));
 
 #### setup
 
-Emitted when all setup middlewear has completed. Payload is [setup](ANATOMY.md#setup) object.
+Emitted when all setup middleware has completed. Payload is [setup](ANATOMY.md#setup) object.
 
 #### results
 
-Emitted when all results middlewear has completed. Payload is [result](ANATOMY.md#result) array.
+Emitted when all results middleware has completed. Payload is [result](ANATOMY.md#result) array.
 
 #### test:start
 
@@ -372,8 +372,8 @@ Provides a `random` global test variable which provides a [chance](https://chanc
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.random);
+import { middleware } from "@testingrequired/tf";
+config(middleware.random);
 
 // Test
 test("should get random value", () => {
@@ -391,8 +391,8 @@ Provides a `mock` (an instance of [testdouble](https://github.com/testdouble/tes
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.mock);
+import { middleware } from "@testingrequired/tf";
+config(middleware.mock);
 
 // Test
 describe("mock", () => {
@@ -419,8 +419,8 @@ Provides a `multiassert` global test variable which is an alias to [@testingrequ
 
 ```javascript
 // Executable
-import { middlewear } from "@testingrequired/tf";
-config(middlewear.multiassert);
+import { middleware } from "@testingrequired/tf";
+config(middleware.multiassert);
 
 // Test
 test("should get mock function", () => {

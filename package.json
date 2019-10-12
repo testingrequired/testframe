@@ -3,6 +3,7 @@
   "version": "0.0.23",
   "description": "A testing framework",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "LICENSE",
     "README.md",

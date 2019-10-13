@@ -11,7 +11,7 @@
    - Example: `0.0.10`
 1. `$ git push --follow-tags`
 1. Update [tf-example](https://github.com/testingrequired/tf-example)
-   1. `$ npm i @testingrequired/tf@latest`
+   1. `$ npm i testframe@latest`
    1. `$ npm ci`
    1. `$ npm run test`
    1. Fix any errors that may occur from breaking changes

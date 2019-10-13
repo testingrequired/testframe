@@ -99,7 +99,7 @@ There are several great test frameworks out there (see: jest, mocha, jasmine) th
 
 This framework is different in that it's not a unit testing framework. It tries not to make any assumptions about the tests you are writing. Instead you're choosing, building, mixing and matching behaviors that work for your tests. Unit, integration, end to end, API contract tests. Any test syntax, expose integrations through global variables in tests, report results.
 
-These behaviors as defined as middleware functions. There are [wide range](MIDDLEWEAR.md) of middleware included but it's easy [write your own](WRITING_MIDDLEWARE.md).
+These behaviors as defined as middleware functions. There are [wide range](MIDDLEWARE.md) of middleware included but it's easy [write your own](WRITING_MIDDLEWARE.md).
 
 ## Next Steps
 

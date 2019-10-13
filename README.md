@@ -7,7 +7,7 @@ A testing framework.
 ## Features
 
 - [Testing behavior agnostic](#why)
-- [Most batteries included](MIDDLEWARE.md)
+- [Most batteries included](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md)
 - Effortlessly extendable
 
 ## Note
@@ -40,7 +40,7 @@ run();
 
 ### Configure
 
-This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middleware](MIDDLEWARE.md) in the executable:
+This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middleware](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md) in the executable:
 
 ```javascript
 import { run, config, middleware } from "@testingrequired/testframe";
@@ -50,9 +50,9 @@ const { starter, matchTestFiles, specSyntax } = middleware;
 run(config(starter, matchTestFiles("./tests/**/*.spec.js"), specSyntax));
 ```
 
-A [`config`](ANATOMY.md#config) composes middleware to define that behavior. Here [`matchTestFiles`](MIDDLEWARE.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](MIDDLEWARE.md#-specsyntax) defines how to read the them.
+A [`config`](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#config) composes middleware to define that behavior. Here [`matchTestFiles`](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-matchtestfilespatterns) defines how to find the test files while [`specSyntax`](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-specsyntax) defines how to read the them.
 
-[`starter`](MIDDLEWARE.md#-starter) is an optional middleware that bundles some of the core middlewares to get you started: [randomize test order](MIDDLEWARE.md#-randomize), [run tests](MIDDLEWARE.md#-runner), [report results](MIDDLEWARE.md#-resultsReporter) and more. Of course you can skip this and define exactly what middleware you wish to use.
+[`starter`](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-starter) is an optional middleware that bundles some of the core middlewares to get you started: [randomize test order](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-randomize), [run tests](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-runner), [report results](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md#-resultsReporter) and more. Of course you can skip this and define exactly what middleware you wish to use.
 
 ### Wire Test Script
 
@@ -99,25 +99,25 @@ There are several great test frameworks out there (see: jest, mocha, jasmine) th
 
 This framework is different in that it's not a unit testing framework. It tries not to make any assumptions about the tests you are writing. Instead you're choosing, building, mixing and matching behaviors that work for your tests. Unit, integration, end to end, API contract tests. Any test syntax, expose integrations through global variables in tests, report results.
 
-These behaviors as defined as middleware functions. There are [wide range](MIDDLEWARE.md) of middleware included but it's easy [write your own](WRITING_MIDDLEWARE.md).
+These behaviors as defined as middleware functions. There are [wide range](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md) of middleware included but it's easy [write your own](https://github.com/testingrequired/testframe/blob/master/WRITING_MIDDLEWARE.md).
 
 ## Next Steps
 
 ### Middleware
 
-Look through the growing list of available [middleware](MIDDLEWARE.md) to build the testing functionality your project needs.
+Look through the growing list of available [middleware](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md) to build the testing functionality your project needs.
 
 ### More In Depth
 
-The [anatomy](ANATOMY.md) documentation explains how the framework is structured and how middleware works. This would be a good place to start if you want to write custom middleware.
+The [anatomy](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md) documentation explains how the framework is structured and how middleware works. This would be a good place to start if you want to write custom middleware.
 
 ### Custom Middleware
 
-Define the behavior required to run your tests by writing [custom middleware](WRITING_MIDDLEWARE.md).
+Define the behavior required to run your tests by writing [custom middleware](WRITING_https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md).
 
 ### Contributing
 
-See [development](DEVELOPMENT.md).
+See [development](https://github.com/testingrequired/testframe/blob/master/DEVELOPMENT.md).
 
 ## Built With
 

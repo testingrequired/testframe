@@ -1,6 +1,6 @@
 # Writing Middleware
 
-While there is a wide range of built in [middleware](MIDDLEWARE.md) it will be likely that custom behavior is required and you'll need to write middleware to do that.
+While there is a wide range of built in [middleware](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md) it will be likely that custom behavior is required and you'll need to write middleware to do that.
 
 ## Understanding
 

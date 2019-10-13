@@ -344,11 +344,11 @@ config(middleware.event("test:result", result => {}));
 
 #### setup
 
-Emitted when all setup middleware has completed. Payload is [setup](ANATOMY.md#setup) object.
+Emitted when all setup middleware has completed. Payload is [setup](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#setup) object.
 
 #### results
 
-Emitted when all results middleware has completed. Payload is [result](ANATOMY.md#result) array.
+Emitted when all results middleware has completed. Payload is [result](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#result) array.
 
 #### test:start
 
@@ -356,15 +356,15 @@ Emitted when test has started to execute.
 
 #### test:result
 
-Emitted when test has completed. Payload is [result](ANATOMY.md#result) object.
+Emitted when test has completed. Payload is [result](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#result) object.
 
 #### test:failure
 
-Emitted when test has failed. Payload is [result](ANATOMY.md#result) object.
+Emitted when test has failed. Payload is [result](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#result) object.
 
 #### test:error
 
-Emitted when test has errored. Payload is [result](ANATOMY.md#result) object.
+Emitted when test has errored. Payload is [result](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md#result) object.
 
 ## ✔ random
 

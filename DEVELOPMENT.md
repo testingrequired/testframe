@@ -12,7 +12,7 @@ The project currently only increments patch version until the release cut. Break
 
 ## Learning
 
-The [anatomy](ANATOMY.md) documentation covers basic domain types and interfaces.
+The [anatomy](https://github.com/testingrequired/testframe/blob/master/ANATOMY.md) documentation covers basic domain types and interfaces.
 
 ## Starting
 

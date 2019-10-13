@@ -93,6 +93,12 @@ $ npm test
 
 See a simple implementation: https://github.com/testingrequired/tf-example
 
+## Why
+
+There are several great test frameworks out there (see: jest, mocha, jasmine) that will likely fit your needs. They will definitely fit your unit testing needs and their documentation/support is strong. They are also production ready. You're highly encouraged to use those if they work for you and the tests you're writing.
+
+This framework is different in that it's not a unit testing framework. In fact it tries to make no assumptions about the tests you are writing. Instead you're choosing, building, mixing and matching behaviors that work for your tests. Unit, integration, end to end, API contract tests. Test syntax, test globals, randomize test order.
+
 ## Next Steps
 
 ### Middleware

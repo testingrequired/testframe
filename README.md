@@ -1,4 +1,4 @@
-# testframe
+# tf
 
 [![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
 
@@ -21,7 +21,7 @@ This is not a production ready project yet. Breaking changes should be expected.
 [![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftf)
 
 ```bash
-$ npm i -D testframe@latest
+$ npm i -D @testingrequired/tf@latest
 ```
 
 #### Supported Node Versions
@@ -30,10 +30,10 @@ $ npm i -D testframe@latest
 
 ### Executable
 
-The framework doesn't provide an executable so you'll need to create one: `./bin/testframe.js`
+The framework doesn't provide an executable so you'll need to create one: `./bin/tf.js`
 
 ```javascript
-import { run } from "testframe";
+import { run } from "@testingrequired/tf";
 
 run();
 ```
@@ -43,7 +43,7 @@ run();
 This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middleware](MIDDLEWARE.md) in the executable:
 
 ```javascript
-import { run, config, middleware } from "testframe";
+import { run, config, middleware } from "@testingrequired/tf";
 
 const { starter, matchTestFiles, specSyntax } = middleware;
 
@@ -60,7 +60,7 @@ A [`config`](ANATOMY.md#config) composes middleware to define that behavior. Her
 {
   ...package,
   "scripts": {
-    "test": "node -r esm ./bin/testframe.js"
+    "test": "node -r esm ./bin/tf.js"
   }
 }
 ```
@@ -97,7 +97,7 @@ See a simple implementation: https://github.com/testingrequired/tf-example
 
 There are several great test frameworks out there (see: jest, mocha, jasmine) that will likely fit your needs. They will definitely fit your unit testing needs and their documentation/support is strong. They are also production ready. You're highly encouraged to use those if they work for you and the tests you're writing.
 
-testframe is different in that it's not a unit testing framework. It tries not to make any assumptions about the tests you are writing. Instead you're choosing, building, mixing and matching behaviors that work for your tests. Unit, integration, end to end, API contract tests. Any test syntax, expose integrations through global variables in tests, report results.
+This framework is different in that it's not a unit testing framework. It tries not to make any assumptions about the tests you are writing. Instead you're choosing, building, mixing and matching behaviors that work for your tests. Unit, integration, end to end, API contract tests. Any test syntax, expose integrations through global variables in tests, report results.
 
 These behaviors as defined as middleware functions. There are [wide range](MIDDLEWARE.md) of middleware included but it's easy [write your own](WRITING_MIDDLEWARE.md).
 

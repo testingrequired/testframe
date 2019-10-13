@@ -20,7 +20,7 @@ Take a look at [good first issues](https://github.com/testingrequired/tf/issues?
 
 ## VS Code
 
-There is a VS Code debug configuration `Launch CLI` that allows you to debug running `./bin/testframe.js`.
+There is a VS Code debug configuration `Launch CLI` that allows you to debug running `./bin/tf.js`.
 
 ## Scripts
 
@@ -36,7 +36,7 @@ Run unit tests with code coverage enabled.
 
 ### cli
 
-Builds and runs `bin/testframe.js`. It serves as an integration test as well running all tests matching `./tests/**/*.test.js`.
+Builds and runs `bin/tf.js`. It serves as an integration test as well running all tests matching `./tests/**/*.test.js`.
 
 #### Debugging
 

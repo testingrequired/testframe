@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch CLI",
-      "program": "${workspaceFolder}/bin/testframe.js",
+      "program": "${workspaceFolder}/bin/tf.js",
       "runtimeArgs": ["-r", "esm"],
       "preLaunchTask": "npm: build",
       "outFiles": ["${workspaceFolder}/lib/**/*.js"]

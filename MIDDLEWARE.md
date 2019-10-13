@@ -50,7 +50,7 @@ Includes several recommended middleware to get you started:
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.starter);
 ```
 
@@ -64,7 +64,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.args);
 
 // Middleware
@@ -79,7 +79,7 @@ Parse command line arugments using `yargs` options.
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.args.withOptions({}));
 
 // Middleware
@@ -96,7 +96,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.assert);
 
 // Test
@@ -118,7 +118,7 @@ Load tests using the spec syntax: `describe`, `beforeEach`, `afterEach`, `it`
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.specSyntax);
 
 // Test
@@ -166,7 +166,7 @@ Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.suiteSyntax);
 
 // Test
@@ -191,7 +191,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.runner);
 ```
 
@@ -203,7 +203,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.exitOnErroredTests);
 ```
 
@@ -215,7 +215,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.exitOnFailedTests);
 ```
 
@@ -225,7 +225,7 @@ Exit with code of `1` when setup finishes with no tests defined.
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.exitOnNoTests);
 ```
 
@@ -237,7 +237,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.setupReporter);
 ```
 
@@ -249,7 +249,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.resultsReporter);
 ```
 
@@ -261,7 +261,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.randomize);
 ```
 
@@ -273,7 +273,7 @@ Included in: 📚 starter
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.log);
 
 // Test
@@ -291,7 +291,7 @@ Write results to junit file.
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.junit("junit.xml"));
 ```
 
@@ -330,7 +330,7 @@ Callback on event type
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.event("test:result", result => {}));
 ```
 
@@ -372,7 +372,7 @@ Provides a `random` global test variable which provides a [chance](https://chanc
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.random);
 
 // Test
@@ -391,7 +391,7 @@ Provides a `mock` (an instance of [testdouble](https://github.com/testdouble/tes
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.mock);
 
 // Test
@@ -419,7 +419,7 @@ Provides a `multiassert` global test variable which is an alias to [@testingrequ
 
 ```javascript
 // Executable
-import { middleware } from "testframe";
+import { middleware } from "@testingrequired/tf";
 config(middleware.multiassert);
 
 // Test

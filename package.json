@@ -1,6 +1,6 @@
 {
-  "name": "testframe",
-  "version": "0.1.0",
+  "name": "@testingrequired/tf",
+  "version": "0.0.23",
   "description": "A testing framework",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,7 +16,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "precli": "npm run build",
-    "cli": "node -r esm ./bin/testframe",
+    "cli": "node -r esm ./bin/tf",
     "prepublishOnly": "npm run verify && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest",

@@ -1,4 +1,4 @@
-# tf
+# testframe
 
 [![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
 
@@ -18,10 +18,10 @@ This is not a production ready project yet. Breaking changes should be expected.
 
 ### Install
 
-[![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftf)
+[![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftestframe)
 
 ```bash
-$ npm i -D @testingrequired/tf@latest
+$ npm i -D @testingrequired/testframe@latest
 ```
 
 #### Supported Node Versions
@@ -30,10 +30,10 @@ $ npm i -D @testingrequired/tf@latest
 
 ### Executable
 
-The framework doesn't provide an executable so you'll need to create one: `./bin/tf.js`
+The framework doesn't provide an executable so you'll need to create one: `./bin/testframe.js`
 
 ```javascript
-import { run } from "@testingrequired/tf";
+import { run } from "@testingrequired/testframe";
 
 run();
 ```
@@ -43,7 +43,7 @@ run();
 This will do nothing so far. The framework makes zero assumptions about how you want it to behave. Unit testing, mocking, what your test syntax looks like. You will need to define that behavior using [middleware](MIDDLEWARE.md) in the executable:
 
 ```javascript
-import { run, config, middleware } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/testframe";
 
 const { starter, matchTestFiles, specSyntax } = middleware;
 
@@ -60,7 +60,7 @@ A [`config`](ANATOMY.md#config) composes middleware to define that behavior. Her
 {
   ...package,
   "scripts": {
-    "test": "node -r esm ./bin/tf.js"
+    "test": "node -r esm ./bin/testframe.js"
   }
 }
 ```

@@ -7,7 +7,7 @@ This document explains the basic logic and domain language. It uses typescript i
 A node executable file where you define how the framework is configured/behaves.
 
 ```javascript
-import { run, config, middleware } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/testframe";
 
 const { starter, matchTestFiles, specSyntax } = middleware;
 

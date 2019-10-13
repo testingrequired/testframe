@@ -15,7 +15,7 @@ Cases where this does matter would be if your middleware relied on defined globa
 This is the executable we are starting with:
 
 ```javascript
-import { run, config, middleware } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/testframe";
 
 const { starter, matchTestFiles, specSyntax } = middleware;
 
@@ -41,7 +41,7 @@ export default (setup: Setup) => (results: Array<Result>) => {
 Import and add this custom middleware to your config:
 
 ```javascript
-import { run, config, middleware } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/testframe";
 import testFailedReporter from "./testFailedReporter";
 
 const { starter, matchTestFiles, specSyntax } = middleware;
@@ -75,7 +75,7 @@ export default (setup: Setup, events?: EventEmitter) => {
 The advantage here is that we no longer have to worry about results being populated as a dependency. This event will fire when it's ready.
 
 ```javascript
-import { run, config, middleware } from "@testingrequired/tf";
+import { run, config, middleware } from "@testingrequired/testframe";
 import testFailedReporter from "./testFailedReporter";
 
 const { starter, matchTestFiles, specSyntax } = middleware;

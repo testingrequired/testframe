@@ -8,7 +8,7 @@ A testing framework.
 
 - [Testing behavior agnostic](#why)
 - [Most batteries included](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md)
-- Effortlessly extendable
+- [Effortlessly extendable](https://github.com/testingrequired/testframe/blob/master/WRITING_MIDDLEWARE.md)
 
 ## Note
 

@@ -18,7 +18,7 @@ This is not a production ready project yet. Breaking changes should be expected.
 
 ### Install
 
-[![npm version](https://badge.fury.io/js/%40testingrequired%2Ftf.svg)](https://badge.fury.io/js/%40testingrequired%2Ftestframe)
+[![npm version](https://badge.fury.io/js/%40testingrequired%2Ftestframe.svg)](https://badge.fury.io/js/%40testingrequired%2Ftestframe)
 
 ```bash
 $ npm i -D @testingrequired/testframe@latest

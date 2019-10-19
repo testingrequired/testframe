@@ -1,6 +1,6 @@
 # testframe
 
-[![Build Status](https://travis-ci.org/testingrequired/tf.svg?branch=master)](https://travis-ci.org/testingrequired/tf)
+[![Build Status](https://travis-ci.org/testingrequired/testframe.svg?branch=master)](https://travis-ci.org/testingrequired/testframe)
 
 A testing framework.
 

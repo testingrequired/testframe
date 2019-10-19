@@ -91,7 +91,7 @@ $ npm test
 
 ### Example Project
 
-See a simple implementation: https://github.com/testingrequired/tf-example
+See a simple implementation: [https://github.com/testingrequired/tf-example](https://github.com/testingrequired/tf-example)
 
 ## Why
 

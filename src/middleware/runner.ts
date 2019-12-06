@@ -68,7 +68,11 @@ export default function runner(setup: Setup) {
       }
 
       results.push(result);
+
+
     });
+
+    setup.events.emit("results", results);
   };
 }
 

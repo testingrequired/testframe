@@ -2,7 +2,6 @@ import compose from "./compose";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
-import { EventEmitter } from "events";
 
 jest.mock("events");
 
@@ -16,7 +15,6 @@ describe("compose", () => {
   let middlewareB;
   let middlewareBResultsExecutor;
   let middlewares;
-  let events: EventEmitter;
 
   beforeEach(() => {
     middlewareAResultsExecutor = jest.fn();
@@ -25,15 +23,14 @@ describe("compose", () => {
     middlewareB = jest.fn(() => middlewareBResultsExecutor);
     middlewares = [middlewareA, middlewareB];
 
-    events = new EventEmitter();
   });
 
   it("should call each middleware and results executor", () => {
-    compose(...middlewares)(setup, events)(results);
+    compose(...middlewares)(setup)(results);
 
-    expect(middlewareA).toBeCalledWith(setup, events);
+    expect(middlewareA).toBeCalledWith(setup);
     expect(middlewareAResultsExecutor).toBeCalledWith(results);
-    expect(middlewareB).toBeCalledWith(setup, events);
+    expect(middlewareB).toBeCalledWith(setup);
     expect(middlewareBResultsExecutor).toBeCalledWith(results);
   });
 });

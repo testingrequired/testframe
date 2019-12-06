@@ -3,7 +3,7 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 
 export default (filePath: string) => (setup: Setup) => (results: Results) => {
-  const suites = {};
+  const suites: Record<string, any> = {};
 
   results.forEach(result => {
     const { testFilePath, description } = result;
@@ -22,8 +22,8 @@ export default (filePath: string) => (setup: Setup) => (results: Results) => {
 
     switch (result.state) {
       case "failed":
-        testCase.failure(result.error.message);
-        testCase.stacktrace(result.error.stack);
+        testCase.failure(result.error && result.error.message);
+        testCase.stacktrace(result.error && result.error.stack);
         break;
 
       case "skipped":

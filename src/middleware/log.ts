@@ -3,7 +3,7 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 
 export default (setup: Setup) => {
-  const logs = [];
+  const logs: Array<string> = [];
 
   function log(...args) {
     logs.push(args.map(arg => JSON.stringify(arg)).join(" "));

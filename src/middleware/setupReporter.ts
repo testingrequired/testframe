@@ -1,8 +1,7 @@
 import Setup from "../types/Setup";
-import { EventEmitter } from "events";
 
-export default function printResults(setup: Setup, events?: EventEmitter) {
-  events.on("setup", (setup: Setup) => {
+export default function printResults(setup: Setup) {
+  setup.events.on("setup", (setup: Setup) => {
     console.log(`tf\n`);
 
     console.log(`Args: ${JSON.stringify(setup.args)}\n`);

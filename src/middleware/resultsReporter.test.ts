@@ -2,20 +2,17 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import { resultsReporter } from ".";
-import { EventEmitter } from "events";
 import Result from "../types/Result";
 import createResult from "./testUtils/createResult";
 
 describe("resultsReporter", () => {
   let setup: Setup;
-  let events: EventEmitter;
   let results: Results;
   let result: Result;
   let consoleMock;
 
   beforeEach(() => {
     setup = createSetup();
-    events = new EventEmitter();
     result = createResult("result1");
     results = [result];
     consoleMock = jest.spyOn(console, "log");
@@ -31,8 +28,8 @@ describe("resultsReporter", () => {
     });
 
     it("should work", () => {
-      resultsReporter(setup, events);
-      events.emit("results", results);
+      resultsReporter(setup);
+      setup.events.emit("results", results);
       expect(consoleMock.mock.calls.length).toBe(6);
       expect(consoleMock.mock.calls[0]).toEqual(["Results:\n"]);
       expect(consoleMock.mock.calls[1]).toEqual([
@@ -54,8 +51,8 @@ describe("resultsReporter", () => {
     });
 
     it("should work", () => {
-      resultsReporter(setup, events);
-      events.emit("results", results);
+      resultsReporter(setup);
+      setup.events.emit("results", results);
       expect(consoleMock.mock.calls.length).toBe(8);
       expect(consoleMock.mock.calls[0]).toEqual(["Results:\n"]);
       expect(consoleMock.mock.calls[1]).toEqual([
@@ -80,8 +77,8 @@ describe("resultsReporter", () => {
     });
 
     it("should work", () => {
-      resultsReporter(setup, events);
-      events.emit("results", results);
+      resultsReporter(setup);
+      setup.events.emit("results", results);
       expect(consoleMock.mock.calls.length).toBe(9);
       expect(consoleMock.mock.calls[0]).toEqual(["Results:\n"]);
       expect(consoleMock.mock.calls[1]).toEqual([

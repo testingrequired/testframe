@@ -6,6 +6,7 @@ import notEmpty from "./utils/notEmpty";
 
 export default (...middlewares: Middleware[]) => () => {
   const setup: Setup = {
+    events: new EventEmitter(),
     testFilePaths: [],
     globals: {},
     tests: [],
@@ -15,7 +16,7 @@ export default (...middlewares: Middleware[]) => () => {
   const events = new EventEmitter();
 
   const resultExecutors = middlewares.map(setupPhase =>
-    setupPhase(setup, events)
+    setupPhase(setup)
   );
 
   events.emit("setup", setup);

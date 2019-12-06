@@ -3,11 +3,9 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
-import { EventEmitter } from "events";
 
 describe("exitOnErroredTests", () => {
   const setup: Setup = createSetup();
-  const events = new EventEmitter();
 
   const expectedExitCode = 2;
 
@@ -31,8 +29,8 @@ describe("exitOnErroredTests", () => {
     });
 
     it("should exit with code", () => {
-      exitOnErroredTests(setup, events)(results);
-      events.emit("results", results);
+      exitOnErroredTests(setup);
+      setup.events.emit("results", results);
       expect(process.exit).toBeCalledWith(expectedExitCode);
     });
   });
@@ -43,7 +41,7 @@ describe("exitOnErroredTests", () => {
     });
 
     it("should exit with code", () => {
-      exitOnErroredTests(setup, events)(results);
+      exitOnErroredTests(setup);
       expect(process.exit).not.toHaveBeenCalled();
     });
   });

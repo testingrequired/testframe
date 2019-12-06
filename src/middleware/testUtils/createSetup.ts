@@ -1,7 +1,9 @@
 import Setup from "../../types/Setup";
 import Test from "../../types/Test";
+import { EventEmitter } from "events";
 
 export default (tests: Array<Test> = []): Setup => ({
+  events: new EventEmitter(),
   testFilePaths: [],
   globals: {},
   tests,

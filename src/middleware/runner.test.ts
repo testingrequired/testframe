@@ -2,7 +2,6 @@ import runner from "./runner";
 import Setup from "../types/Setup";
 import Test from "../types/Test";
 import Results from "../types/Results";
-import { EventEmitter } from "events";
 import createTest from "./testUtils/createTest";
 import createSetup from "./testUtils/createSetup";
 import { AssertionError } from "assert";
@@ -15,30 +14,28 @@ describe("runTests", () => {
   const setup: Setup = createSetup(expectedTests);
 
   let results: Results;
-  let events: EventEmitter;
 
   beforeEach(() => {
     results = [];
-    events = new EventEmitter();
   });
 
   it("should run test", () => {
-    runner(setup, events)(results);
+    runner(setup)(results);
     expect(expectedTest.fn).toBeCalledWith();
   });
 
   it("should set test file path from", () => {
-    runner(setup, events)(results);
+    runner(setup)(results);
     expect(results[0].testFilePath).toEqual(expectedTest.testFilePath);
   });
 
   it("should set description from test", () => {
-    runner(setup, events)(results);
+    runner(setup)(results);
     expect(results[0].description).toEqual(expectedTest.description);
   });
 
   it("should set state to passed", () => {
-    runner(setup, events)(results);
+    runner(setup)(results);
     expect(results[0].state).toEqual("passed");
   });
 
@@ -48,15 +45,15 @@ describe("runTests", () => {
 
   describe("events", () => {
     it("should emit on test start for each test", () => {
-      runner(setup, events)(results);
-      expect(events.emit).toBeCalledWith("test:start", expectedTest);
+      runner(setup)(results);
+      expect(setup.events.emit).toBeCalledWith("test:start", expectedTest);
     });
 
     it("should emit on test result for each test", () => {
       expectedTests.push(createTest("2"));
-      runner(setup, events)(results);
-      expect(events.emit).toBeCalledWith("test:result", results[0]);
-      expect(events.emit).toBeCalledWith("test:result", results[1]);
+      runner(setup)(results);
+      expect(setup.events.emit).toBeCalledWith("test:result", results[0]);
+      expect(setup.events.emit).toBeCalledWith("test:result", results[1]);
     });
 
     describe("when test failure", () => {
@@ -70,13 +67,13 @@ describe("runTests", () => {
       });
 
       it("should set state to failed", () => {
-        runner(setup, events)(results);
+        runner(setup)(results);
         expect(results[0].state).toEqual("failed");
       });
 
       it("should emit test:failure", () => {
-        runner(setup, events)(results);
-        expect(events.emit).toBeCalledWith("test:failure", results[0]);
+        runner(setup)(results);
+        expect(setup.events.emit).toBeCalledWith("test:failure", results[0]);
       });
     });
   });
@@ -92,17 +89,17 @@ describe("runTests", () => {
     });
 
     it("should set state to failed", () => {
-      runner(setup, events)(results);
+      runner(setup)(results);
       expect(results[0].state).toEqual("errored");
     });
 
     it("should emit test:error", () => {
-      runner(setup, events)(results);
-      expect(events.emit).toBeCalledWith("test:error", results[0]);
+      runner(setup)(results);
+      expect(setup.events.emit).toBeCalledWith("test:error", results[0]);
     });
 
     it("should set error to error thrown", () => {
-      runner(setup, events)(results);
+      runner(setup)(results);
       expect(results[0].error).toEqual(error);
     });
   });
@@ -113,7 +110,7 @@ describe("runTests", () => {
     });
 
     it("should set state to skipped", () => {
-      runner(setup, events)(results);
+      runner(setup)(results);
       expect(results[0].state).toEqual("skipped");
     });
   });
@@ -138,7 +135,7 @@ describe("runTests", () => {
     });
 
     it("should run all tests", () => {
-      runner(setup, events)(results);
+      runner(setup)(results);
       expect(expectedTest.fn).toBeCalledWith();
       expect(expectedTest2.fn).toBeCalledWith();
       expect(expectedTest3.fn).toBeCalledWith();

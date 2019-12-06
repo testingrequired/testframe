@@ -1,10 +1,9 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import Result, { ResultStates } from "../types/Result";
-import { EventEmitter } from "events";
 import { AssertionError } from "assert";
 
-export default function runner(setup: Setup, events: EventEmitter) {
+export default function runner(setup: Setup) {
   return (results: Results) => {
     const { tests, globals } = setup;
 
@@ -13,7 +12,7 @@ export default function runner(setup: Setup, events: EventEmitter) {
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
 
-      events.emit("test:start", test);
+      setup.events.emit("test:start", test);
 
       const start = new Date();
 
@@ -54,17 +53,17 @@ export default function runner(setup: Setup, events: EventEmitter) {
         }
       };
 
-      events.emit("test:result", result);
+      setup.events.emit("test:result", result);
 
       switch (state) {
         case "failed":
-          events.emit("test:failure", result);
+          setup.events.emit("test:failure", result);
           break;
         case "errored":
-          events.emit("test:error", result);
+          setup.events.emit("test:error", result);
           break;
         case "skipped":
-          events.emit("test:skip", result);
+          setup.events.emit("test:skip", result);
           break;
       }
 

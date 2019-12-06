@@ -1,9 +1,7 @@
 import Setup from "../types/Setup";
-import { EventEmitter } from "events";
 
 export default (event: string, callback: any) => (
-  setup: Setup,
-  events: EventEmitter
+  setup: Setup
 ) => {
-  events.on(event, callback);
+  setup.events.on(event, callback);
 };

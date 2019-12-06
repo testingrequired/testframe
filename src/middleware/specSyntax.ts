@@ -19,12 +19,12 @@ export default function specSyntax(setup: Setup) {
  *
  * @param testFilePath Path to test file
  */
-function loadTestFile(testFilePath): Array<Test> {
-  const tests = [];
-  const descriptions = [];
-  const beforeEachs = [];
+function loadTestFile(testFilePath: string): Array<Test> {
+  const tests: Array<Test> = [];
+  const descriptions: Array<string> = [];
+  const beforeEachs: Array<Function> = [];
   let beforeEachDelta = 0;
-  const afterEachs = [];
+  const afterEachs: Array<Function> = [];
   let afterEachDelta = 0;
 
   /**
@@ -66,7 +66,7 @@ function loadTestFile(testFilePath): Array<Test> {
     const describeDepth = descriptions.length;
 
     const wrappedTestFn: () => TestFunction = () => {
-      if (globalShouldSkipTest) return () => {};
+      if (globalShouldSkipTest) return () => { };
 
       const sliceEnd = describeDepth + 1;
       const testsBeforeEachs = beforeEachs.slice(0, sliceEnd);

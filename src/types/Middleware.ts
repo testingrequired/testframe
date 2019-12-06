@@ -3,7 +3,7 @@ import Results from "./Results";
 import { EventEmitter } from "events";
 
 export interface SetupExecutor {
-  (setup: Setup, events?: EventEmitter): void | ResultsExecutor;
+  (setup: Setup): void | ResultsExecutor;
 }
 
 export interface ResultsExecutor {

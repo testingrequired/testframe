@@ -67,12 +67,12 @@ describe("junit", () => {
 
     it("should set test case failure to test case error message", () => {
       junitMiddleware(expectedFilePath)(setup)(results);
-      expect(testCase.failure).toBeCalledWith(results[0].error.message);
+      expect(testCase.failure).toBeCalledWith(results[0].error && results[0].error.message);
     });
 
     it("should set test case stacktrace to test case error stacktrace", () => {
       junitMiddleware(expectedFilePath)(setup)(results);
-      expect(testCase.stacktrace).toBeCalledWith(results[0].error.stack);
+      expect(testCase.stacktrace).toBeCalledWith(results[0].error && results[0].error.stack);
     });
   });
 

@@ -31,8 +31,8 @@ describe("exitOnFailedTests", () => {
     });
 
     it("should exit with code", () => {
-      exitOnFailedTests(setup, events)(results);
-      events.emit("results", results);
+      exitOnFailedTests(setup)(results);
+      setup.events.emit("results", results);
       expect(process.exit).toBeCalledWith(expectedExitCode);
     });
   });
@@ -43,7 +43,7 @@ describe("exitOnFailedTests", () => {
     });
 
     it("should exit with code", () => {
-      exitOnFailedTests(setup, events)(results);
+      exitOnFailedTests(setup)(results);
       expect(process.exit).not.toHaveBeenCalled();
     });
   });

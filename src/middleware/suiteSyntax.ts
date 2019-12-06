@@ -9,20 +9,20 @@ export default function suiteSyntax(setup: Setup) {
   testFilePaths.forEach(testFilePath => {
     let globalShouldSkipTest;
 
-    const beforeEachs = [];
+    const beforeEachs: Array<Function> = [];
     (global as any).beforeEach = fn => beforeEachs.push(fn);
 
-    const afterEachs = [];
+    const afterEachs: Array<Function> = [];
     (global as any).afterEach = fn => afterEachs.push(fn);
 
     function test(description: string, fn: TestFunction) {
       const wrapped: TestFunction = globalShouldSkipTest
-        ? () => {}
+        ? () => { }
         : () => {
-            beforeEachs.map(callWith());
-            fn();
-            afterEachs.map(callWith());
-          };
+          beforeEachs.map(callWith());
+          fn();
+          afterEachs.map(callWith());
+        };
 
       tests.push({
         testFilePath,

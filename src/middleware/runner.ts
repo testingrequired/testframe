@@ -1,6 +1,6 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
-import Result from "../types/Result";
+import Result, { ResultStates } from "../types/Result";
 import { EventEmitter } from "events";
 import { AssertionError } from "assert";
 
@@ -15,72 +15,67 @@ export default function runner(setup: Setup, events: EventEmitter) {
 
       events.emit("test:start", test);
 
-      let result: Result = {
-        get time() {
-          return this.end.getTime() - this.start.getTime();
-        }
-      };
+      const start = new Date();
 
-      let start = new Date();
-
-      result.testFilePath = testFilePath;
-      result.description = description;
+      let state;
+      let error: Error | undefined;
 
       switch (runState) {
         case "run":
           try {
             createGlobals(globals, globalReplacements);
-
             testFn.call(null);
-
-            result.state = "passed";
+            state = "passed";
           } catch (e) {
-            mapErrorToResult(e, result);
-
-            switch (result.state) {
-              case "failed":
-                events.emit("test:failure", result);
-                break;
-              case "errored":
-                events.emit("test:error", result);
-                break;
-            }
+            state = mapErrorToState(e);
+            error = e;
           } finally {
             removeGlobals(globals, globalReplacements);
           }
           break;
 
         case "skip":
-          result.state = "skipped";
-          events.emit("test:skip", result);
+          state = "skipped";
           break;
 
         default:
           throw new Error(`Invalid test run state: ${runState}`);
       }
 
-      result.start = start;
-      result.end = new Date();
+      const result: Result = {
+        state,
+        start,
+        error,
+        end: new Date(),
+        testFilePath,
+        description,
+        get time() {
+          return this.end.getTime() - this.start.getTime();
+        }
+      };
 
       events.emit("test:result", result);
+
+      switch (state) {
+        case "failed":
+          events.emit("test:failure", result);
+          break;
+        case "errored":
+          events.emit("test:error", result);
+          break;
+        case "skipped":
+          events.emit("test:skip", result);
+          break;
+      }
 
       results.push(result);
     });
   };
 }
 
-function mapErrorToResult(e, result) {
-  switch (true) {
-    case e instanceof AssertionError:
-      result.state = "failed";
-      result.error = e;
-      break;
+function mapErrorToState(error): ResultStates {
+  return error instanceof AssertionError ? "failed" : "errored"
 
-    default:
-      result.state = "errored";
-      result.error = e;
-      break;
-  }
 }
 
 function createGlobals(globals, globalReplacements: Map<any, any>) {

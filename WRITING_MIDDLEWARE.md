@@ -63,8 +63,8 @@ import assert from "assert";
 import globals from "./globals";
 import Setup from "../types/Setup";
 
-export default (setup: Setup, events?: EventEmitter) => {
-  events.on("results", results => {
+export default (setup: Setup) => {
+  setup.events.on("results", results => {
     results.forEach(result => {
       console.log(`${result.description} failed`);
     });

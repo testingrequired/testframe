@@ -28,7 +28,7 @@ Middleware is a two stage curried function: [`setup`](#setup) then an optional [
 
 ```typescript
 interface SetupExecutor {
-  (setup: Setup, events?: EventEmitter): void | ResultsExecutor;
+  (setup: Setup): void | ResultsExecutor;
 }
 
 interface ResultsExecutor {
@@ -62,10 +62,10 @@ const middleware = (setup: Setup) => {
 An event emitter is also passed in during the setup stage:
 
 ```typescript
-const middleware = (setup: Setup, events?: EventEmitter) => {
+const middleware = (setup: Setup) => {
   console.log("Runs during setup");
 
-  events.on("someEvent", () => console.log("Runs on event"));
+  setup.events.on("someEvent", () => console.log("Runs on event"));
 };
 ```
 

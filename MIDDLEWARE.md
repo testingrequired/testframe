@@ -253,6 +253,32 @@ import { middleware } from "@testingrequired/testframe";
 config(middleware.resultsReporter);
 ```
 
+Example:
+
+```bash
+Results:
+
+[tests/assert.test.js (1 ms)]:
+
+- passed: assert should work (1 ms)
+
+
+
+[tests/beforeEach.test.js (0 ms)]:
+
+- passed: beforeEach should initialize value (0 ms)
+
+- passed: beforeEach increment should increment value (0 ms)
+
+- passed: beforeEach decrement should decrement value (0 ms)
+
+
+
+[tests/mock.test.js (2 ms)]:
+
+- passed: mock should work (2 ms)
+```
+
 ## ✔ tableReporter
 
 Results displayed in table format.

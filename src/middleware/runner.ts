@@ -6,18 +6,16 @@ import { AssertionError } from "assert";
 export default function runner(setup: Setup) {
   return (results: Results) => {
     const { tests, globals } = setup;
-
     const globalReplacements = new Map();
 
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
-
-      setup.events.emit("test:start", test);
-
       const start = new Date();
 
       let state: ResultStates;
       let error: Error | undefined;
+
+      setup.events.emit("test:start", test);
 
       switch (runState) {
         case "run":

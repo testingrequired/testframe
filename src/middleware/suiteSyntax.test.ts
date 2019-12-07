@@ -11,9 +11,9 @@ const mockTestPath = "./testUtils/exampleTests/test.js";
 
 describe("suiteSyntax", () => {
   let setup: Setup;
-  let beforeEachMockFn;
-  let afterEachMockFn;
-  let testMockFn;
+  let beforeEachMockFn: () => void;
+  let afterEachMockFn: () => void;
+  let testMockFn: () => void;
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();

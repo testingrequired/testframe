@@ -3,6 +3,7 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
+//@ts-ignore
 import junit from "junit-report-builder";
 
 jest.mock("junit-report-builder");

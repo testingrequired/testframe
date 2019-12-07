@@ -1,5 +1,6 @@
 import multiassertMiddleware from "./multiassert";
 import Setup from "../types/Setup";
+//@ts-ignore
 import multiassert from "@testingrequired/multiassert";
 import createSetup from "./testUtils/createSetup";
 

@@ -4,7 +4,7 @@ export default (setup: Setup) => {
   setup.tests = shuffleArray(setup.tests);
 };
 
-function shuffleArray(array) {
+function shuffleArray(array: Array<any>) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

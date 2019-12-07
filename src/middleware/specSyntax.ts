@@ -52,12 +52,12 @@ function loadTestFile(testFilePath: string): Array<Test> {
     globalShouldSkipTest = false;
   };
 
-  global.beforeEach = global.setup = fn => {
+  global.beforeEach = global.setup = (fn: () => void) => {
     beforeEachDelta++;
     beforeEachs.push(fn);
   };
 
-  global.afterEach = global.teardown = fn => {
+  global.afterEach = global.teardown = (fn: () => void) => {
     afterEachDelta++;
     afterEachs.push(fn);
   };

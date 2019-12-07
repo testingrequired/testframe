@@ -16,7 +16,7 @@ export default function runner(setup: Setup) {
 
       const start = new Date();
 
-      let state;
+      let state: ResultStates;
       let error: Error | undefined;
 
       switch (runState) {
@@ -76,31 +76,31 @@ export default function runner(setup: Setup) {
   };
 }
 
-function mapErrorToState(error): ResultStates {
+function mapErrorToState(error: Error): ResultStates {
   return error instanceof AssertionError ? "failed" : "errored"
 
 }
 
-function createGlobals(globals, globalReplacements: Map<any, any>) {
+function createGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {
   Object.entries(globals).forEach(i => {
     const [key, value] = i;
 
     if (global.hasOwnProperty(key)) {
-      globalReplacements.set(key, global[key]);
+      globalReplacements.set(key, (global as any)[key]);
     }
 
-    global[key] = value;
+    (global as any)[key] = value;
   });
 }
 
-function removeGlobals(globals, globalReplacements: Map<any, any>) {
+function removeGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {
   Object.entries(globals).forEach(i => {
     const [key, value] = i;
 
     if (globalReplacements.has(key)) {
-      global[key] = globalReplacements.get(key);
+      (global as any)[key] = globalReplacements.get(key);
     } else {
-      delete global[key];
+      delete (global as any)[key];
     }
   });
 }

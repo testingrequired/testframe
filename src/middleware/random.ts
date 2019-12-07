@@ -1,3 +1,4 @@
+//@ts-ignore
 import Chance from "chance";
 import globals from "./globals";
 import Setup from "../types/Setup";

@@ -9,7 +9,7 @@ describe("resultsReporter", () => {
   let setup: Setup;
   let results: Results;
   let result: Result;
-  let consoleMock;
+  let consoleMock: jest.SpyInstance;
 
   beforeEach(() => {
     setup = createSetup();

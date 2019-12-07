@@ -1,11 +1,10 @@
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
 import { setupReporter } from ".";
-import { EventEmitter } from "events";
 
 describe("setupReporter", () => {
   let setup: Setup;
-  let consoleMock;
+  let consoleMock: jest.SpyInstance;
 
   beforeEach(() => {
     setup = createSetup();

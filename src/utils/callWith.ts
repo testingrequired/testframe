@@ -1,1 +1,1 @@
-export default (...args) => fn => fn(...args);
+export default (...args: Array<any>) => (fn: Function) => fn(...args);

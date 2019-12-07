@@ -7,7 +7,7 @@ describe("exitOnNoTests", () => {
 
   const expectedExitCode = 1;
 
-  let oldExit;
+  let oldExit: any;
 
   beforeEach(() => {
     oldExit = process.exit;

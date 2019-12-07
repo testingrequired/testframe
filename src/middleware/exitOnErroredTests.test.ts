@@ -10,7 +10,7 @@ describe("exitOnErroredTests", () => {
   const expectedExitCode = 2;
 
   let results: Results;
-  let oldExit;
+  let oldExit: any;
 
   beforeEach(() => {
     oldExit = process.exit;

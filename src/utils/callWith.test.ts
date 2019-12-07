@@ -1,7 +1,7 @@
 import callWith from "./callWith";
 
 describe("callWith", () => {
-  let spy;
+  let spy: Function;
 
   beforeEach(() => {
     spy = jest.fn();

@@ -7,13 +7,13 @@ export default function suiteSyntax(setup: Setup) {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {
-    let globalShouldSkipTest;
+    let globalShouldSkipTest: boolean;
 
     const beforeEachs: Array<Function> = [];
-    (global as any).beforeEach = fn => beforeEachs.push(fn);
+    (global as any).beforeEach = (fn: () => void) => beforeEachs.push(fn);
 
     const afterEachs: Array<Function> = [];
-    (global as any).afterEach = fn => afterEachs.push(fn);
+    (global as any).afterEach = (fn: () => void) => afterEachs.push(fn);
 
     function test(description: string, fn: TestFunction) {
       const wrapped: TestFunction = globalShouldSkipTest

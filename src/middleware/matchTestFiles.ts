@@ -6,7 +6,7 @@ import Setup from "../types/Setup";
 export default (...patterns: Array<string>) => (setup: Setup) => {
   setup.testFilePaths = patterns
     .reduce(
-      (paths, pattern) => [
+      (paths: Array<string>, pattern: string) => [
         ...paths,
         ...glob.sync(pattern, {
           cwd: process.cwd(),
@@ -16,5 +16,5 @@ export default (...patterns: Array<string>) => (setup: Setup) => {
       ],
       []
     )
-    .map(p => path.relative(process.cwd(), p));
+    .map((p: string) => path.relative(process.cwd(), p));
 };

@@ -1,5 +1,6 @@
 import randomMiddleware from "./random";
 import Setup from "../types/Setup";
+//@ts-ignore
 import Chance from "chance";
 import createSetup from "./testUtils/createSetup";
 

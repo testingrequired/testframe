@@ -1,3 +1,4 @@
+//@ts-ignore
 import junit from "junit-report-builder";
 import Setup from "../types/Setup";
 import Results from "../types/Results";

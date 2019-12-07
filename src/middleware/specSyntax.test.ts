@@ -11,9 +11,9 @@ const mockTestPath = "./testUtils/exampleTests/test.js";
 
 describe("specSyntax", () => {
   let setup: Setup;
-  let beforeEachMockFn;
-  let afterEachMockFn;
-  let testMockFn;
+  let beforeEachMockFn: () => void;
+  let afterEachMockFn: () => void;
+  let testMockFn: () => void;
 
   beforeEach(() => {
     beforeEachMockFn = jest.fn();
@@ -30,7 +30,7 @@ describe("specSyntax", () => {
   });
 
   describe("describe", () => {
-    let describeMockFn;
+    let describeMockFn: () => void;
 
     beforeEach(() => {
       describeMockFn = jest.fn();
@@ -134,7 +134,7 @@ describe("specSyntax", () => {
         jest.mock(mockTestPath, () => {
           describe("describe", () => {
             it("test", () => {
-              describe("", () => {});
+              describe("", () => { });
             });
           });
         });

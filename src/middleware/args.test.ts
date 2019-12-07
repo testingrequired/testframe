@@ -4,7 +4,7 @@ import args from "../middleware/args";
 
 describe("args", () => {
   const setup: Setup = createSetup();
-  let previousProcessArgv;
+  let previousProcessArgv: any;
   let expectedArgs;
 
   beforeEach(() => {

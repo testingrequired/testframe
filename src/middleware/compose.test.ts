@@ -2,6 +2,7 @@ import compose from "./compose";
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
+import Middleware, { ResultsExecutor } from "../types/Middleware";
 
 jest.mock("events");
 
@@ -10,11 +11,11 @@ describe("compose", () => {
 
   const results: Results = [];
 
-  let middlewareA;
-  let middlewareAResultsExecutor;
-  let middlewareB;
-  let middlewareBResultsExecutor;
-  let middlewares;
+  let middlewareA: Middleware;
+  let middlewareAResultsExecutor: ResultsExecutor;
+  let middlewareB: Middleware;
+  let middlewareBResultsExecutor: ResultsExecutor;
+  let middlewares: Array<Middleware>;
 
   beforeEach(() => {
     middlewareAResultsExecutor = jest.fn();

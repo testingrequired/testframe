@@ -5,7 +5,7 @@ import createSetup from "./testUtils/createSetup";
 describe("event", () => {
   const setup: Setup = createSetup();
 
-  let callback;
+  let callback: Function;
 
   beforeEach(() => {
     callback = jest.fn();

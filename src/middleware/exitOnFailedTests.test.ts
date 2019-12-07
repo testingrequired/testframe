@@ -3,16 +3,14 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
-import { EventEmitter } from "events";
 
 describe("exitOnFailedTests", () => {
   const setup: Setup = createSetup();
-  const events = new EventEmitter();
 
   const expectedExitCode = 1;
 
   let results: Results;
-  let oldExit;
+  let oldExit: any;
 
   beforeEach(() => {
     oldExit = process.exit;

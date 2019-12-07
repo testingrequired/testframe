@@ -57,7 +57,8 @@ describe("runTests", () => {
     });
 
     describe("when test failure", () => {
-      let error;
+      let error: Error;
+
       beforeEach(() => {
         error = new AssertionError({});
 
@@ -79,7 +80,8 @@ describe("runTests", () => {
   });
 
   describe("when test throws error", () => {
-    let error;
+    let error: Error;
+
     beforeEach(() => {
       error = new Error();
 

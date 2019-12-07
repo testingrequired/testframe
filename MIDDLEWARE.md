@@ -268,33 +268,15 @@ config(middleware.tableReporter);
 Example:
 
 ```bash
-[tests/assert.test.js (0 ms)]:
-
-┌─────────┬──────────────────────┬──────┬──────────┬───────────┐
-│ (index) │     description      │ time │  state   │   error   │
-├─────────┼──────────────────────┼──────┼──────────┼───────────┤
-│    0    │ 'assert should work' │  0   │ 'passed' │ undefined │
-└─────────┴──────────────────────┴──────┴──────────┴───────────┘
-
-
-[tests/beforeEach.test.js (0 ms)]:
-
-┌─────────┬───────────────────────────────────────────────┬──────┬──────────┬───────────┐
-│ (index) │                  description                  │ time │  state   │   error   │
-├─────────┼───────────────────────────────────────────────┼──────┼──────────┼───────────┤
-│    0    │     'beforeEach should initialize value'      │  0   │ 'passed' │ undefined │
-│    1    │ 'beforeEach increment should increment value' │  0   │ 'passed' │ undefined │
-│    2    │ 'beforeEach decrement should decrement value' │  0   │ 'passed' │ undefined │
-└─────────┴───────────────────────────────────────────────┴──────┴──────────┴───────────┘
-
-
-[tests/mock.test.js (1 ms)]:
-
-┌─────────┬────────────────────┬──────┬──────────┬───────────┐
-│ (index) │    description     │ time │  state   │   error   │
-├─────────┼────────────────────┼──────┼──────────┼───────────┤
-│    0    │ 'mock should work' │  1   │ 'passed' │ undefined │
-└─────────┴────────────────────┴──────┴──────────┴───────────┘
+┌─────────┬────────────────────────────┬───────────────────────────────────────────────┬──────┬──────────┬───────────┐
+│ (index) │        testFilePath        │                  description                  │ time │  state   │   error   │
+├─────────┼────────────────────────────┼───────────────────────────────────────────────┼──────┼──────────┼───────────┤
+│    0    │   'tests/assert.test.js'   │             'assert should work'              │  0   │ 'passed' │ undefined │
+│    1    │ 'tests/beforeEach.test.js' │     'beforeEach should initialize value'      │  1   │ 'passed' │ undefined │
+│    2    │ 'tests/beforeEach.test.js' │ 'beforeEach increment should increment value' │  0   │ 'passed' │ undefined │
+│    3    │ 'tests/beforeEach.test.js' │ 'beforeEach decrement should decrement value' │  0   │ 'passed' │ undefined │
+│    4    │    'tests/mock.test.js'    │              'mock should work'               │  2   │ 'passed' │ undefined │
+└─────────┴────────────────────────────┴───────────────────────────────────────────────┴──────┴──────────┴───────────┘
 ```
 
 ## ✔ dotReporter

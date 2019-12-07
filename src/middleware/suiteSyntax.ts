@@ -1,6 +1,5 @@
 import path from "path";
 import Setup from "../types/Setup";
-import callWith from "../utils/callWith";
 import TestFunction from "../types/TestFunction";
 
 export default function suiteSyntax(setup: Setup) {
@@ -19,9 +18,9 @@ export default function suiteSyntax(setup: Setup) {
       const wrapped: TestFunction = globalShouldSkipTest
         ? () => { }
         : () => {
-          beforeEachs.map(callWith());
+          beforeEachs.map(beforeEach => beforeEach());
           fn();
-          afterEachs.map(callWith());
+          afterEachs.map(afterEach => afterEach());
         };
 
       tests.push({

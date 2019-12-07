@@ -28,6 +28,7 @@ Middleware are the building blocks for functionality within the framework.
 - [junit](#-junitfilepath)
 - [resultsReporter](#-resultsreporter)
 - [tableReporter](#-tablereporter)
+- [tapReporter](#-tapreporter)
 - [runner](#-runner)
 
 ### Utility
@@ -304,6 +305,28 @@ Example:
 │    4    │    'tests/mock.test.js'    │              'mock should work'               │  2   │ 'passed' │ undefined │
 └─────────┴────────────────────────────┴───────────────────────────────────────────────┴──────┴──────────┴───────────┘
 ```
+
+## ✔ tapReporter
+
+Results displayed in [tap](https://testanything.org/tap-specification.html) format.
+
+```javascript
+// Executable
+import { middleware } from "@testingrequired/testframe";
+config(middleware.tapReporter);
+```
+
+Example:
+
+```bash
+1..5
+ok 1 assert should work
+ok 2 beforeEach should initialize value
+ok 3 beforeEach increment should increment value
+ok 4 beforeEach decrement should decrement value
+ok 5 mock should work
+```
+
 
 ## ✔ dotReporter
 

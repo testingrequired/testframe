@@ -8,7 +8,7 @@ import { AssertionError } from "assert";
 
 jest.mock("events");
 
-describe("runTests", () => {
+describe("runner", () => {
   const expectedTest: Test = createTest("1");
   const expectedTests = [expectedTest];
   const setup: Setup = createSetup(expectedTests);

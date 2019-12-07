@@ -10,7 +10,7 @@ jest.mock("yargs", () => {
   return mock;
 });
 
-describe("args", () => {
+describe("args.withConfig", () => {
   const setup: Setup = createSetup();
 
   it("should pass config to yargs", () => {

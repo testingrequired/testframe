@@ -4,6 +4,7 @@ export { default as specSyntax } from "./specSyntax";
 export { default as suiteSyntax } from "./suiteSyntax";
 export { default as runner } from "./runner";
 export { default as resultsReporter } from "./resultsReporter";
+export { default as tableReporter } from "./tableReporter";
 export { default as setupReporter } from "./setupReporter";
 export { default as junit } from "./junit";
 export { default as exitOnErroredTests } from "./exitOnErroredTests";

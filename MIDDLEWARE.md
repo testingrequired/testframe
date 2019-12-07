@@ -26,6 +26,7 @@ Middleware are the building blocks for functionality within the framework.
 - [exitOnFailedTests](#-exitonfailedtests)
 - [junit](#-junitfilepath)
 - [resultsReporter](#-resultsreporter)
+- [tableReporter](#-tablereporter)
 - [runner](#-runner)
 
 ### Utility
@@ -44,7 +45,7 @@ Includes several recommended middleware to get you started:
 - [exitOnFailedTests](#-exitonfailedtests)
 - [log](#-log)
 - [randomize](#-randomize)
-- [resultsReporter](#-resultsReporter)
+- [tableReporter](#-tablereporter)
 - [runner](#-runner)
 - [setupReporter](#-setupReporter)
 
@@ -245,12 +246,52 @@ config(middleware.setupReporter);
 
 Basic report of results to console.
 
-Included in: 📚 starter
-
 ```javascript
 // Executable
 import { middleware } from "@testingrequired/testframe";
 config(middleware.resultsReporter);
+```
+
+## ✔ tableReporter
+
+Results displayed in table format.
+
+```javascript
+// Executable
+import { middleware } from "@testingrequired/testframe";
+config(middleware.tableReporter);
+```
+
+Example:
+
+```bash
+[tests/assert.test.js (0 ms)]:
+
+┌─────────┬──────────────────────┬──────┬──────────┬───────────┐
+│ (index) │     description      │ time │  state   │   error   │
+├─────────┼──────────────────────┼──────┼──────────┼───────────┤
+│    0    │ 'assert should work' │  0   │ 'passed' │ undefined │
+└─────────┴──────────────────────┴──────┴──────────┴───────────┘
+
+
+[tests/beforeEach.test.js (0 ms)]:
+
+┌─────────┬───────────────────────────────────────────────┬──────┬──────────┬───────────┐
+│ (index) │                  description                  │ time │  state   │   error   │
+├─────────┼───────────────────────────────────────────────┼──────┼──────────┼───────────┤
+│    0    │     'beforeEach should initialize value'      │  0   │ 'passed' │ undefined │
+│    1    │ 'beforeEach increment should increment value' │  0   │ 'passed' │ undefined │
+│    2    │ 'beforeEach decrement should decrement value' │  0   │ 'passed' │ undefined │
+└─────────┴───────────────────────────────────────────────┴──────┴──────────┴───────────┘
+
+
+[tests/mock.test.js (1 ms)]:
+
+┌─────────┬────────────────────┬──────┬──────────┬───────────┐
+│ (index) │    description     │ time │  state   │   error   │
+├─────────┼────────────────────┼──────┼──────────┼───────────┤
+│    0    │ 'mock should work' │  1   │ 'passed' │ undefined │
+└─────────┴────────────────────┴──────┴──────────┴───────────┘
 ```
 
 ## ✔ randomize

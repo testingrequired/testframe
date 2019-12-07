@@ -3,7 +3,7 @@ import compose from "./compose";
 import globals from "./globals";
 import runner from "./runner";
 import setupReporter from "./setupReporter";
-import resultsReporter from "./resultsReporter";
+import tableReporter from "./tableReporter";
 import randomize from "./randomize";
 import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
@@ -15,7 +15,7 @@ export default compose(
   globals("assert", assert),
   randomize,
   setupReporter,
-  resultsReporter,
+  tableReporter,
   runner,
   exitOnErroredTests,
   exitOnFailedTests,

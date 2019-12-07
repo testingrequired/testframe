@@ -3,7 +3,7 @@ import Results from "../types/Results";
 import groupBy from "../utils/groupBy";
 import Result from "../types/Result";
 
-export default function printResults(setup: Setup) {
+export default (setup: Setup) => {
   setup.events.on("results", (results: Results) => {
     console.log("Results:\n");
 

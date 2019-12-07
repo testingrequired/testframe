@@ -5,7 +5,7 @@ import Test from "../types/Test";
 
 declare var global: any;
 
-export default function specSyntax(setup: Setup) {
+export default (setup: Setup) => {
   const tests = setup.testFilePaths.reduce<Array<Test>>(
     (tests, testFilePath) => [...tests, ...loadTestFile(testFilePath)],
     []

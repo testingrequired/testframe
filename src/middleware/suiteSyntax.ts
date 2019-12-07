@@ -2,7 +2,7 @@ import path from "path";
 import Setup from "../types/Setup";
 import TestFunction from "../types/TestFunction";
 
-export default function suiteSyntax(setup: Setup) {
+export default (setup: Setup) => {
   const { testFilePaths, tests } = setup;
 
   testFilePaths.forEach(testFilePath => {

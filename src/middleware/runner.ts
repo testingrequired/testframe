@@ -3,7 +3,7 @@ import Results from "../types/Results";
 import Result, { ResultStates } from "../types/Result";
 import { AssertionError } from "assert";
 
-export default function runner(setup: Setup) {
+export default (setup: Setup) => {
   return (results: Results) => {
     const { tests, globals } = setup;
     const globalReplacements = new Map();

@@ -1,6 +1,6 @@
 import Setup from "../types/Setup";
 
-export default function printResults(setup: Setup) {
+export default (setup: Setup) => {
   setup.events.on("setup", (setup: Setup) => {
     console.log(`tf\n`);
 

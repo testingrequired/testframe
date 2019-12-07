@@ -23,20 +23,28 @@ function loadTestFile(testFilePath: string): Array<Test> {
   const tests: Array<Test> = [];
   const descriptions: Array<string> = [];
   const beforeEachs: Array<Function> = [];
-  let beforeEachDelta = 0;
   const afterEachs: Array<Function> = [];
-  let afterEachDelta = 0;
 
   /**
    * Global state to track which describe/test blocks are being skipped
    */
   let globalShouldSkipTest: boolean;
+  let beforeEachDelta = 0;
+  let afterEachDelta = 0;
 
   function describe(description: string, fn: any) {
+    beforeDescribe(description);
+    fn();
+    afterDescribe();
+  }
+
+  function beforeDescribe(description: string) {
     descriptions.push(description);
     beforeEachDelta = 0;
     afterEachDelta = 0;
-    fn();
+  }
+
+  function afterDescribe() {
     descriptions.pop();
     beforeEachs.splice(beforeEachDelta * -1, beforeEachDelta);
     beforeEachDelta = 0;

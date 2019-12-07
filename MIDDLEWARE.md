@@ -22,6 +22,7 @@ Middleware are the building blocks for functionality within the framework.
 
 ### Results
 
+- [dotReporter](#-dotreporter)
 - [exitOnErroredTests](#-exitonerroredtests)
 - [exitOnFailedTests](#-exitonfailedtests)
 - [junit](#-junitfilepath)
@@ -256,6 +257,8 @@ config(middleware.resultsReporter);
 
 Results displayed in table format.
 
+Included in: 📚 starter
+
 ```javascript
 // Executable
 import { middleware } from "@testingrequired/testframe";
@@ -292,6 +295,22 @@ Example:
 ├─────────┼────────────────────┼──────┼──────────┼───────────┤
 │    0    │ 'mock should work' │  1   │ 'passed' │ undefined │
 └─────────┴────────────────────┴──────┴──────────┴───────────┘
+```
+
+## ✔ dotReporter
+
+Results displayed in dot format.
+
+```javascript
+// Executable
+import { middleware } from "@testingrequired/testframe";
+config(middleware.dotReporter);
+```
+
+Example
+
+```bash
+..f..
 ```
 
 ## ✔ randomize

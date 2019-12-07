@@ -113,7 +113,7 @@ The [anatomy](https://github.com/testingrequired/testframe/blob/master/ANATOMY.m
 
 ### Custom Middleware
 
-Define the behavior required to run your tests by writing [custom middleware](WRITING_https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md).
+Define the behavior required to run your tests by writing [custom middleware](https://github.com/testingrequired/testframe/blob/master/MIDDLEWARE.md).
 
 ### Contributing
 

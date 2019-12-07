@@ -17,6 +17,7 @@ describe("runTests", () => {
 
   beforeEach(() => {
     results = [];
+    setup.assertionErrorsTypes.push(AssertionError);
   });
 
   it("should run test", () => {

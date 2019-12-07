@@ -1,5 +1,8 @@
-import assert from "assert";
+import assert, { AssertionError } from "assert";
 import globals from "./globals";
 import Setup from "../types/Setup";
 
-export default (setup: Setup) => globals("assert", assert)(setup);
+export default (setup: Setup) => {
+  setup.assertionErrorsTypes.push(AssertionError);
+  return globals("assert", assert)(setup);
+};

@@ -1,6 +1,4 @@
-import assert from "assert";
 import compose from "./compose";
-import globals from "./globals";
 import runner from "./runner";
 import setupReporter from "./setupReporter";
 import tableReporter from "./tableReporter";
@@ -9,10 +7,11 @@ import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
 import log from "./log";
 import exitOnErroredTests from "./exitOnErroredTests";
+import assert from './assert';
 
 export default compose(
   args,
-  globals("assert", assert),
+  assert,
   randomize,
   setupReporter,
   tableReporter,

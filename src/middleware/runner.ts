@@ -1,7 +1,6 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
 import Result, { ResultStates } from "../types/Result";
-import { AssertionError } from "assert";
 
 export default (setup: Setup) => {
   return (results: Results) => {
@@ -24,7 +23,8 @@ export default (setup: Setup) => {
             testFn.call(null);
             state = "passed";
           } catch (e) {
-            state = mapErrorToState(e);
+            state = setup.assertionErrorsTypes
+              .find(assertionErrorsType => e instanceof assertionErrorsType) ? "failed" : "errored"
             error = e;
           } finally {
             removeGlobals(globals, globalReplacements);
@@ -72,11 +72,6 @@ export default (setup: Setup) => {
 
     setup.events.emit("results", results);
   };
-}
-
-function mapErrorToState(error: Error): ResultStates {
-  return error instanceof AssertionError ? "failed" : "errored"
-
 }
 
 function createGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {

@@ -8,6 +8,7 @@ export default (...middlewares: Middleware[]) => () => {
   const setup: Setup = {
     events: new EventEmitter(),
     testFilePaths: [],
+    assertionErrorsTypes: [],
     globals: {},
     tests: [],
     args: {}

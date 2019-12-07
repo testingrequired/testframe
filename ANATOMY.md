@@ -75,12 +75,18 @@ The `Setup` object contains all data needed to get the tests in a runnable state
 
 ```typescript
 interface Setup {
+  events: EventEmitter;
   testFilePaths: Array<string>;
-  globals: { [key: string]: any };
+  globals: Record<string, any>;
   args: { [key: string]: any };
   tests: Array<Test>;
+  assertionErrorsTypes: Array<Constructor<Error>>
 }
 ```
+
+### Assertion Error Types
+
+The `assertionErrorsTypes` property is an array of constructors that extend `Error`. When the test is ran an error throw that aren't listed here are treated as an error not a failure.
 
 ### Test
 

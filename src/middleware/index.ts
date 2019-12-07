@@ -6,6 +6,7 @@ export { default as runner } from "./runner";
 export { default as resultsReporter } from "./resultsReporter";
 export { default as tableReporter } from "./tableReporter";
 export { default as dotReporter } from "./dotReporter";
+export { default as tapReporter } from "./tapReporter";
 export { default as setupReporter } from "./setupReporter";
 export { default as junit } from "./junit";
 export { default as exitOnErroredTests } from "./exitOnErroredTests";

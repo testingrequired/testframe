@@ -88,7 +88,7 @@ interface Setup {
 
 The `assertionErrorsTypes` property is an array of constructors that extend `Error`. When the test is ran an error throw that aren't listed here are treated as an error not a failure.
 
-### Test
+## Test
 
 All tests are loaded in to this common format regardless of test syntax.
 

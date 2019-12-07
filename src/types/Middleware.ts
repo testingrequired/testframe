@@ -1,6 +1,5 @@
 import Setup from "./Setup";
 import Results from "./Results";
-import { EventEmitter } from "events";
 
 export interface SetupExecutor {
   (setup: Setup): void | ResultsExecutor;

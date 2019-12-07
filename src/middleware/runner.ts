@@ -94,9 +94,7 @@ function createGlobals(globals: Record<string, any>, globalReplacements: Map<str
 }
 
 function removeGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {
-  Object.entries(globals).forEach(i => {
-    const [key, value] = i;
-
+  Object.entries(globals).forEach(([key]) => {
     if (globalReplacements.has(key)) {
       (global as any)[key] = globalReplacements.get(key);
     } else {

@@ -16,5 +16,6 @@ export default (...patterns: Array<string>) => (setup: Setup) => {
       ],
       []
     )
-    .map((p: string) => path.relative(process.cwd(), p));
+    .map(testFilePath =>
+      path.relative(process.cwd(), testFilePath));
 };

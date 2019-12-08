@@ -14,15 +14,9 @@ export default (...middlewares: Middleware[]) => () => {
     args: {}
   };
   const results: Results = [];
-  const events = new EventEmitter();
 
-  const resultExecutors = middlewares.map(setupPhase =>
-    setupPhase(setup)
-  );
-
-  events.emit("setup", setup);
-
-  resultExecutors.filter(notEmpty).map(resultsPhase => resultsPhase(results));
-
-  events.emit("results", results);
+  middlewares
+    .map(middlewareSetup => middlewareSetup(setup))
+    .filter(notEmpty)
+    .forEach(middlewareResults => middlewareResults(results));
 };

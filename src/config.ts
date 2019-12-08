@@ -4,7 +4,15 @@ import Results from "./types/Results";
 import { EventEmitter } from "events";
 import notEmpty from "./utils/notEmpty";
 
-export default (...middlewares: Middleware[]) => () => {
+/**
+ * Returns a function that executes middlewares
+ *
+ * Eeach middleware setup function and each optionally returned results function
+ *
+ * @param middlewares Middlewares to run
+ * @returns {() => void} Function that executes middlewares
+ */
+const config = (...middlewares: Array<Middleware>) => () => {
   const setup: Setup = {
     events: new EventEmitter(),
     testFilePaths: [],
@@ -20,3 +28,5 @@ export default (...middlewares: Middleware[]) => () => {
     .filter(notEmpty)
     .forEach(middlewareResults => middlewareResults(results));
 };
+
+export default config;

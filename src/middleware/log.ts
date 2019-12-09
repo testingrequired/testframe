@@ -5,17 +5,17 @@ import Results from "../types/Results";
 export default (setup: Setup) => {
   const logs: Array<string> = [];
 
-  function log(...args: Array<any>) {
-    logs.push(args.map(arg => JSON.stringify(arg)).join(" "));
-  }
+  const log = (method: string) => (...args: Array<any>) => {
+    const line = args.map(arg => JSON.stringify(arg)).join(" ");
+    logs.push(`${method}: ${line}`);
+  };
 
   const consoleProxy = new Proxy(console, {
-    get: (target, prop) => {
-      return log;
+    get: (target, prop: string) => {
+      return log(prop);
     }
   });
 
-  globals("log", log)(setup);
   globals("console", consoleProxy)(setup);
 
   return (results: Results) => {

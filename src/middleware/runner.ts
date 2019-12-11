@@ -7,8 +7,6 @@ export default (setup: Setup) => {
     const { tests, globals } = setup;
     const globalReplacements = new Map();
 
-    debugger;
-
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
       const start = new Date();
@@ -17,8 +15,6 @@ export default (setup: Setup) => {
       let error: Error | undefined;
 
       setup.events.emit("test:start", test);
-
-      debugger;
 
       switch (runState) {
         case "run":
@@ -39,7 +35,6 @@ export default (setup: Setup) => {
           break;
 
         case "skip":
-          debugger;
           state = "skipped";
           break;
 
@@ -73,7 +68,6 @@ export default (setup: Setup) => {
           setup.events.emit("test:error", result);
           break;
         case "skipped":
-          debugger;
           setup.events.emit("test:skip", result);
           break;
         case "todo":

@@ -121,7 +121,6 @@ describe("runner", () => {
     });
 
     it("should not call test function 2", () => {
-      debugger;
       runner(setup)(results);
       expect(expectedTest.fn).not.toBeCalled();
     });

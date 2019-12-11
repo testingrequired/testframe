@@ -22,7 +22,7 @@ describe("dotReporter", () => {
     consoleMock.mockReset();
   });
 
-  describe('with multiple results', () => {
+  describe("with multiple results", () => {
     beforeEach(() => {
       result.state = "passed";
       const result2 = createResult("result2");
@@ -58,7 +58,23 @@ describe("dotReporter", () => {
     });
   });
 
-  describe("with passing result", () => {
+  describe("with failing result", () => {
+    beforeEach(() => {
+      result.state = "failed";
+      result.error = new Error("error message");
+    });
+
+    it("should work", () => {
+      dotReporter(setup);
+      setup.events.emit("results", results);
+      expect(consoleMock.mock.calls.length).toBe(3);
+      expect(consoleMock.mock.calls[0]).toEqual(["\n"]);
+      expect(consoleMock.mock.calls[1]).toEqual(["f"]);
+      expect(consoleMock.mock.calls[2]).toEqual(["\n"]);
+    });
+  });
+
+  describe("with skipped result", () => {
     beforeEach(() => {
       result.state = "skipped";
     });
@@ -73,10 +89,9 @@ describe("dotReporter", () => {
     });
   });
 
-  describe("with failing result", () => {
+  describe("with todo result", () => {
     beforeEach(() => {
-      result.state = "failed";
-      result.error = new Error("error message");
+      result.state = "todo";
     });
 
     it("should work", () => {
@@ -84,7 +99,7 @@ describe("dotReporter", () => {
       setup.events.emit("results", results);
       expect(consoleMock.mock.calls.length).toBe(3);
       expect(consoleMock.mock.calls[0]).toEqual(["\n"]);
-      expect(consoleMock.mock.calls[1]).toEqual(["f"]);
+      expect(consoleMock.mock.calls[1]).toEqual(["t"]);
       expect(consoleMock.mock.calls[2]).toEqual(["\n"]);
     });
   });

@@ -1,4 +1,4 @@
-export type ResultStates = "passed" | "failed" | "errored" | "skipped";
+export type ResultStates = "passed" | "failed" | "errored" | "skipped" | "todo";
 
 export default interface Result {
   testFilePath: string;

@@ -163,6 +163,10 @@ describe("counting", () => {
 
 The following: `describe.skip`/`with.skip`/`context.skip`, `test.skip`/`it.skip` will skip tests are their respective levels.
 
+### Todo
+
+Tests can be marked as todo: `it.todo("")`/`it.todo("", () => {})` and the test function won't be called if passed.
+
 ## ✔ suiteSyntax
 
 Load tests using the test suite syntax: `beforeEach`, `afterEach`, `test`

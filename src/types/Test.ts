@@ -1,6 +1,6 @@
 import TestFunction from "./TestFunction";
 
-export type TestStates = "run" | "skip";
+export type TestStates = "run" | "skip" | "todo";
 
 export default interface Test {
   testFilePath: string;

@@ -134,7 +134,7 @@ describe("specSyntax", () => {
         jest.mock(mockTestPath, () => {
           describe("describe", () => {
             it("test", () => {
-              describe("", () => { });
+              describe("", () => {});
             });
           });
         });
@@ -159,6 +159,20 @@ describe("specSyntax", () => {
 
       it("should have a skipped run state", () => {
         expect(setup.tests[0].runState).toEqual("skip");
+      });
+    });
+
+    describe("when defined as a todo test", () => {
+      beforeEach(() => {
+        jest.mock(mockTestPath, () => {
+          it.todo("test");
+        });
+
+        specSyntax(setup);
+      });
+
+      it("should have a skipped run state", () => {
+        expect(setup.tests[0].runState).toEqual("todo");
       });
     });
   });

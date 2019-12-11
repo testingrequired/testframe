@@ -7,6 +7,8 @@ export default (setup: Setup) => {
     const { tests, globals } = setup;
     const globalReplacements = new Map();
 
+    debugger;
+
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
       const start = new Date();
@@ -16,6 +18,8 @@ export default (setup: Setup) => {
 
       setup.events.emit("test:start", test);
 
+      debugger;
+
       switch (runState) {
         case "run":
           try {
@@ -23,8 +27,11 @@ export default (setup: Setup) => {
             testFn.call(null);
             state = "passed";
           } catch (e) {
-            state = setup.assertionErrorsTypes
-              .find(assertionErrorsType => e instanceof assertionErrorsType) ? "failed" : "errored"
+            state = setup.assertionErrorsTypes.find(
+              assertionErrorsType => e instanceof assertionErrorsType
+            )
+              ? "failed"
+              : "errored";
             error = e;
           } finally {
             removeGlobals(globals, globalReplacements);
@@ -32,7 +39,12 @@ export default (setup: Setup) => {
           break;
 
         case "skip":
+          debugger;
           state = "skipped";
+          break;
+
+        case "todo":
+          state = "todo";
           break;
 
         default:
@@ -61,20 +73,25 @@ export default (setup: Setup) => {
           setup.events.emit("test:error", result);
           break;
         case "skipped":
+          debugger;
           setup.events.emit("test:skip", result);
+          break;
+        case "todo":
+          setup.events.emit("test:todo", result);
           break;
       }
 
       results.push(result);
-
-
     });
 
     setup.events.emit("results", results);
   };
-}
+};
 
-function createGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {
+function createGlobals(
+  globals: Record<string, any>,
+  globalReplacements: Map<string, any>
+) {
   Object.entries(globals).forEach(i => {
     const [key, value] = i;
 
@@ -86,7 +103,10 @@ function createGlobals(globals: Record<string, any>, globalReplacements: Map<str
   });
 }
 
-function removeGlobals(globals: Record<string, any>, globalReplacements: Map<string, any>) {
+function removeGlobals(
+  globals: Record<string, any>,
+  globalReplacements: Map<string, any>
+) {
   Object.entries(globals).forEach(([key]) => {
     if (globalReplacements.has(key)) {
       (global as any)[key] = globalReplacements.get(key);

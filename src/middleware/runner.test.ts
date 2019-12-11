@@ -9,13 +9,16 @@ import { AssertionError } from "assert";
 jest.mock("events");
 
 describe("runner", () => {
-  const expectedTest: Test = createTest("1");
-  const expectedTests = [expectedTest];
-  const setup: Setup = createSetup(expectedTests);
+  let expectedTest: Test;
+  let expectedTests;
+  let setup: Setup;
 
   let results: Results;
 
   beforeEach(() => {
+    expectedTest = createTest("1");
+    expectedTests = [expectedTest];
+    setup = createSetup(expectedTests);
     results = [];
     setup.assertionErrorsTypes.push(AssertionError);
   });
@@ -115,6 +118,28 @@ describe("runner", () => {
     it("should set state to skipped", () => {
       runner(setup)(results);
       expect(results[0].state).toEqual("skipped");
+    });
+
+    it("should not call test function 2", () => {
+      debugger;
+      runner(setup)(results);
+      expect(expectedTest.fn).not.toBeCalled();
+    });
+  });
+
+  describe("when run state is todo", () => {
+    beforeEach(() => {
+      expectedTest.runState = "todo";
+    });
+
+    it("should set state to todo", () => {
+      runner(setup)(results);
+      expect(results[0].state).toEqual("todo");
+    });
+
+    it("should not call test function", () => {
+      runner(setup)(results);
+      expect(expectedTest.fn).not.toBeCalled();
     });
   });
 

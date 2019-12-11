@@ -12,7 +12,7 @@ export default (setup: Setup) => {
   );
 
   setup.tests.push(...tests);
-}
+};
 
 /**
  * Load test from path
@@ -74,7 +74,7 @@ function loadTestFile(testFilePath: string): Array<Test> {
     const describeDepth = descriptions.length;
 
     const wrappedTestFn: () => TestFunction = () => {
-      if (globalShouldSkipTest) return () => { };
+      if (globalShouldSkipTest) return () => {};
 
       const sliceEnd = describeDepth + 1;
       const testsBeforeEachs = beforeEachs.slice(0, sliceEnd);
@@ -101,6 +101,15 @@ function loadTestFile(testFilePath: string): Array<Test> {
     globalShouldSkipTest = true;
     test(description, fn);
     globalShouldSkipTest = false;
+  };
+
+  test.todo = (description: string) => {
+    tests.push({
+      testFilePath,
+      description: [...descriptions, description].join(" "),
+      fn: () => {},
+      runState: "todo"
+    });
   };
 
   require(path.join(process.cwd(), testFilePath));

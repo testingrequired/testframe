@@ -1,11 +1,17 @@
 it.skip("skip single test");
 
 describe.skip("skip block of test", () => {
-  it.skip("test 1", () => {
+  it("test 1", () => {
     assert(false);
   });
 
-  it.skip("test 2", () => {
+  it("test 2", () => {
     assert(false);
+  });
+
+  describe("nested also works", () => {
+    it("test 3", () => {
+      assert(false);
+    });
   });
 });

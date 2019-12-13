@@ -1,7 +1,7 @@
 import compose from "./compose";
 import runner from "./runner";
 import setupReporter from "./setupReporter";
-import tableReporter from "./tableReporter";
+import tapReporter from "./tapReporter";
 import randomize from "./randomize";
 import exitOnFailedTests from "./exitOnFailedTests";
 import args from "./args";
@@ -14,7 +14,7 @@ export default compose(
   assert,
   randomize,
   setupReporter,
-  tableReporter,
+  tapReporter,
   runner,
   exitOnErroredTests,
   exitOnFailedTests,

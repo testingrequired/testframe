@@ -9,7 +9,7 @@ export default (setup: Setup) => {
 
     tests.forEach(test => {
       const { testFilePath, description, fn: testFn, runState } = test;
-      const start = new Date();
+      const start = new Date(Date.now());
 
       let state: ResultStates;
       let error: Error | undefined;
@@ -50,7 +50,7 @@ export default (setup: Setup) => {
         state,
         start,
         error,
-        end: new Date(),
+        end: new Date(Date.now()),
         testFilePath,
         description,
         get time() {

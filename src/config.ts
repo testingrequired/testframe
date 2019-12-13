@@ -23,10 +23,13 @@ const config = (...middlewares: Array<Middleware>) => () => {
   };
   const results: Results = [];
 
-  middlewares
+  const resultExecutors = middlewares
     .map(middlewareSetup => middlewareSetup(setup))
-    .filter(notEmpty)
-    .forEach(middlewareResults => middlewareResults(results));
+    .filter(notEmpty);
+
+  setup.events.emit("setup", setup);
+
+  resultExecutors.forEach(middlewareResults => middlewareResults(results));
 };
 
 export default config;

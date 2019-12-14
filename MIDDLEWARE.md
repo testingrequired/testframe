@@ -35,6 +35,7 @@ Middleware are the building blocks for functionality within the framework.
 
 - [compose](#-composemiddlewares)
 - [event](#-eventtype-callback)
+- [registerAssertionErrorType](#-registerassertionerrortype)
 - [starter](#-starter)
 
 ## 📚 starter
@@ -331,7 +332,6 @@ ok 4 beforeEach decrement should decrement value
 ok 5 mock should work
 ```
 
-
 ## ✔ dotReporter
 
 Results displayed in dot format.
@@ -536,4 +536,17 @@ test("should get mock function", () => {
     throw e;
   }
 });
+```
+
+## registerAssertionErrorType
+
+Add a class that extends `Error` to the list of assertion error types. If thrown in a test they are considered failures not errors.
+
+```javascript
+// Executable
+import { middleware } from "@testingrequired/testframe";
+
+class CustomFailureError extends Error {}
+
+config(middleware.registerAssertionErrorType(CustomFailureError));
 ```

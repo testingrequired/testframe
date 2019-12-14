@@ -1,10 +1,10 @@
 import testdouble from "testdouble";
 import globals from "./globals";
-import Setup from "../types/Setup";
+import compose from "./compose";
 
-export default (setup: Setup) => {
-  globals("mock", testdouble)(setup);
-  globals("when", testdouble.when)(setup);
-  globals("verify", testdouble.verify)(setup);
-  globals("replace", testdouble.replace)(setup);
-};
+export default compose(
+  globals("mock", testdouble),
+  globals("when", testdouble.when),
+  globals("verify", testdouble.verify),
+  globals("replace", testdouble.replace)
+);

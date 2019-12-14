@@ -1,22 +1,21 @@
-import Setup from "../types/Setup";
-import Results from "../types/Results";
+import event from "./event";
+import Result from "../types/Result";
 
-export default (setup: Setup) => {
-  setup.events.on("results", (results: Results) => {
-    console.log(`1..${setup.tests.length}`);
+export default event("results", (results: Array<Result>) => {
+  console.log(`1..${results.length}`);
 
-    results.forEach((result, index) => {
-      const ok = result.state === "passed" || result.state === "skipped" ? "ok" : "not ok";
-      const testNumber = index + 1;
-      const items = [ok, testNumber, result.description];
+  results.forEach((result, index) => {
+    const ok =
+      result.state === "passed" || result.state === "skipped" ? "ok" : "not ok";
+    const testNumber = index + 1;
+    const items = [ok, testNumber, result.description];
 
-      if (result.state === "skipped") {
-        items.push("# skip");
-      }
+    if (result.state === "skipped") {
+      items.push("# skip");
+    }
 
-      console.log(items.join(" "));
-    });
-
-    console.log("\n");
+    console.log(items.join(" "));
   });
-}
+
+  console.log("\n");
+});

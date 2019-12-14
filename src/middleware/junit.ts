@@ -1,9 +1,9 @@
 //@ts-ignore
 import junit from "junit-report-builder";
-import Setup from "../types/Setup";
-import Results from "../types/Results";
+import event from "./event";
+import Result from "../types/Result";
 
-export default (filePath: string) => (setup: Setup) => (results: Results) => {
+export default (filePath: string) => event("results", (results: Array<Result>) => {
   const suites: Record<string, any> = {};
 
   results.forEach(result => {
@@ -34,4 +34,4 @@ export default (filePath: string) => (setup: Setup) => (results: Results) => {
   });
 
   junit.writeTo(filePath);
-};
+});

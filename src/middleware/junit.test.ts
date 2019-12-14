@@ -38,24 +38,28 @@ describe("junit", () => {
     results = [createResult(resultId)];
   });
 
-  it("should set test suite name to test file path", () => {
-    junitMiddleware(expectedFilePath)(setup)(results);
-    expect(testSuite.name).toBeCalledWith(`test/file/path/${resultId}.test.js`);
-  });
+  describe('when state is passing', () => {
+    beforeEach(() => {
+      junitMiddleware(expectedFilePath)(setup);
 
-  it("should set test case to test description", () => {
-    junitMiddleware(expectedFilePath)(setup)(results);
-    expect(testCase.name).toBeCalledWith(`${resultId} description`);
-  });
+      setup.events.emit("results", results);
+    });
 
-  it("should set test case time to test time", () => {
-    junitMiddleware(expectedFilePath)(setup)(results);
-    expect(testCase.time).toBeCalledWith(results[0].time);
-  });
+    it("should set test suite name to test file path", () => {
+      expect(testSuite.name).toBeCalledWith(`test/file/path/${resultId}.test.js`);
+    });
 
-  it("should write to file", () => {
-    junitMiddleware(expectedFilePath)(setup)(results);
-    expect(junit.writeTo).toBeCalledWith(expectedFilePath);
+    it("should set test case to test description", () => {
+      expect(testCase.name).toBeCalledWith(`${resultId} description`);
+    });
+
+    it("should set test case time to test time", () => {
+      expect(testCase.time).toBeCalledWith(results[0].time);
+    });
+
+    it("should write to file", () => {
+      expect(junit.writeTo).toBeCalledWith(expectedFilePath);
+    });
   });
 
   describe("when state is failed", () => {
@@ -64,15 +68,19 @@ describe("junit", () => {
     beforeEach(() => {
       results[0].state = "failed";
       results[0].error = new Error(expectedErrorMessage);
+
+      junitMiddleware(expectedFilePath)(setup);
+
+      setup.events.emit("results", results);
     });
 
     it("should set test case failure to test case error message", () => {
-      junitMiddleware(expectedFilePath)(setup)(results);
+      junitMiddleware(expectedFilePath)(setup);
       expect(testCase.failure).toBeCalledWith(results[0].error && results[0].error.message);
     });
 
     it("should set test case stacktrace to test case error stacktrace", () => {
-      junitMiddleware(expectedFilePath)(setup)(results);
+      junitMiddleware(expectedFilePath)(setup);
       expect(testCase.stacktrace).toBeCalledWith(results[0].error && results[0].error.stack);
     });
   });
@@ -80,10 +88,13 @@ describe("junit", () => {
   describe("when state is skipped", () => {
     beforeEach(() => {
       results[0].state = "skipped";
+
+      junitMiddleware(expectedFilePath)(setup);
+
+      setup.events.emit("results", results);
     });
 
     it("should set test case skipped", () => {
-      junitMiddleware(expectedFilePath)(setup)(results);
       expect(testCase.skipped).toBeCalledTimes(1);
     });
   });

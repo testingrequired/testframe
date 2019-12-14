@@ -4,7 +4,6 @@ import createSetup from "./testUtils/createSetup";
 import tapReporter from "./tapReporter";
 import Result from "../types/Result";
 import createResult from "./testUtils/createResult";
-import createTest from "./testUtils/createTest";
 
 describe("tapReporter", () => {
   let setup: Setup;
@@ -14,7 +13,6 @@ describe("tapReporter", () => {
 
   beforeEach(() => {
     setup = createSetup();
-    setup.tests.push(createTest("test1"));
     result = createResult("result1");
     results = [result];
     consoleMock = jest.spyOn(console, "log");
@@ -24,19 +22,19 @@ describe("tapReporter", () => {
     consoleMock.mockReset();
   });
 
-  it('calls console', () => {
+  it("calls console", () => {
     tapReporter(setup);
     setup.events.emit("results", results);
     expect(consoleMock.mock.calls.length).toBe(3);
     expect(consoleMock.mock.calls[0]).toEqual(["1..1"]);
   });
 
-  describe('with multiple tests', () => {
+  describe("with multiple tests", () => {
     beforeEach(() => {
       results.push(createResult("result2"));
     });
 
-    it('calls console', () => {
+    it("calls console", () => {
       tapReporter(setup);
       setup.events.emit("results", results);
       expect(consoleMock.mock.calls.length).toBe(4);
@@ -65,7 +63,9 @@ describe("tapReporter", () => {
     it("should work", () => {
       tapReporter(setup);
       setup.events.emit("results", results);
-      expect(consoleMock.mock.calls[1]).toEqual(["ok 1 result1 description # skip"]);
+      expect(consoleMock.mock.calls[1]).toEqual([
+        "ok 1 result1 description # skip"
+      ]);
     });
   });
 
@@ -78,7 +78,9 @@ describe("tapReporter", () => {
     it("should work", () => {
       tapReporter(setup);
       setup.events.emit("results", results);
-      expect(consoleMock.mock.calls[1]).toEqual(["not ok 1 result1 description"]);
+      expect(consoleMock.mock.calls[1]).toEqual([
+        "not ok 1 result1 description"
+      ]);
     });
   });
 
@@ -92,7 +94,9 @@ describe("tapReporter", () => {
     it("should work", () => {
       tapReporter(setup);
       setup.events.emit("results", results);
-      expect(consoleMock.mock.calls[1]).toEqual(["not ok 1 result1 description"]);
+      expect(consoleMock.mock.calls[1]).toEqual([
+        "not ok 1 result1 description"
+      ]);
     });
   });
 });

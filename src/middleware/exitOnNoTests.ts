@@ -1,7 +1,6 @@
 import Setup from "../types/Setup";
+import event from "./event";
 
-export default (setup: Setup) => {
-  setup.events.on("setup", (completeSetup: Setup) => {
-    if (completeSetup.tests.length === 0) process.exit(1);
-  });
-};
+export default event("setup", (setup: Setup) => {
+  if (setup.tests.length === 0) process.exit(1);
+});

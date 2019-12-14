@@ -24,7 +24,7 @@ describe("setupReporter", () => {
     setupReporter(setup);
     setup.events.emit("setup", setup);
     expect(consoleMock.mock.calls.length).toBe(4);
-    expect(consoleMock.mock.calls[0]).toEqual(["tf\n"]);
+    expect(consoleMock.mock.calls[0]).toEqual(["testframe\n"]);
     expect(consoleMock.mock.calls[1]).toEqual([`Args: {"foo":"bar"}\n`]);
     expect(consoleMock.mock.calls[2]).toEqual([
       "Test Globals: global1, global2\n"

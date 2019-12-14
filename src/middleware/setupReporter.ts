@@ -2,7 +2,7 @@ import Setup from "../types/Setup";
 
 export default (setup: Setup) => {
   setup.events.on("setup", (setup: Setup) => {
-    console.log(`tf\n`);
+    console.log(`testframe\n`);
 
     console.log(`Args: ${JSON.stringify(setup.args)}\n`);
 

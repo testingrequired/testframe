@@ -38,7 +38,11 @@ describe("junit", () => {
     results = [createResult(resultId)];
   });
 
-  describe('when state is passing', () => {
+  afterEach(() => {
+    junit.testSuite.mockReset();
+  });
+
+  describe("when state is passing", () => {
     beforeEach(() => {
       junitMiddleware(expectedFilePath)(setup);
 
@@ -46,7 +50,9 @@ describe("junit", () => {
     });
 
     it("should set test suite name to test file path", () => {
-      expect(testSuite.name).toBeCalledWith(`test/file/path/${resultId}.test.js`);
+      expect(testSuite.name).toBeCalledWith(
+        `test/file/path/${resultId}.test.js`
+      );
     });
 
     it("should set test case to test description", () => {
@@ -76,12 +82,16 @@ describe("junit", () => {
 
     it("should set test case failure to test case error message", () => {
       junitMiddleware(expectedFilePath)(setup);
-      expect(testCase.failure).toBeCalledWith(results[0].error && results[0].error.message);
+      expect(testCase.failure).toBeCalledWith(
+        results[0].error && results[0].error.message
+      );
     });
 
     it("should set test case stacktrace to test case error stacktrace", () => {
       junitMiddleware(expectedFilePath)(setup);
-      expect(testCase.stacktrace).toBeCalledWith(results[0].error && results[0].error.stack);
+      expect(testCase.stacktrace).toBeCalledWith(
+        results[0].error && results[0].error.stack
+      );
     });
   });
 
@@ -96,6 +106,20 @@ describe("junit", () => {
 
     it("should set test case skipped", () => {
       expect(testCase.skipped).toBeCalledTimes(1);
+    });
+  });
+
+  describe("when multiple results in same test suite", () => {
+    beforeEach(() => {
+      results.push(createResult(resultId));
+
+      junitMiddleware(expectedFilePath)(setup);
+
+      setup.events.emit("results", results);
+    });
+
+    it("should not create test suites", () => {
+      expect(junit.testSuite).toBeCalledTimes(1);
     });
   });
 });

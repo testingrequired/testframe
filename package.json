@@ -21,7 +21,8 @@
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest",
     "verify": "npm run test && npm run cli",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "codecov": "codecov"
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",
   "license": "MIT",
@@ -36,6 +37,7 @@
     "@babel/preset-typescript": "^7.7.4",
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.17",
+    "codecov": "^3.6.1",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.3"

@@ -1,6 +1,6 @@
 # testframe
 
-[![Build Status](https://travis-ci.org/testingrequired/testframe.svg?branch=master)](https://travis-ci.org/testingrequired/testframe)
+[![Build Status](https://travis-ci.org/testingrequired/testframe.svg?branch=master)](https://travis-ci.org/testingrequired/testframe) [![codecov](https://codecov.io/gh/testingrequired/testframe/branch/master/graph/badge.svg)](https://codecov.io/gh/testingrequired/testframe)
 
 A testing framework.
 

@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "node"
   - "lts/*"
-script: npm run verify && npm run build
+script: npm run verify && npm run build && npm run codecov

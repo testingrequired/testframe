@@ -20,7 +20,7 @@
     "prepublishOnly": "npm run verify && npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "test": "jest",
-    "verify": "npm run test && npm run cli",
+    "verify": "npm run coverage && npm run cli",
     "coverage": "jest --coverage",
     "codecov": "codecov"
   },

@@ -142,6 +142,18 @@ describe("runner", () => {
     });
   });
 
+  describe("when run state is unknown", () => {
+    beforeEach(() => {
+      (expectedTest.runState as any) = "unknown";
+    });
+
+    it("should throw error", () => {
+      expect(() => runner(setup)(results)).toThrow(
+        `Invalid test run state: unknown`
+      );
+    });
+  });
+
   describe("multiple tests", () => {
     const expectedTest2: Test = {
       testFilePath: "test file path 2",

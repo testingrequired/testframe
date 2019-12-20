@@ -25,6 +25,10 @@
   },
   "author": "Kylee Tilley <kylee@testingrequired.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/testingrequired/testframe.git"
+  },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",

@@ -12,12 +12,12 @@ describe("config", () => {
   beforeEach(() => {
     middlewareAResultsExector = jest.fn();
     middlewareASetupExector = jest.fn(
-      (setup: Setup) => middlewareAResultsExector
+      async (setup: Setup) => middlewareAResultsExector
     );
 
     middlewareBResultsExector = jest.fn();
     middlewareBSetupExector = jest.fn(
-      (setup: Setup) => middlewareBResultsExector
+      async (setup: Setup) => middlewareBResultsExector
     );
 
     middlewares = [middlewareASetupExector, middlewareBSetupExector];
@@ -33,8 +33,8 @@ describe("config", () => {
   });
 
   describe("returned function", () => {
-    it("should call middleware", () => {
-      config(...middlewares)();
+    it("should call middleware", async () => {
+      await config(...middlewares)();
 
       expect(middlewareASetupExector).toHaveBeenCalled();
       expect(middlewareAResultsExector).toHaveBeenCalled();

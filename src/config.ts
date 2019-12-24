@@ -12,7 +12,7 @@ import notEmpty from "./utils/notEmpty";
  * @param middlewares Middlewares to run
  * @returns {() => void} Function that executes middlewares
  */
-const config = (...middlewares: Array<Middleware>) => () => {
+const config = (...middlewares: Array<Middleware>) => async () => {
   const setup: Setup = {
     events: new EventEmitter(),
     testFilePaths: [],
@@ -23,13 +23,17 @@ const config = (...middlewares: Array<Middleware>) => () => {
   };
   const results: Results = [];
 
-  const resultExecutors = middlewares
-    .map(middlewareSetup => middlewareSetup(setup))
-    .filter(notEmpty);
+  const resultExecutors = (
+    await Promise.all(
+      middlewares.map(middlewareSetup => middlewareSetup(setup))
+    )
+  ).filter(notEmpty);
 
   setup.events.emit("setup", setup);
 
-  resultExecutors.forEach(middlewareResults => middlewareResults(results));
+  await Promise.all(
+    resultExecutors.map(middlewareResults => middlewareResults(results))
+  );
 };
 
 export default config;

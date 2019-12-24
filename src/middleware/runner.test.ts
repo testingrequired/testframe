@@ -95,19 +95,42 @@ describe("runner", () => {
         });
       });
 
-      it("should set state to errored", async () => {
-        await runner(setup)(results);
-        expect(results[0].state).toEqual("errored");
+      describe("when error is assertion error type", () => {
+        beforeEach(() => {
+          setup.assertionErrorsTypes.push(Error);
+        });
+
+        it("should set state to failed", async () => {
+          await runner(setup)(results);
+          expect(results[0].state).toEqual("failed");
+        });
+
+        it("should emit test:failure", async () => {
+          await runner(setup)(results);
+          expect(setup.events.emit).toBeCalledWith("test:failure", results[0]);
+        });
+
+        it("should set error to error thrown", async () => {
+          await runner(setup)(results);
+          expect(results[0].error).toEqual(error);
+        });
       });
 
-      it("should emit test:error", async () => {
-        await runner(setup)(results);
-        expect(setup.events.emit).toBeCalledWith("test:error", results[0]);
-      });
+      describe("when error is not assertion error type", () => {
+        it("should set state to errored", async () => {
+          await runner(setup)(results);
+          expect(results[0].state).toEqual("errored");
+        });
 
-      it("should set error to error thrown", async () => {
-        await runner(setup)(results);
-        expect(results[0].error).toEqual(error);
+        it("should emit test:error", async () => {
+          await runner(setup)(results);
+          expect(setup.events.emit).toBeCalledWith("test:error", results[0]);
+        });
+
+        it("should set error to error thrown", async () => {
+          await runner(setup)(results);
+          expect(results[0].error).toEqual(error);
+        });
       });
     });
 

@@ -2,8 +2,8 @@ import specSyntax from "./specSyntax";
 import Setup from "../types/Setup";
 import createSetup from "./testUtils/createSetup";
 
-function runSetupTests(setup: Setup) {
-  setup.tests.forEach(test => test.fn());
+async function runSetupTests(setup: Setup) {
+  return await Promise.all(setup.tests.map(test => test.fn()));
 }
 
 const expectedTestPath = "./src/middleware/testUtils/exampleTests/test.js";
@@ -141,10 +141,8 @@ describe("specSyntax", () => {
       });
 
       it("should throw reference error", () => {
-        expect(() => {
-          specSyntax(setup);
-          runSetupTests(setup);
-        }).toThrow(ReferenceError);
+        specSyntax(setup);
+        expect(runSetupTests(setup)).rejects.toThrow(ReferenceError);
       });
     });
 

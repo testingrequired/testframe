@@ -80,10 +80,10 @@ function loadTestFile(testFilePath: string): Array<Test> {
       const testsBeforeEachs = beforeEachs.slice(0, sliceEnd);
       const testsAfterEachs = afterEachs.slice(0, sliceEnd);
 
-      return () => {
-        testsBeforeEachs.forEach(fn => fn.call(null));
-        testFn();
-        testsAfterEachs.forEach(fn => fn.call(null));
+      return async () => {
+        await Promise.all(testsBeforeEachs.map(fn => fn()));
+        await testFn();
+        await Promise.all(testsAfterEachs.map(fn => fn()));
       };
     };
 

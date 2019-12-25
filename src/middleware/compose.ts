@@ -6,10 +6,10 @@ export default (...middlewares: Array<Middleware>) => async (setup: Setup) => {
   const resultExecutors: Array<ResultsExecutor> = [];
 
   for (const middleware of middlewares) {
-    const newLocal = await middleware(setup);
+    const resultExecutor = await middleware(setup);
 
-    if (newLocal) {
-      resultExecutors.push(newLocal);
+    if (resultExecutor) {
+      resultExecutors.push(resultExecutor);
     }
   }
 

@@ -1,8 +1,7 @@
-import Middleware from "./types/Middleware";
+import Middleware, { ResultsExecutor } from "./types/Middleware";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
 import { EventEmitter } from "events";
-import notEmpty from "./utils/notEmpty";
 
 /**
  * Returns a function that executes middlewares
@@ -23,17 +22,21 @@ const config = (...middlewares: Array<Middleware>) => async () => {
   };
   const results: Results = [];
 
-  const resultExecutors = (
-    await Promise.all(
-      middlewares.map(middlewareSetup => middlewareSetup(setup))
-    )
-  ).filter(notEmpty);
+  const resultExecutors: Array<ResultsExecutor> = [];
+
+  for (const middleware of middlewares) {
+    const newLocal = await middleware(setup);
+
+    if (newLocal) {
+      resultExecutors.push(newLocal);
+    }
+  }
 
   setup.events.emit("setup", setup);
 
-  await Promise.all(
-    resultExecutors.map(middlewareResults => middlewareResults(results))
-  );
+  for (const resultExector of resultExecutors) {
+    await resultExector(results);
+  }
 };
 
 export default config;

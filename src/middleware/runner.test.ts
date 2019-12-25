@@ -61,6 +61,11 @@ describe("runner", () => {
         expect(setup.events.emit).toBeCalledWith("test:result", results[1]);
       });
 
+      it("should emit results when complete", async () => {
+        await runner(setup)(results);
+        expect(setup.events.emit).toBeCalledWith("results", results);
+      });
+
       describe("when test failure", () => {
         let error: Error;
 
@@ -158,6 +163,61 @@ describe("runner", () => {
         expect(expectedTest.fn).toBeCalledWith();
         expect(expectedTest2.fn).toBeCalledWith();
         expect(expectedTest3.fn).toBeCalledWith();
+      });
+    });
+
+    describe("async test", () => {
+      describe("when test throws error", () => {
+        let error: Error;
+
+        beforeEach(() => {
+          error = new Error();
+
+          (expectedTest.fn as any).mockImplementation(async () => {
+            throw error;
+          });
+        });
+
+        describe("when error is assertion error type", () => {
+          beforeEach(() => {
+            setup.assertionErrorsTypes.push(Error);
+          });
+
+          it("should set state to failed", async () => {
+            await runner(setup)(results);
+            expect(results[0].state).toEqual("failed");
+          });
+
+          it("should emit test:failure", async () => {
+            await runner(setup)(results);
+            expect(setup.events.emit).toBeCalledWith(
+              "test:failure",
+              results[0]
+            );
+          });
+
+          it("should set error to error thrown", async () => {
+            await runner(setup)(results);
+            expect(results[0].error).toEqual(error);
+          });
+        });
+
+        describe("when error is not assertion error type", () => {
+          it("should set state to errored", async () => {
+            await runner(setup)(results);
+            expect(results[0].state).toEqual("errored");
+          });
+
+          it("should emit test:error", async () => {
+            await runner(setup)(results);
+            expect(setup.events.emit).toBeCalledWith("test:error", results[0]);
+          });
+
+          it("should set error to error thrown", async () => {
+            await runner(setup)(results);
+            expect(results[0].error).toEqual(error);
+          });
+        });
       });
     });
   });

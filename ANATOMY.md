@@ -27,12 +27,14 @@ A config is a collection of middleware that represents a set of tests: unit test
 Middleware is a two stage curried function: [`setup`](#setup) then an optional [`results`](#results).
 
 ```typescript
+type SetupExecutorReturn = void | ResultsExecutor;
+
 interface SetupExecutor {
-  (setup: Setup): void | ResultsExecutor;
+  (setup: Setup): Promise<SetupExecutorReturn> | SetupExecutorReturn;
 }
 
 interface ResultsExecutor {
-  (results: Array<Result>): void;
+  (results: Array<Result>): void | Promise<void>;
 }
 
 type Middleware = SetupExecutor;
@@ -69,6 +71,37 @@ const middleware = (setup: Setup) => {
 };
 ```
 
+### Async Implementation
+
+Both the setup and result executors can optionally be async.
+
+```typescript
+const middleware = async (setup: Setup) => {
+  console.log("Runs during setup");
+  return (results: Results) => {
+    console.log("Runs during results");
+  };
+};
+```
+
+```typescript
+const middleware = (setup: Setup) => {
+  console.log("Runs during setup");
+  return async (results: Results) => {
+    console.log("Runs during results");
+  };
+};
+```
+
+```typescript
+const middleware = async (setup: Setup) => {
+  console.log("Runs during setup");
+  return async (results: Results) => {
+    console.log("Runs during results");
+  };
+};
+```
+
 ## Setup
 
 The `Setup` object contains all data needed to get the tests in a runnable state. The `testFilePaths` array are a list of all test files to be processed. The `globals` object are global variables exposed inside of test functions. The `args` object contains parsed CLI variables. The `tests` array contains all loaded tests.
@@ -80,7 +113,7 @@ interface Setup {
   globals: Record<string, any>;
   args: { [key: string]: any };
   tests: Array<Test>;
-  assertionErrorsTypes: Array<Constructor<Error>>
+  assertionErrorsTypes: Array<Constructor<Error>>;
 }
 ```
 

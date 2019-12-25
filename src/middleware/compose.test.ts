@@ -23,11 +23,10 @@ describe("compose", () => {
     middlewareBResultsExecutor = jest.fn();
     middlewareB = jest.fn(() => middlewareBResultsExecutor);
     middlewares = [middlewareA, middlewareB];
-
   });
 
-  it("should call each middleware and results executor", () => {
-    compose(...middlewares)(setup)(results);
+  it("should call each middleware and results executor", async () => {
+    await (await compose(...middlewares)(setup))(results);
 
     expect(middlewareA).toBeCalledWith(setup);
     expect(middlewareAResultsExecutor).toBeCalledWith(results);

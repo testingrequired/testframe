@@ -3,8 +3,9 @@
  *
  * @param configs Executable configs to run
  */
-const run = (...configs: Array<() => void>) => {
-  configs.forEach(config => config());
+const run = async (...configs: Array<() => void>) => {
+  await Promise.all(configs.map(config => config()));
+
   process.exit(0);
 };
 

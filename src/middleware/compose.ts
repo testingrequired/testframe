@@ -1,15 +1,21 @@
 import Setup from "../types/Setup";
 import Results from "../types/Results";
-import Middleware from "../types/Middleware";
-import notEmpty from "../utils/notEmpty";
+import Middleware, { ResultsExecutor } from "../types/Middleware";
 
-export default (...middlewares: Array<Middleware>) => (
-  setup: Setup
-) => {
-  const resultExecutors = middlewares.map(setupPhase =>
-    setupPhase(setup)
-  );
+export default (...middlewares: Array<Middleware>) => async (setup: Setup) => {
+  const resultExecutors: Array<ResultsExecutor> = [];
 
-  return (results: Results) =>
-    resultExecutors.filter(notEmpty).map(resultsPhase => resultsPhase(results));
+  for (const middleware of middlewares) {
+    const resultExecutor = await middleware(setup);
+
+    if (resultExecutor) {
+      resultExecutors.push(resultExecutor);
+    }
+  }
+
+  return async (results: Results) => {
+    for (const resultExector of resultExecutors) {
+      await resultExector(results);
+    }
+  };
 };

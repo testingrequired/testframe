@@ -20,14 +20,14 @@ describe("run", () => {
     process.exit = oldExit;
   });
 
-  it("should call each function in array", () => {
-    run(...configs);
+  it("should call each function in array", async () => {
+    await run(...configs);
     expect(configA).toHaveBeenNthCalledWith(1);
     expect(configB).toHaveBeenNthCalledWith(1);
   });
 
-  it("should exit with 0", () => {
-    run(...configs);
+  it("should exit with 0", async () => {
+    await run(...configs);
     expect(process.exit).toHaveBeenCalledWith(0);
   });
 });

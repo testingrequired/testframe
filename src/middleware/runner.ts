@@ -3,11 +3,11 @@ import Results from "../types/Results";
 import Result, { ResultStates } from "../types/Result";
 
 export default (setup: Setup) => {
-  return (results: Results) => {
+  return async (results: Results) => {
     const { tests, globals } = setup;
     const globalReplacements = new Map();
 
-    tests.forEach(test => {
+    for (const test of tests) {
       const { testFilePath, description, fn: testFn, runState } = test;
       const start = new Date(Date.now());
 
@@ -20,7 +20,7 @@ export default (setup: Setup) => {
         case "run":
           try {
             createGlobals(globals, globalReplacements);
-            testFn.call(null);
+            await testFn.call(null);
             state = "passed";
           } catch (e) {
             state = setup.assertionErrorsTypes.find(
@@ -76,7 +76,7 @@ export default (setup: Setup) => {
       }
 
       results.push(result);
-    });
+    }
 
     setup.events.emit("results", results);
   };
@@ -90,7 +90,8 @@ function createGlobals(
     const [key, value] = i;
 
     if (global.hasOwnProperty(key)) {
-      globalReplacements.set(key, (global as any)[key]);
+      const original = (global as any)[key];
+      globalReplacements.set(key, original);
     }
 
     (global as any)[key] = value;

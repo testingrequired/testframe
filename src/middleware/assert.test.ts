@@ -10,8 +10,8 @@ describe("assert", () => {
     setup = createSetup();
   });
 
-  it("should create globals", () => {
-    assertMiddleware(setup);
+  it("should create globals", async () => {
+    await assertMiddleware(setup);
 
     expect(setup.globals.assert).toBe(assert);
   });

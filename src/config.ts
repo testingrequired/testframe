@@ -1,8 +1,7 @@
-import Middleware from "./types/Middleware";
+import Middleware, { ResultsExecutor } from "./types/Middleware";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
 import { EventEmitter } from "events";
-import notEmpty from "./utils/notEmpty";
 
 /**
  * Returns a function that executes middlewares
@@ -12,7 +11,7 @@ import notEmpty from "./utils/notEmpty";
  * @param middlewares Middlewares to run
  * @returns {() => void} Function that executes middlewares
  */
-const config = (...middlewares: Array<Middleware>) => () => {
+const config = (...middlewares: Array<Middleware>) => async () => {
   const setup: Setup = {
     events: new EventEmitter(),
     testFilePaths: [],
@@ -23,13 +22,21 @@ const config = (...middlewares: Array<Middleware>) => () => {
   };
   const results: Results = [];
 
-  const resultExecutors = middlewares
-    .map(middlewareSetup => middlewareSetup(setup))
-    .filter(notEmpty);
+  const resultExecutors: Array<ResultsExecutor> = [];
+
+  for (const middleware of middlewares) {
+    const resultExecutor = await middleware(setup);
+
+    if (resultExecutor) {
+      resultExecutors.push(resultExecutor);
+    }
+  }
 
   setup.events.emit("setup", setup);
 
-  resultExecutors.forEach(middlewareResults => middlewareResults(results));
+  for (const resultExector of resultExecutors) {
+    await resultExector(results);
+  }
 };
 
 export default config;

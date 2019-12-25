@@ -10,8 +10,8 @@ describe("mock", () => {
     setup = createSetup();
   });
 
-  it("should create globals", () => {
-    mock(setup);
+  it("should create globals", async () => {
+    await mock(setup);
 
     expect(setup.globals.mock).toBe(testdouble);
     expect(setup.globals.verify).toBe(testdouble.verify);

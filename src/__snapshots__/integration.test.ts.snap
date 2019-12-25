@@ -7,19 +7,20 @@ Args: {\\"_\\":[]}
 
 Test Globals: assert, console, random, mock, when, verify, replace
 
-Test File Paths: tests/assert.test.js, tests/beforeEach.test.js, tests/mock.test.js, tests/skip.test.js, tests/todo.test.js
+Test File Paths: tests/assert.test.js, tests/async.test.js, tests/beforeEach.test.js, tests/mock.test.js, tests/skip.test.js, tests/todo.test.js
 
-1..10
+1..11
 ok 1 assert should work
-ok 2 beforeEach should initialize value
-ok 3 beforeEach increment should increment value
-ok 4 beforeEach decrement should decrement value
-ok 5 mock should work
-ok 6 skip single test # skip
-ok 7 skip block of test test 1 # skip
-ok 8 skip block of test test 2 # skip
-ok 9 skip block of test nested also works test 3 # skip
-not ok 10 A test that needs done
+ok 2 async test should work
+ok 3 beforeEach should initialize value
+ok 4 beforeEach increment should increment value
+ok 5 beforeEach decrement should decrement value
+ok 6 mock should work
+ok 7 skip single test # skip
+ok 8 skip block of test test 1 # skip
+ok 9 skip block of test test 2 # skip
+ok 10 skip block of test nested also works test 3 # skip
+not ok 11 A test that needs done
 
 
 Logs

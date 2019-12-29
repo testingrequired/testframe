@@ -1,6 +1,8 @@
 import Setup from "../types/Setup";
 
-export default <T>(key: string, value: () => T) => (setup: Setup) => {
+export default <T>(key: string, value: (setup: Setup) => Promise<T>) => (
+  setup: Setup
+) => {
   let cache: T;
 
   if (setup.fixtures[key]) {
@@ -10,9 +12,9 @@ export default <T>(key: string, value: () => T) => (setup: Setup) => {
   }
 
   Object.defineProperty(setup.fixtures, key, {
-    get: () => {
+    get: async () => {
       if (!cache) {
-        cache = value.call(null);
+        cache = await value.call(null, setup);
       }
 
       return cache;

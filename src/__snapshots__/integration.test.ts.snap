@@ -7,11 +7,11 @@ Args: {\\"_\\":[]}
 
 Test Globals: assert, console, fixtures, random, mock, when, verify, replace
 
-Test File Paths: tests/assert.test.js, tests/async.test.js, tests/beforeEach.test.js, tests/fixture.test.js, tests/mock.test.js, tests/skip.test.js, tests/todo.test.js
+Test File Paths: tests/assert.test.js, tests/async.test.js, tests/beforeEach.test.js, tests/data.test.js, tests/fixture.test.js, tests/mock.test.js, tests/skip.test.js, tests/todo.test.js
 
 
 
-........sssst
+...........sssst
 
 
 Failures: 0

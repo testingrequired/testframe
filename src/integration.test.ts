@@ -6,7 +6,8 @@ const {
   matchTestFiles,
   random,
   mock,
-  fixture
+  fixture,
+  data
 } = middleware;
 
 describe("Integration", () => {
@@ -47,7 +48,8 @@ describe("Integration", () => {
         specSyntax,
         random,
         mock,
-        fixture("testFixture", () => "expected fixture value")
+        fixture("testFixture", async () => "expected fixture value"),
+        data
       )
     );
 

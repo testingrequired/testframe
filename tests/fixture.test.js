@@ -1,3 +1,3 @@
-it("should have expected fixture value", () => {
-  assert.strictEqual(fixtures.testFixture, "expected fixture value");
+it("should have expected fixture value", async () => {
+  assert.strictEqual(await fixtures.testFixture, "expected fixture value");
 });

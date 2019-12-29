@@ -9,16 +9,16 @@ describe("fixture", () => {
     setup = createSetup();
   });
 
-  it("should call fn with setup and results", () => {
-    fixture("foo", () => "bar")(setup);
-    expect(setup.fixtures.foo).toEqual("bar");
+  it("should call fn with setup and results", async () => {
+    fixture<string>("foo", async () => "bar")(setup);
+    expect(await setup.fixtures.foo).toEqual("bar");
   });
 
   it("should throw error if global already registered", () => {
-    fixture("foo", () => "bar")(setup);
+    fixture("foo", async () => "bar")(setup);
 
     expect(() => {
-      fixture("foo", () => "bar")(setup);
+      fixture("foo", async () => "bar")(setup);
     }).toThrow(
       "Fixture 'foo' already registered. Please check your middleware load order."
     );

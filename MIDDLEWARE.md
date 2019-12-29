@@ -48,7 +48,7 @@ Includes several recommended middleware to get you started:
 - [exitOnFailedTests](#-exitonfailedtests)
 - [log](#-log)
 - [randomize](#-randomize)
-- [tableReporter](#-tablereporter)
+- [dotReporter](#-dotreporter)
 - [runner](#-runner)
 - [setupReporter](#-setupReporter)
 
@@ -289,8 +289,6 @@ Results:
 
 Results displayed in table format.
 
-Included in: 📚 starter
-
 ```javascript
 // Executable
 import { middleware } from "@testingrequired/testframe";
@@ -335,6 +333,8 @@ ok 5 mock should work
 ## ✔ dotReporter
 
 Results displayed in dot format.
+
+Included in: 📚 starter
 
 ```javascript
 // Executable

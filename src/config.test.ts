@@ -60,9 +60,9 @@ describe("config", () => {
         setup.events.emit("exit", expectedExitCode);
       }
 
-      await config(s, ...middlewares)();
+      const exitCode = await config(s, ...middlewares)();
 
-      expect(process.exit).toHaveBeenNthCalledWith(1, expectedExitCode);
+      expect(exitCode).toBe(expectedExitCode);
     });
 
     it("should call exit with exit code emitted in result", async () => {
@@ -74,9 +74,9 @@ describe("config", () => {
         };
       }
 
-      await config(s, ...middlewares)();
+      const exitCode = await config(s, ...middlewares)();
 
-      expect(process.exit).toHaveBeenNthCalledWith(1, expectedExitCode);
+      expect(exitCode).toBe(expectedExitCode);
     });
 
     it("should call exit lowest non zero exit code", async () => {
@@ -89,9 +89,9 @@ describe("config", () => {
         };
       }
 
-      await config(s, ...middlewares)();
+      const exitCode = await config(s, ...middlewares)();
 
-      expect(process.exit).toHaveBeenNthCalledWith(1, 2);
+      expect(exitCode).toBe(2);
     });
 
     describe("when exit is call during setup", () => {
@@ -104,9 +104,9 @@ describe("config", () => {
           };
         }
 
-        await config(s, ...middlewares)();
+        const exitCode = await config(s, ...middlewares)();
 
-        expect(process.exit).toHaveBeenNthCalledWith(1, 2);
+        expect(exitCode).toBe(2);
       });
     });
   });

@@ -18,6 +18,10 @@ run(config(starter, matchTestFiles("./tests/**/*.test.js"), specSyntax));
 
 The run function can run multiple configs allowing you to configure a number of different type of tests.
 
+#### Exit Codes
+
+Configs will return an exit code. The lowest non zero exit code will be used as the executable exit code.
+
 ### Config
 
 A config is a collection of middleware that represents a set of tests: unit tests, end to end tests, api tests. The middleware used will define how tests are found, executed and reported.

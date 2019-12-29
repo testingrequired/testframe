@@ -1,6 +1,7 @@
 import Middleware, { SetupExecutor, ResultsExecutor } from "./types/Middleware";
 import Setup from "./types/Setup";
 import config from "./config";
+import Results from "./types/Results";
 
 describe("config", () => {
   let middlewares: Array<Middleware>;
@@ -8,6 +9,7 @@ describe("config", () => {
   let middlewareAResultsExector: ResultsExecutor;
   let middlewareBSetupExector: SetupExecutor;
   let middlewareBResultsExector: ResultsExecutor;
+  let oldExit: any;
 
   beforeEach(() => {
     middlewareAResultsExector = jest.fn();
@@ -21,6 +23,13 @@ describe("config", () => {
     );
 
     middlewares = [middlewareASetupExector, middlewareBSetupExector];
+
+    oldExit = process.exit;
+    (process.exit as any) = jest.fn();
+  });
+
+  afterEach(() => {
+    process.exit = oldExit;
   });
 
   it("should not call middleware", () => {
@@ -40,6 +49,65 @@ describe("config", () => {
       expect(middlewareAResultsExector).toHaveBeenCalled();
       expect(middlewareBSetupExector).toHaveBeenCalled();
       expect(middlewareBResultsExector).toHaveBeenCalled();
+    });
+  });
+
+  describe("captured exit codes", () => {
+    it("should call exit with exit code emitted in setup", async () => {
+      const expectedExitCode = 2;
+
+      function s(setup: Setup) {
+        setup.events.emit("exit", expectedExitCode);
+      }
+
+      await config(s, ...middlewares)();
+
+      expect(process.exit).toHaveBeenNthCalledWith(1, expectedExitCode);
+    });
+
+    it("should call exit with exit code emitted in result", async () => {
+      const expectedExitCode = 2;
+
+      function s(setup: Setup) {
+        return function r(results: Results) {
+          setup.events.emit("exit", expectedExitCode);
+        };
+      }
+
+      await config(s, ...middlewares)();
+
+      expect(process.exit).toHaveBeenNthCalledWith(1, expectedExitCode);
+    });
+
+    it("should call exit lowest non zero exit code", async () => {
+      function s(setup: Setup) {
+        return function r(results: Results) {
+          setup.events.emit("exit", 6);
+          setup.events.emit("exit", 3);
+          setup.events.emit("exit", 2);
+          setup.events.emit("exit", 10);
+        };
+      }
+
+      await config(s, ...middlewares)();
+
+      expect(process.exit).toHaveBeenNthCalledWith(1, 2);
+    });
+
+    describe("when exit is call during setup", () => {
+      it("should call exit with lowest setup non zero exit code", async () => {
+        function s(setup: Setup) {
+          setup.events.emit("exit", 2);
+
+          return function r(results: Results) {
+            setup.events.emit("exit", 1);
+          };
+        }
+
+        await config(s, ...middlewares)();
+
+        expect(process.exit).toHaveBeenNthCalledWith(1, 2);
+      });
     });
   });
 });

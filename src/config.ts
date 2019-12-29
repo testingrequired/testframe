@@ -20,6 +20,12 @@ const config = (...middlewares: Array<Middleware>) => async () => {
     tests: [],
     args: {}
   };
+  const capturedExitCodes: Array<number> = [];
+
+  setup.events.on("exit", (exitCode: number) => {
+    capturedExitCodes.push(exitCode);
+  });
+
   const results: Results = [];
 
   const resultExecutors: Array<ResultsExecutor> = [];
@@ -34,9 +40,21 @@ const config = (...middlewares: Array<Middleware>) => async () => {
 
   setup.events.emit("setup", setup);
 
+  if (capturedExitCodes.length > 0) {
+    process.exit(lowestNonZero(capturedExitCodes));
+  }
+
   for (const resultExector of resultExecutors) {
     await resultExector(results);
   }
+
+  if (capturedExitCodes.length > 0) {
+    process.exit(lowestNonZero(capturedExitCodes));
+  }
 };
+
+function lowestNonZero(numbers: Array<number>) {
+  return Math.min(...numbers.filter(x => x > 0));
+}
 
 export default config;

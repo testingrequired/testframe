@@ -3,46 +3,46 @@ import Setup from "../types/Setup";
 import Results from "../types/Results";
 import createSetup from "./testUtils/createSetup";
 import createResult from "./testUtils/createResult";
+import Result from "../types/Result";
 
 describe("exitOnFailedTests", () => {
   const setup: Setup = createSetup();
 
-  const expectedExitCode = 1;
+  const expectedExitCode = 2;
 
   let results: Results;
-  let oldExit: any;
+  let result: Result;
+  let spy: any;
 
   beforeEach(() => {
-    oldExit = process.exit;
-    (process.exit as any) = jest.fn();
+    spy = jest.fn();
+    setup.events.on("exit", spy);
 
-    results = [];
-  });
-
-  afterEach(() => {
-    process.exit = oldExit;
+    result = createResult("1");
+    results = [result];
   });
 
   describe("when test failure", () => {
     beforeEach(() => {
-      results.push(createResult("1", "failed"));
+      result.state = "failed";
     });
 
     it("should exit with code", () => {
       exitOnFailedTests(setup);
       setup.events.emit("results", results);
-      expect(process.exit).toBeCalledWith(expectedExitCode);
+      expect(spy).toBeCalledWith(expectedExitCode);
     });
   });
 
   describe("when no test failures", () => {
     beforeEach(() => {
-      results.push(createResult("1", "passed"));
+      result.state = "passed";
     });
 
     it("should exit with code", () => {
       exitOnFailedTests(setup);
-      expect(process.exit).not.toHaveBeenCalled();
+      setup.events.emit("results", results);
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 });

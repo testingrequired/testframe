@@ -6,26 +6,22 @@ import createTest from "./testUtils/createTest";
 describe("exitOnNoTests", () => {
   let setup: Setup;
 
-  const expectedExitCode = 1;
+  const expectedExitCode = 3;
 
-  let oldExit: any;
+  let spy: any;
 
   beforeEach(() => {
-    oldExit = process.exit;
-    (process.exit as any) = jest.fn();
-
     setup = createSetup();
-  });
 
-  afterEach(() => {
-    process.exit = oldExit;
+    spy = jest.fn();
+    setup.events.on("exit", spy);
   });
 
   describe("when no are defined tests", () => {
     it("should exit", () => {
       exitOnNoTests(setup);
       setup.events.emit("setup", setup);
-      expect(process.exit).toBeCalledWith(expectedExitCode);
+      expect(spy).toBeCalledWith(expectedExitCode);
     });
   });
 
@@ -34,7 +30,7 @@ describe("exitOnNoTests", () => {
       exitOnNoTests(setup);
       setup.tests.push(createTest("test1"));
       setup.events.emit("setup", setup);
-      expect(process.exit).not.toBeCalled();
+      expect(spy).not.toBeCalled();
     });
   });
 });

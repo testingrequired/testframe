@@ -9,6 +9,7 @@ Middleware are the building blocks for functionality within the framework.
 - [args](#-args)
 - [assert](#-assert)
 - [exitOnNoTests](#-exitonnotests)
+- [fixture](#-fixture)
 - [globals](#-globalskey-value)
 - [log](#-log)
 - [matchTestFiles](#-matchtestfilespatterns)
@@ -105,6 +106,19 @@ config(middleware.assert);
 
 // Test
 assert.strictEquals(1, 1);
+```
+
+## ✔ fixture
+
+Register a value returning function to be exposed in the test global `fixtures`.
+
+```javascript
+// Executable
+import { middleware } from "@testingrequired/testframe";
+config(middleware.fixture("foo", () => "bar"));
+
+// Test
+assert(fixtures.foo === "bar");
 ```
 
 ## ✔ matchTestFiles(...patterns)

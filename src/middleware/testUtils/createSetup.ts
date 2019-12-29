@@ -8,5 +8,6 @@ export default (tests: Array<Test> = []): Setup => ({
   testFilePaths: [],
   globals: {},
   tests,
-  args: {}
+  args: {},
+  fixtures: {}
 });

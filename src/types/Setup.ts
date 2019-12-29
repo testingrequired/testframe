@@ -8,6 +8,6 @@ export default interface Setup {
   globals: Record<string, any>;
   args: { [key: string]: any };
   tests: Array<Test>;
-  assertionErrorsTypes: Array<Constructor<Error>>
+  assertionErrorsTypes: Array<Constructor<Error>>;
+  fixtures: Record<string, any>;
 }
-

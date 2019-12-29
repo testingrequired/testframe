@@ -5,7 +5,7 @@ exports[`Integration should work 1`] = `
 
 Args: {\\"_\\":[]}
 
-Test Globals: assert, console, random, mock, when, verify, replace
+Test Globals: assert, console, fixtures, random, mock, when, verify, replace
 
 Test File Paths: tests/assert.test.js, tests/async.test.js, tests/beforeEach.test.js, tests/mock.test.js, tests/skip.test.js, tests/todo.test.js
 

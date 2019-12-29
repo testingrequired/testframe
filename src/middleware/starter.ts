@@ -12,6 +12,7 @@ import errorReporter from "./errorReporter";
 import failureReporter from "./failureReporter";
 import skipReporter from "./skipReporter";
 import todoReporter from "./todoReporter";
+import fixtures from "./fixtures";
 
 export default compose(
   args,
@@ -26,5 +27,6 @@ export default compose(
   runner,
   exitOnErroredTests,
   exitOnFailedTests,
-  log
+  log,
+  fixtures
 );

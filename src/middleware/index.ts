@@ -20,3 +20,4 @@ export { default as random } from "./random";
 export { default as mock } from "./mock";
 export { default as log } from "./log";
 export { default as errorReporter } from "./errorReporter";
+export { default as fixture } from "./fixture";

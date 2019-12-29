@@ -1,6 +1,13 @@
 import { run, config, middleware } from "../lib";
 
-const { starter, specSyntax, matchTestFiles, random, mock } = middleware;
+const {
+  starter,
+  specSyntax,
+  matchTestFiles,
+  random,
+  mock,
+  fixture
+} = middleware;
 
 run(
   config(
@@ -8,6 +15,7 @@ run(
     matchTestFiles("./tests/**/*.test.js"),
     specSyntax,
     random,
-    mock
+    mock,
+    fixture("testFixture", () => "expected fixture value")
   )
 );

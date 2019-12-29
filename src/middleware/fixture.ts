@@ -1,7 +1,6 @@
 import Setup from "../types/Setup";
-type FixtureGetter<T> = () => T;
 
-export default <T>(key: string, value: FixtureGetter<T>) => (setup: Setup) => {
+export default <T>(key: string, value: () => T) => (setup: Setup) => {
   let cache: T;
 
   if (setup.fixtures[key]) {

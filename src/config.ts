@@ -2,6 +2,7 @@ import Middleware, { ResultsExecutor } from "./types/Middleware";
 import Setup from "./types/Setup";
 import Results from "./types/Results";
 import { EventEmitter } from "events";
+import lowestNonZero from "./utils/lowestNonZero";
 
 /**
  * Returns a function that executes middlewares
@@ -20,6 +21,12 @@ const config = (...middlewares: Array<Middleware>) => async () => {
     tests: [],
     args: {}
   };
+  const capturedExitCodes: Array<number> = [];
+
+  setup.events.on("exit", (exitCode: number) => {
+    capturedExitCodes.push(exitCode);
+  });
+
   const results: Results = [];
 
   const resultExecutors: Array<ResultsExecutor> = [];
@@ -34,9 +41,19 @@ const config = (...middlewares: Array<Middleware>) => async () => {
 
   setup.events.emit("setup", setup);
 
+  if (capturedExitCodes.length > 0) {
+    return lowestNonZero(capturedExitCodes);
+  }
+
   for (const resultExector of resultExecutors) {
     await resultExector(results);
   }
+
+  if (capturedExitCodes.length > 0) {
+    return lowestNonZero(capturedExitCodes);
+  }
+
+  return 0;
 };
 
 export default config;

@@ -1,6 +1,13 @@
 import { run, config, middleware } from "./index";
 
-const { starter, specSyntax, matchTestFiles, random, mock } = middleware;
+const {
+  starter,
+  specSyntax,
+  matchTestFiles,
+  random,
+  mock,
+  fixture
+} = middleware;
 
 describe("Integration", () => {
   // @ts-ignore
@@ -39,7 +46,8 @@ describe("Integration", () => {
         matchTestFiles("./tests/**/*.test.js"),
         specSyntax,
         random,
-        mock
+        mock,
+        fixture("testFixture", () => "expected fixture value")
       )
     );
 

@@ -19,7 +19,8 @@ const config = (...middlewares: Array<Middleware>) => async () => {
     assertionErrorsTypes: [],
     globals: {},
     tests: [],
-    args: {}
+    args: {},
+    fixtures: {}
   };
   const capturedExitCodes: Array<number> = [];
 
